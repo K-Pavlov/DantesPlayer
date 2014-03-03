@@ -50,48 +50,40 @@
             // 
             // PlayButton
             // 
-            this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayButton.Location = new System.Drawing.Point(43, 110);
+            this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PlayButton.Location = new System.Drawing.Point(78, 119);
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(75, 23);
+            this.PlayButton.Size = new System.Drawing.Size(62, 25);
             this.PlayButton.TabIndex = 0;
             this.PlayButton.Text = "Play";
             this.PlayButton.UseVisualStyleBackColor = true;
             // 
             // PauseButton
             // 
-            this.PauseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PauseButton.Location = new System.Drawing.Point(216, 110);
+            this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PauseButton.Location = new System.Drawing.Point(251, 119);
             this.PauseButton.Name = "PauseButton";
-            this.PauseButton.Size = new System.Drawing.Size(75, 23);
+            this.PauseButton.Size = new System.Drawing.Size(62, 25);
             this.PauseButton.TabIndex = 1;
             this.PauseButton.Text = "Pause";
             this.PauseButton.UseVisualStyleBackColor = true;
             // 
             // FFButton
             // 
-            this.FFButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FFButton.Location = new System.Drawing.Point(126, 48);
+            this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.FFButton.Location = new System.Drawing.Point(161, 57);
             this.FFButton.Name = "FFButton";
-            this.FFButton.Size = new System.Drawing.Size(75, 23);
+            this.FFButton.Size = new System.Drawing.Size(62, 25);
             this.FFButton.TabIndex = 2;
             this.FFButton.Text = "FF";
             this.FFButton.UseVisualStyleBackColor = true;
             // 
             // RewindButton
             // 
-            this.RewindButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RewindButton.Location = new System.Drawing.Point(126, 169);
+            this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.RewindButton.Location = new System.Drawing.Point(161, 178);
             this.RewindButton.Name = "RewindButton";
-            this.RewindButton.Size = new System.Drawing.Size(75, 23);
+            this.RewindButton.Size = new System.Drawing.Size(62, 25);
             this.RewindButton.TabIndex = 3;
             this.RewindButton.Text = "Rewind";
             this.RewindButton.UseVisualStyleBackColor = true;
@@ -106,7 +98,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(598, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(654, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -122,13 +114,13 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // editToolStripMenuItem
@@ -197,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 223);
+            this.ClientSize = new System.Drawing.Size(654, 243);
             this.Controls.Add(this.RewindButton);
             this.Controls.Add(this.FFButton);
             this.Controls.Add(this.PauseButton);
