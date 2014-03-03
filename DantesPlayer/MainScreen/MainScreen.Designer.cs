@@ -45,13 +45,19 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StopButton = new System.Windows.Forms.Button();
+            this.Playlist = new System.Windows.Forms.Button();
+            this.Repeat = new System.Windows.Forms.Button();
+            this.FullScreen = new System.Windows.Forms.Button();
+            this.VolumeUp = new System.Windows.Forms.Button();
+            this.VolumeDown = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlayButton
             // 
             this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PlayButton.Location = new System.Drawing.Point(78, 119);
+            this.PlayButton.Location = new System.Drawing.Point(42, 104);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(62, 25);
             this.PlayButton.TabIndex = 0;
@@ -61,7 +67,7 @@
             // PauseButton
             // 
             this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PauseButton.Location = new System.Drawing.Point(251, 119);
+            this.PauseButton.Location = new System.Drawing.Point(178, 104);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(62, 25);
             this.PauseButton.TabIndex = 1;
@@ -71,7 +77,7 @@
             // FFButton
             // 
             this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FFButton.Location = new System.Drawing.Point(161, 57);
+            this.FFButton.Location = new System.Drawing.Point(110, 75);
             this.FFButton.Name = "FFButton";
             this.FFButton.Size = new System.Drawing.Size(62, 25);
             this.FFButton.TabIndex = 2;
@@ -81,7 +87,7 @@
             // RewindButton
             // 
             this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RewindButton.Location = new System.Drawing.Point(161, 178);
+            this.RewindButton.Location = new System.Drawing.Point(110, 135);
             this.RewindButton.Name = "RewindButton";
             this.RewindButton.Size = new System.Drawing.Size(62, 25);
             this.RewindButton.TabIndex = 3;
@@ -98,7 +104,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(654, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(552, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,16 +191,78 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
+            // StopButton
+            // 
+            this.StopButton.Location = new System.Drawing.Point(110, 106);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(62, 23);
+            this.StopButton.TabIndex = 5;
+            this.StopButton.Text = "Stop";
+            this.StopButton.UseVisualStyleBackColor = true;
+            // 
+            // Playlist
+            // 
+            this.Playlist.Location = new System.Drawing.Point(416, 84);
+            this.Playlist.Name = "Playlist";
+            this.Playlist.Size = new System.Drawing.Size(75, 23);
+            this.Playlist.TabIndex = 6;
+            this.Playlist.Text = "Playlist";
+            this.Playlist.UseVisualStyleBackColor = true;
+            // 
+            // Repeat
+            // 
+            this.Repeat.Location = new System.Drawing.Point(416, 55);
+            this.Repeat.Name = "Repeat";
+            this.Repeat.Size = new System.Drawing.Size(75, 23);
+            this.Repeat.TabIndex = 7;
+            this.Repeat.Text = "Repeat";
+            this.Repeat.UseVisualStyleBackColor = true;
+            // 
+            // FullScreen
+            // 
+            this.FullScreen.Location = new System.Drawing.Point(416, 114);
+            this.FullScreen.Name = "FullScreen";
+            this.FullScreen.Size = new System.Drawing.Size(75, 23);
+            this.FullScreen.TabIndex = 8;
+            this.FullScreen.Text = "FullScreen";
+            this.FullScreen.UseVisualStyleBackColor = true;
+            // 
+            // VolumeUp
+            // 
+            this.VolumeUp.Location = new System.Drawing.Point(285, 178);
+            this.VolumeUp.Name = "VolumeUp";
+            this.VolumeUp.Size = new System.Drawing.Size(31, 23);
+            this.VolumeUp.TabIndex = 9;
+            this.VolumeUp.Text = "+";
+            this.VolumeUp.UseVisualStyleBackColor = true;
+            // 
+            // VolumeDown
+            // 
+            this.VolumeDown.Location = new System.Drawing.Point(347, 178);
+            this.VolumeDown.Name = "VolumeDown";
+            this.VolumeDown.Size = new System.Drawing.Size(31, 23);
+            this.VolumeDown.TabIndex = 10;
+            this.VolumeDown.Text = "-";
+            this.VolumeDown.UseVisualStyleBackColor = true;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 243);
+            this.ClientSize = new System.Drawing.Size(552, 213);
+            this.Controls.Add(this.VolumeDown);
+            this.Controls.Add(this.VolumeUp);
+            this.Controls.Add(this.FullScreen);
+            this.Controls.Add(this.Repeat);
+            this.Controls.Add(this.Playlist);
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.RewindButton);
             this.Controls.Add(this.FFButton);
             this.Controls.Add(this.PauseButton);
             this.Controls.Add(this.PlayButton);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainScreen";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -223,6 +291,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.Button StopButton;
+        private System.Windows.Forms.Button Playlist;
+        private System.Windows.Forms.Button Repeat;
+        private System.Windows.Forms.Button FullScreen;
+        private System.Windows.Forms.Button VolumeUp;
+        private System.Windows.Forms.Button VolumeDown;
     }
 }
 
