@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
-namespace MainScreen.VideoHandling
+namespace MainScreen
 {
     /// <summary>
     /// Configuration of the video meaning
@@ -14,16 +14,12 @@ namespace MainScreen.VideoHandling
     /// and we show the form the world
     /// </summary>
     public static class HolderForm
-    {
-        /* 
-         */
-        
+    {       
 
         /// <summary>
-        /// A static form and panel where we will the video
+        /// A static form where we will the video
         /// </summary>
         private static Form holderForm = new Form();
-        private static Panel holderPanel = new Panel();
         /// <summary>
         /// Attach the video to the form and panel 
         /// and show it to the world
@@ -34,10 +30,11 @@ namespace MainScreen.VideoHandling
         public static void AttachVideoToForm(DirectXAllias::Video video, int height, int width)
         {
             holderForm.Show();
+            holderForm.StartPosition = FormStartPosition.CenterScreen;
             holderForm.ControlBox = false;
-            holderPanel.Size = new Size(width, height);
-            holderForm.Controls.Add(holderPanel);
-            video.Owner = holderPanel;
+            holderForm.Size = new Size(height + 10, width + 10);
+            video.Owner = holderForm;
+            video.Size = holderForm.Size;
         }
 
         /// <summary>
@@ -49,6 +46,9 @@ namespace MainScreen.VideoHandling
         /// <param name="video"></param>
         public static void DispatchVideoAndForm(DirectXAllias::Video video)
         {
+            holderForm.Dispose();
+            video.Dispose();
         }
+
     }
 }

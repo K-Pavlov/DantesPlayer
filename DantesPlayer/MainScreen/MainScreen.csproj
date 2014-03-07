@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VideoHandling\BigVideo.cs" />
     <Compile Include="MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,10 +64,11 @@
     <Compile Include="MainScreenS.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoHandling\HolderForm.cs" />
-    <Compile Include="VideoHandling\SmallVideo.cs" />
     <Compile Include="StartPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoHandling\BigVideo.cs" />
+    <Compile Include="VideoHandling\HolderForm.cs" />
+    <Compile Include="VideoHandling\SmallVideo.cs" />
     <Compile Include="VideoHandling\Video.cs" />
     <EmbeddedResource Include="MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
@@ -81,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -94,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ButtonControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\MainControlBackground.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

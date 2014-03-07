@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.PlayButton = new System.Windows.Forms.Button();
             this.PauseButton = new System.Windows.Forms.Button();
             this.FFButton = new System.Windows.Forms.Button();
@@ -50,19 +49,18 @@
             this.Playlist = new System.Windows.Forms.Button();
             this.Repeat = new System.Windows.Forms.Button();
             this.FullScreen = new System.Windows.Forms.Button();
-            this.VolumeUp = new System.Windows.Forms.Button();
             this.VolumeDown = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlayButton
             // 
             this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PlayButton.Location = new System.Drawing.Point(15, 55);
+            this.PlayButton.Location = new System.Drawing.Point(8, 45);
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(62, 25);
+            this.PlayButton.Size = new System.Drawing.Size(55, 25);
             this.PlayButton.TabIndex = 0;
             this.PlayButton.Text = "Play";
             this.PlayButton.UseVisualStyleBackColor = true;
@@ -71,9 +69,9 @@
             // PauseButton
             // 
             this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PauseButton.Location = new System.Drawing.Point(150, 55);
+            this.PauseButton.Location = new System.Drawing.Point(135, 45);
             this.PauseButton.Name = "PauseButton";
-            this.PauseButton.Size = new System.Drawing.Size(62, 25);
+            this.PauseButton.Size = new System.Drawing.Size(55, 25);
             this.PauseButton.TabIndex = 1;
             this.PauseButton.Text = "Pause";
             this.PauseButton.UseVisualStyleBackColor = true;
@@ -82,9 +80,9 @@
             // FFButton
             // 
             this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FFButton.Location = new System.Drawing.Point(82, 25);
+            this.FFButton.Location = new System.Drawing.Point(74, 16);
             this.FFButton.Name = "FFButton";
-            this.FFButton.Size = new System.Drawing.Size(62, 25);
+            this.FFButton.Size = new System.Drawing.Size(55, 25);
             this.FFButton.TabIndex = 2;
             this.FFButton.Text = "FF";
             this.FFButton.UseVisualStyleBackColor = true;
@@ -92,9 +90,9 @@
             // RewindButton
             // 
             this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RewindButton.Location = new System.Drawing.Point(82, 85);
+            this.RewindButton.Location = new System.Drawing.Point(74, 73);
             this.RewindButton.Name = "RewindButton";
-            this.RewindButton.Size = new System.Drawing.Size(62, 25);
+            this.RewindButton.Size = new System.Drawing.Size(55, 25);
             this.RewindButton.TabIndex = 3;
             this.RewindButton.Text = "Rewind";
             this.RewindButton.UseVisualStyleBackColor = true;
@@ -110,7 +108,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(552, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(534, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -199,9 +197,10 @@
             // 
             // StopButton
             // 
-            this.StopButton.Location = new System.Drawing.Point(82, 57);
+            this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.StopButton.Location = new System.Drawing.Point(74, 47);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(62, 23);
+            this.StopButton.Size = new System.Drawing.Size(55, 20);
             this.StopButton.TabIndex = 5;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
@@ -234,17 +233,9 @@
             this.FullScreen.Text = "FullScreen";
             this.FullScreen.UseVisualStyleBackColor = true;
             // 
-            // VolumeUp
-            // 
-            this.VolumeUp.Location = new System.Drawing.Point(285, 178);
-            this.VolumeUp.Name = "VolumeUp";
-            this.VolumeUp.Size = new System.Drawing.Size(31, 23);
-            this.VolumeUp.TabIndex = 9;
-            this.VolumeUp.Text = "+";
-            this.VolumeUp.UseVisualStyleBackColor = true;
-            // 
             // VolumeDown
             // 
+            this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
             this.VolumeDown.Location = new System.Drawing.Point(347, 178);
             this.VolumeDown.Name = "VolumeDown";
             this.VolumeDown.Size = new System.Drawing.Size(31, 23);
@@ -252,30 +243,26 @@
             this.VolumeDown.Text = "-";
             this.VolumeDown.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // panel1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.StopButton);
-            this.groupBox1.Controls.Add(this.PlayButton);
-            this.groupBox1.Controls.Add(this.RewindButton);
-            this.groupBox1.Controls.Add(this.FFButton);
-            this.groupBox1.Controls.Add(this.PauseButton);
-            this.groupBox1.Location = new System.Drawing.Point(12, 44);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(227, 126);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Navigation";
+            this.panel1.Controls.Add(this.StopButton);
+            this.panel1.Controls.Add(this.FFButton);
+            this.panel1.Controls.Add(this.PauseButton);
+            this.panel1.Controls.Add(this.RewindButton);
+            this.panel1.Controls.Add(this.PlayButton);
+            this.panel1.Location = new System.Drawing.Point(12, 55);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 114);
+            this.panel1.TabIndex = 12;
             // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(552, 213);
-            this.Controls.Add(this.groupBox1);
+            this.BackgroundImage = global::MainScreen.Properties.Resources.MainControlBackground;
+            this.ClientSize = new System.Drawing.Size(534, 238);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.VolumeDown);
-            this.Controls.Add(this.VolumeUp);
             this.Controls.Add(this.FullScreen);
             this.Controls.Add(this.Repeat);
             this.Controls.Add(this.Playlist);
@@ -287,7 +274,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,9 +302,8 @@
         private System.Windows.Forms.Button Playlist;
         private System.Windows.Forms.Button Repeat;
         private System.Windows.Forms.Button FullScreen;
-        private System.Windows.Forms.Button VolumeUp;
         private System.Windows.Forms.Button VolumeDown;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

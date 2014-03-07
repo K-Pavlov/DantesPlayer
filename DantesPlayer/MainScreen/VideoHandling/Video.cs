@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
-using MainScreen.VideoHandling;
 
 namespace MainScreen
 {
