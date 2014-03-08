@@ -10,13 +10,16 @@ namespace MainScreen.VideoHandling
 {
     public class FormForVideo : Form
     {
+        public DirectXAllias::Video Video { get; set; }
+        public FormForVideo()
+        {
+            this.InitializeComponent();
+        }
         protected override void Dispose(bool disposing)
         {
             Video.Dispose();
             base.Dispose(disposing);
         }
-
-        public DirectXAllias::Video Video { get; set; }
 
         private void InitializeComponent()
         {
@@ -24,6 +27,7 @@ namespace MainScreen.VideoHandling
             // 
             // FormForVideo
             // 
+            
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "FormForVideo";
@@ -43,6 +47,7 @@ namespace MainScreen.VideoHandling
                 Video.Play();
             }
         }
+
 
     }
 }

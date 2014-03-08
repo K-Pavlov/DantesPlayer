@@ -14,8 +14,6 @@ namespace MainScreen
 {
     public partial class MainScreen : Form
     {
-        static int i = 0;
-        //Hardcoded video, try one yourselves
         private SmallVideo video;
         public MainScreen()
         {
@@ -44,7 +42,10 @@ namespace MainScreen
         
         private void StopButton_Click(object sender, EventArgs e)
         {
-
+            if (this.video != null)
+            {
+                this.video.StopVideo();
+            }
         }
         /// <summary>
         /// When button pause is clicked pauses
@@ -78,7 +79,7 @@ namespace MainScreen
                     {
                         using (myStream)
                         {
-                            video = new SmallVideo(openFileDialog1.FileName , true, 1020, 1020);
+                            video = new SmallVideo(openFileDialog1.FileName , true);
                             this.video.StartVideo();
                         }
                     }
@@ -88,6 +89,11 @@ namespace MainScreen
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
             }
+        }
+
+        private void closeVideo_Click(object sender, EventArgs e)
+        {
+            this.video.CloseVideo();
         }
 
 

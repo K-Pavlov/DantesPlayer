@@ -51,6 +51,7 @@
             this.FullScreen = new System.Windows.Forms.Button();
             this.VolumeDown = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.closeVideo = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -124,14 +125,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // editToolStripMenuItem
@@ -256,12 +257,23 @@
             this.panel1.Size = new System.Drawing.Size(200, 114);
             this.panel1.TabIndex = 12;
             // 
+            // closeVideo
+            // 
+            this.closeVideo.Location = new System.Drawing.Point(416, 143);
+            this.closeVideo.Name = "closeVideo";
+            this.closeVideo.Size = new System.Drawing.Size(75, 23);
+            this.closeVideo.TabIndex = 13;
+            this.closeVideo.Text = "Close video";
+            this.closeVideo.UseVisualStyleBackColor = true;
+            this.closeVideo.Click += new System.EventHandler(this.closeVideo_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MainScreen.Properties.Resources.MainControlBackground;
             this.ClientSize = new System.Drawing.Size(534, 238);
+            this.Controls.Add(this.closeVideo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.VolumeDown);
             this.Controls.Add(this.FullScreen);
@@ -305,6 +317,7 @@
         private System.Windows.Forms.Button FullScreen;
         private System.Windows.Forms.Button VolumeDown;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button closeVideo;
     }
 }
 

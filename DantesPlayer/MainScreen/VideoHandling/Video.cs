@@ -39,7 +39,9 @@ namespace MainScreen.VideoHandling
 
         
         ///////////// Properties //////////////////////
-
+        /// <summary>
+        /// Return the video, readonly 
+        /// </summary>
         public DirectAllias::Video directVideo { get; private set; }
 
         protected string LoadedMovie
@@ -115,7 +117,7 @@ namespace MainScreen.VideoHandling
         public void StartVideo()
         {
             this.ConfigureVideo();
-            directVideo.Play();
+            this.directVideo.Play();
         }
 
         /// <summary>
@@ -124,8 +126,8 @@ namespace MainScreen.VideoHandling
         /// </summary>
         private void ConfigureVideo()
         {
-            directVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
-            HolderForm.AttachVideoToForm(directVideo, this.Height, this.Width);
+            this.directVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
+            HolderForm.AttachVideoToForm(this.directVideo, this.Height, this.Width);
         }
 
         
@@ -136,12 +138,12 @@ namespace MainScreen.VideoHandling
         {
             try
             {
-                if (directVideo.Playing)
+                if (this.directVideo.Playing)
                 {
-                    directVideo.Pause();
+                    this.directVideo.Pause();
                 }
             }
-            catch(NullReferenceException ex)
+            catch(NullReferenceException)
             {
              
             }
@@ -154,18 +156,40 @@ namespace MainScreen.VideoHandling
         {
             try
             {
-                if (!directVideo.Playing)
+                if (!this.directVideo.Playing)
                 {
-                    directVideo.Play();
+                    this.directVideo.Play();
                 }
             }
-            catch(NullReferenceException ex)
+            catch(NullReferenceException)
             {
 
             }
         
         }
 
+        public void StopVideo()
+        {
+            try
+            {
+                this.directVideo.Stop();
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+        }
+
+        public void CloseVideo()
+        {
+            try
+            {
+                HolderForm.DispatchVideoAndForm(this.directVideo);
+            }
+            catch(NullReferenceException)
+            {
+            }
+        }
         //////////// End methods //////////////////////////
     }
 }

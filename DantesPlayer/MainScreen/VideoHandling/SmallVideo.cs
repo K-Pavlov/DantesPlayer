@@ -11,8 +11,8 @@ namespace MainScreen.VideoHandling
 {
     public sealed class SmallVideo : Video
     {
-        public SmallVideo(string movie, bool autoPlay, int height, int width)
-            :base(movie, autoPlay, height, width)
+        public SmallVideo(string movie, bool autoPlay)
+            :base(movie, autoPlay,600, 800)
         {
 
         }
