@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
 
-namespace MainScreen
+namespace MainScreen.VideoHandling
 {
     /// <summary>
     /// The main video class where we configure which
@@ -15,7 +15,6 @@ namespace MainScreen
     /// </summary>
     public abstract class Video
     {
-        static bool videoIsPlaying = true;
         private string loadedMovie;
         private bool autoPlay;
         private int height;
@@ -41,7 +40,7 @@ namespace MainScreen
         
         ///////////// Properties //////////////////////
 
-        private static DirectAllias::Video directVideo;
+        public DirectAllias::Video directVideo { get; private set; }
 
         protected string LoadedMovie
         {
@@ -135,10 +134,16 @@ namespace MainScreen
         /// </summary>
         public void PauseVideo()
         {
-            if (videoIsPlaying)
+            try
             {
-                directVideo.Pause();
-                videoIsPlaying = false;
+                if (directVideo.Playing)
+                {
+                    directVideo.Pause();
+                }
+            }
+            catch(NullReferenceException ex)
+            {
+             
             }
         }
 
@@ -147,13 +152,19 @@ namespace MainScreen
         /// </summary>
         public void PlayVideo()
         {
-            if (!videoIsPlaying)
+            try
             {
-                directVideo.Play();
-                videoIsPlaying = true;
+                if (!directVideo.Playing)
+                {
+                    directVideo.Play();
+                }
             }
-        }
+            catch(NullReferenceException ex)
+            {
 
+            }
+        
+        }
 
         //////////// End methods //////////////////////////
     }

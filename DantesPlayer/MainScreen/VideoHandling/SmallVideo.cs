@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MainScreen
+namespace MainScreen.VideoHandling
 {
     public sealed class SmallVideo : Video
     {

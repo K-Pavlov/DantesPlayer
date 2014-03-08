@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
-namespace MainScreen
+
+namespace MainScreen.VideoHandling
 {
     /// <summary>
     /// Configuration of the video meaning
@@ -19,7 +20,7 @@ namespace MainScreen
         /// <summary>
         /// A static form where we will the video
         /// </summary>
-        private static Form holderForm = new Form();
+        private static FormForVideo holderForm = new FormForVideo();
         /// <summary>
         /// Attach the video to the form and panel 
         /// and show it to the world
@@ -29,6 +30,8 @@ namespace MainScreen
         /// <param name="width"></param>
         public static void AttachVideoToForm(DirectXAllias::Video video, int height, int width)
         {
+            holderForm.MinimumSize = new Size(200, 200);
+            holderForm.Video = video;
             holderForm.Show();
             holderForm.StartPosition = FormStartPosition.CenterScreen;
             holderForm.ControlBox = false;
