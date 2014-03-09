@@ -32,7 +32,7 @@ namespace MainScreen
         
         private void PlayButton_Click(object sender, EventArgs e)
         {
-            if (this.video != null)
+            if (!CheckException.CheckNull(video))
             {
                 this.video.PlayVideo();
             }
@@ -40,7 +40,7 @@ namespace MainScreen
         
         private void StopButton_Click(object sender, EventArgs e)
         {
-            if (this.video != null)
+            if (!CheckException.CheckNull(video))
             {
                 this.video.StopVideo();
             }
@@ -53,7 +53,7 @@ namespace MainScreen
         /// <param name="e"></param>
         private void PauseButton_Click(object sender, EventArgs e)
         {
-            if (this.video != null)
+            if (!CheckException.CheckNull(video))
             {
                 this.video.PauseVideo();
             }
@@ -62,7 +62,7 @@ namespace MainScreen
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoName = ChooseVideoDialog.TakePathToVideo();
-            if (videoName != null)
+            if (!CheckException.CheckNull(video))
             {
                 video = new Video(videoName, false, 800, 600);
                 video.StartVideo();
@@ -72,7 +72,7 @@ namespace MainScreen
 
         private void closeVideo_Click(object sender, EventArgs e)
         {
-            if (this.video != null)
+            if (!CheckException.CheckNull(video))
             {
                 this.video.CloseVideo();
             }
@@ -80,7 +80,7 @@ namespace MainScreen
 
         private void FullScreen_Click(object sender, EventArgs e)
         {
-            if (video != null)
+            if (!CheckException.CheckNull(video))
             {
                 this.video.OpenVideoInFullScreen();
             }
@@ -88,25 +88,17 @@ namespace MainScreen
 
         private void VolumeDown_Click(object sender, EventArgs e)
         {
-            if (this.video.directVideo.Audio.Volume > -10000)
+            if (!CheckException.CheckNull(video))
             {
-                this.video.directVideo.Audio.Volume -= 1000;
-            }
-            if (this.VolumeProgress.Value > 0)
-            {
-                this.VolumeProgress.Value -= 10;
+                this.video.VolumeDown(this.VolumeProgress);
             }
         }
 
         private void VolumeUp_Click(object sender, EventArgs e)
         {
-            if (this.video.directVideo.Audio.Volume < 0)
+            if (!CheckException.CheckNull(video))
             {
-                this.video.directVideo.Audio.Volume += 1000;
-            }
-            if (this.VolumeProgress.Value + 10 <= 100)
-            {
-                this.VolumeProgress.Value += 10;
+                this.video.VolumeUp(this.VolumeProgress);
             }
         }
 

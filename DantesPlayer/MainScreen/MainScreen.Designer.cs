@@ -241,7 +241,8 @@
             // VolumeDown
             // 
             this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
-            this.VolumeDown.Location = new System.Drawing.Point(377, 203);
+            this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.VolumeDown.Location = new System.Drawing.Point(432, 203);
             this.VolumeDown.Name = "VolumeDown";
             this.VolumeDown.Size = new System.Drawing.Size(31, 23);
             this.VolumeDown.TabIndex = 10;
@@ -273,7 +274,8 @@
             // 
             // VolumeUp
             // 
-            this.VolumeUp.Location = new System.Drawing.Point(235, 203);
+            this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.VolumeUp.Location = new System.Drawing.Point(273, 203);
             this.VolumeUp.Name = "VolumeUp";
             this.VolumeUp.Size = new System.Drawing.Size(31, 23);
             this.VolumeUp.TabIndex = 14;
@@ -283,10 +285,12 @@
             // 
             // VolumeProgress
             // 
-            this.VolumeProgress.Location = new System.Drawing.Point(271, 203);
+            this.VolumeProgress.BackColor = System.Drawing.SystemColors.Control;
+            this.VolumeProgress.Location = new System.Drawing.Point(310, 210);
             this.VolumeProgress.Name = "VolumeProgress";
-            this.VolumeProgress.Size = new System.Drawing.Size(100, 23);
+            this.VolumeProgress.Size = new System.Drawing.Size(116, 10);
             this.VolumeProgress.TabIndex = 15;
+            this.VolumeProgress.Value = 100;
             // 
             // MainScreen
             // 

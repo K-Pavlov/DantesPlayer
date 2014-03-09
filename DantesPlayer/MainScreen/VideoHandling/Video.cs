@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
+using MainScreen.AudioHandling;
 
 namespace MainScreen.VideoHandling
 {
@@ -191,6 +192,15 @@ namespace MainScreen.VideoHandling
             }
         }
 
+        public void VolumeUp(ProgressBar bar)
+        {
+            AudioForVideos.VolumeUp(this, bar);
+        }
+
+        public void VolumeDown(ProgressBar bar)
+        {
+            AudioForVideos.VolumeDown(this, bar);
+        }
         public void OpenVideoInFullScreen()
         {
             HolderForm.ChangeFormSize(new Size(Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width));
