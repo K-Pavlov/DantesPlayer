@@ -17,7 +17,10 @@ namespace MainScreen.VideoHandling
         }
         protected override void Dispose(bool disposing)
         {
-            Video.Dispose();
+            if (Video != null)
+            {
+                Video.Dispose();
+            }
             base.Dispose(disposing);
         }
 

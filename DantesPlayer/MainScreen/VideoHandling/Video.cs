@@ -13,7 +13,7 @@ namespace MainScreen.VideoHandling
     /// The main video class where we configure which
     /// video to play the size of the video
     /// </summary>
-    public abstract class Video
+    public sealed class Video
     {
         private string loadedMovie;
         private bool autoPlay;
@@ -29,7 +29,7 @@ namespace MainScreen.VideoHandling
         /// <param name="autoPlay"></param>
         /// <param name="height"></param>
         /// <param name="width"></param>
-        public Video(string loadedMovie, bool autoPlay, int height, int width)
+        public Video(string loadedMovie, bool autoPlay, int width, int height)
         {
             this.LoadedMovie = loadedMovie;
             this.AutoPlay = autoPlay;
@@ -44,7 +44,7 @@ namespace MainScreen.VideoHandling
         /// </summary>
         public DirectAllias::Video directVideo { get; private set; }
 
-        protected string LoadedMovie
+        private string LoadedMovie
         {
             get
             {
@@ -61,7 +61,7 @@ namespace MainScreen.VideoHandling
             }
         }
 
-        protected bool AutoPlay
+        private bool AutoPlay
         {
             get
             {
@@ -77,7 +77,7 @@ namespace MainScreen.VideoHandling
             }
         }
 
-        protected int Height
+        private int Height
         {
             get
             {
@@ -93,7 +93,7 @@ namespace MainScreen.VideoHandling
             }
         }
 
-        protected int Width
+        private int Width
         {
             get
             {
@@ -127,7 +127,7 @@ namespace MainScreen.VideoHandling
         private void ConfigureVideo()
         {
             this.directVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
-            HolderForm.AttachVideoToForm(this.directVideo, this.Height, this.Width);
+            HolderForm.AttachVideoToForm(this.directVideo, new Size(this.Height, this.Width));
         }
 
         
@@ -190,6 +190,12 @@ namespace MainScreen.VideoHandling
             {
             }
         }
+
+        public void OpenVideoInFullScreen()
+        {
+            HolderForm.ChangeFormSize(new Size(Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width));
+        }
+
         //////////// End methods //////////////////////////
     }
 }

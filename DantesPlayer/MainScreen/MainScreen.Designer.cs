@@ -52,6 +52,8 @@
             this.VolumeDown = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.closeVideo = new System.Windows.Forms.Button();
+            this.VolumeUp = new System.Windows.Forms.Button();
+            this.VolumeProgress = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -234,16 +236,18 @@
             this.FullScreen.TabIndex = 8;
             this.FullScreen.Text = "FullScreen";
             this.FullScreen.UseVisualStyleBackColor = true;
+            this.FullScreen.Click += new System.EventHandler(this.FullScreen_Click);
             // 
             // VolumeDown
             // 
             this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
-            this.VolumeDown.Location = new System.Drawing.Point(347, 178);
+            this.VolumeDown.Location = new System.Drawing.Point(377, 203);
             this.VolumeDown.Name = "VolumeDown";
             this.VolumeDown.Size = new System.Drawing.Size(31, 23);
             this.VolumeDown.TabIndex = 10;
             this.VolumeDown.Text = "-";
             this.VolumeDown.UseVisualStyleBackColor = true;
+            this.VolumeDown.Click += new System.EventHandler(this.VolumeDown_Click);
             // 
             // panel1
             // 
@@ -267,12 +271,31 @@
             this.closeVideo.UseVisualStyleBackColor = true;
             this.closeVideo.Click += new System.EventHandler(this.closeVideo_Click);
             // 
+            // VolumeUp
+            // 
+            this.VolumeUp.Location = new System.Drawing.Point(235, 203);
+            this.VolumeUp.Name = "VolumeUp";
+            this.VolumeUp.Size = new System.Drawing.Size(31, 23);
+            this.VolumeUp.TabIndex = 14;
+            this.VolumeUp.Text = "+";
+            this.VolumeUp.UseVisualStyleBackColor = true;
+            this.VolumeUp.Click += new System.EventHandler(this.VolumeUp_Click);
+            // 
+            // VolumeProgress
+            // 
+            this.VolumeProgress.Location = new System.Drawing.Point(271, 203);
+            this.VolumeProgress.Name = "VolumeProgress";
+            this.VolumeProgress.Size = new System.Drawing.Size(100, 23);
+            this.VolumeProgress.TabIndex = 15;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MainScreen.Properties.Resources.MainControlBackground;
             this.ClientSize = new System.Drawing.Size(534, 238);
+            this.Controls.Add(this.VolumeProgress);
+            this.Controls.Add(this.VolumeUp);
             this.Controls.Add(this.closeVideo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.VolumeDown);
@@ -318,6 +341,8 @@
         private System.Windows.Forms.Button VolumeDown;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeVideo;
+        private System.Windows.Forms.Button VolumeUp;
+        private System.Windows.Forms.ProgressBar VolumeProgress;
     }
 }
 

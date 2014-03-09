@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MainScreen.UserInterfaceDialogs;
 using MainScreen.VideoHandling;
 
 namespace MainScreen
 {
     public partial class MainScreen : Form
     {
-        private SmallVideo video;
+        private static string videoName;
+        private Video video;
         public MainScreen()
         {
             InitializeComponent();
@@ -57,45 +55,60 @@ namespace MainScreen
         {
             if (this.video != null)
             {
-                video.PauseVideo();
+                this.video.PauseVideo();
             }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Stream myStream = null;
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            openFileDialog1.InitialDirectory = "c:\\";
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            videoName = ChooseVideoDialog.TakePathToVideo();
+            if (videoName != null)
             {
-                try
-                {
-                    if ((myStream = openFileDialog1.OpenFile()) != null)
-                    {
-                        using (myStream)
-                        {
-                            video = new SmallVideo(openFileDialog1.FileName , true);
-                            this.video.StartVideo();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                }
+                video = new Video(videoName, false, 800, 600);
+                video.StartVideo();
+                this.VolumeProgress.Value = 100;
             }
         }
 
         private void closeVideo_Click(object sender, EventArgs e)
         {
-            this.video.CloseVideo();
+            if (this.video != null)
+            {
+                this.video.CloseVideo();
+            }
         }
 
+        private void FullScreen_Click(object sender, EventArgs e)
+        {
+            if (video != null)
+            {
+                this.video.OpenVideoInFullScreen();
+            }
+        }
+
+        private void VolumeDown_Click(object sender, EventArgs e)
+        {
+            if (this.video.directVideo.Audio.Volume > -10000)
+            {
+                this.video.directVideo.Audio.Volume -= 1000;
+            }
+            if (this.VolumeProgress.Value > 0)
+            {
+                this.VolumeProgress.Value -= 10;
+            }
+        }
+
+        private void VolumeUp_Click(object sender, EventArgs e)
+        {
+            if (this.video.directVideo.Audio.Volume < 0)
+            {
+                this.video.directVideo.Audio.Volume += 1000;
+            }
+            if (this.VolumeProgress.Value + 10 <= 100)
+            {
+                this.VolumeProgress.Value += 10;
+            }
+        }
 
     }
 }

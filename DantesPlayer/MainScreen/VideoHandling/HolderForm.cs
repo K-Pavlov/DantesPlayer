@@ -20,7 +20,8 @@ namespace MainScreen.VideoHandling
         /// <summary>
         /// A static form where we will the video
         /// </summary>
-        private static FormForVideo holderForm = new FormForVideo();
+        private static FormForVideo holderForm;
+        private static FormForVideo fullScreenForm = new FormForVideo();
         /// <summary>
         /// Attach the video to the form and panel 
         /// and show it to the world
@@ -28,16 +29,17 @@ namespace MainScreen.VideoHandling
         /// <param name="video"></param>
         /// <param name="height"></param>
         /// <param name="width"></param>
-        public static void AttachVideoToForm(DirectXAllias::Video video, int height, int width)
+        public static void AttachVideoToForm(DirectXAllias::Video video, Size size)
         {
+            holderForm = new FormForVideo();
             holderForm.MinimumSize = new Size(200, 200);
             holderForm.Video = video;
-            holderForm.Show();
             holderForm.StartPosition = FormStartPosition.CenterScreen;
             holderForm.ControlBox = false;
-            holderForm.Size = new Size(height + 10, width + 10);
+            holderForm.Size = size;
             video.Owner = holderForm;
             video.Size = holderForm.Size;
+            holderForm.Show();
         }
 
         /// <summary>
@@ -51,6 +53,11 @@ namespace MainScreen.VideoHandling
         {
             holderForm.Dispose();
             video.Dispose();
+        }
+
+        public static void  ChangeFormSize(Size size)
+        {
+            holderForm.Size = size;
         }
 
     }
