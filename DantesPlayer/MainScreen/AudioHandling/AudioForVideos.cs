@@ -9,14 +9,21 @@ namespace MainScreen.AudioHandling
 {
     public static class AudioForVideos
     {
-        private static readonly int noSound = -10000;
-        private static readonly int volumeStep = 400;
-        private static readonly int maxVolumeValue = 0;
-        private static readonly int minVolumeValue = -4000;
-        
+        private static const int noSound = -10000;
+        private static const int volumeStep = 400;
+        private static const int maxVolumeValue = 0;
+        private static const int minVolumeValue = -4000;
+        private static const int maxProgressBarValue = 100;
+        private static const double valueNormalizer = -((double)maxProgressBarValue / (double)minVolumeValue);
+        /// <summary>
+        /// Increases volume with a step
+        /// and adjusts the progress bar
+        /// </summary>
+        /// <param name="video"></param>
+        /// <param name="bar"></param>
         public static void VolumeUp(VideoHandling.Video video, ProgressBar bar)
         {
-            if (video != null)
+            if (CheckException.CheckNull(video.directVideo.Audio))
             {
                 if (video.directVideo.Audio.Volume < maxVolumeValue)
                 {
@@ -33,10 +40,15 @@ namespace MainScreen.AudioHandling
             }
             HandleProgressBar(bar, video.directVideo.Audio.Volume);
         }
-
+        /// <summary>
+        /// Decreases volume by a step
+        /// and adjusts the progress bar
+        /// </summary>
+        /// <param name="video"></param>
+        /// <param name="bar"></param>
         public static void VolumeDown(VideoHandling.Video video, ProgressBar bar)
         {
-            if (video != null)
+            if (CheckException.CheckNull(video.directVideo.Audio))
             {
                 if (video.directVideo.Audio.Volume > minVolumeValue)
                 {
@@ -58,7 +70,7 @@ namespace MainScreen.AudioHandling
 
         private static int GetCorrectValue(double value)
         {
-            int usableValue = Convert.ToInt32(value * (0.025) + 100);
+            int usableValue = Convert.ToInt32(value * (valueNormalizer) + maxProgressBarValue);
             return usableValue;
         }
 

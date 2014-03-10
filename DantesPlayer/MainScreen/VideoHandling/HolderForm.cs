@@ -33,8 +33,8 @@ namespace MainScreen.VideoHandling
         {
             holderForm = new FormForVideo();
             holderForm.MinimumSize = new Size(200, 200);
-            holderForm.Video = video;
             holderForm.StartPosition = FormStartPosition.CenterScreen;
+            holderForm.Video = video;
             holderForm.ControlBox = false;
             holderForm.Size = size;
             video.Owner = holderForm;

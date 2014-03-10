@@ -168,7 +168,9 @@ namespace MainScreen.VideoHandling
             }
         
         }
-
+        /// <summary>
+        /// Stops the video
+        /// </summary>
         public void StopVideo()
         {
             try
@@ -180,7 +182,9 @@ namespace MainScreen.VideoHandling
 
             }
         }
-
+        /// <summary>
+        /// Closes the video
+        /// </summary>
         public void CloseVideo()
         {
             try
@@ -189,18 +193,28 @@ namespace MainScreen.VideoHandling
             }
             catch(NullReferenceException)
             {
+
             }
         }
 
+        /// <summary>
+        /// Increases volume by 10%
+        /// </summary>
+        /// <param name="bar"></param>
         public void VolumeUp(ProgressBar bar)
         {
             AudioForVideos.VolumeUp(this, bar);
         }
-
+        /// <summary>
+        /// Decreases volume by 10%
+        /// </summary>
+        /// <param name="bar"></param>
         public void VolumeDown(ProgressBar bar)
         {
             AudioForVideos.VolumeDown(this, bar);
         }
+
+        // TODO: Open in fullscr
         public void OpenVideoInFullScreen()
         {
             HolderForm.ChangeFormSize(new Size(Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width));

@@ -61,6 +61,7 @@
             // PlayButton
             // 
             this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PlayButton.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.PlayButton.Location = new System.Drawing.Point(8, 45);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(55, 25);
@@ -72,6 +73,7 @@
             // PauseButton
             // 
             this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PauseButton.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.PauseButton.Location = new System.Drawing.Point(135, 45);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(55, 25);
@@ -83,6 +85,7 @@
             // FFButton
             // 
             this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.FFButton.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.FFButton.Location = new System.Drawing.Point(74, 16);
             this.FFButton.Name = "FFButton";
             this.FFButton.Size = new System.Drawing.Size(55, 25);
@@ -93,6 +96,7 @@
             // RewindButton
             // 
             this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.RewindButton.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.RewindButton.Location = new System.Drawing.Point(74, 73);
             this.RewindButton.Name = "RewindButton";
             this.RewindButton.Size = new System.Drawing.Size(55, 25);
@@ -202,6 +206,7 @@
             // StopButton
             // 
             this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.StopButton.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.StopButton.Location = new System.Drawing.Point(74, 47);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(55, 20);
@@ -212,6 +217,7 @@
             // 
             // Playlist
             // 
+            this.Playlist.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.Playlist.Location = new System.Drawing.Point(416, 84);
             this.Playlist.Name = "Playlist";
             this.Playlist.Size = new System.Drawing.Size(75, 23);
@@ -221,6 +227,7 @@
             // 
             // Repeat
             // 
+            this.Repeat.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.Repeat.Location = new System.Drawing.Point(416, 55);
             this.Repeat.Name = "Repeat";
             this.Repeat.Size = new System.Drawing.Size(75, 23);
@@ -230,6 +237,7 @@
             // 
             // FullScreen
             // 
+            this.FullScreen.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.FullScreen.Location = new System.Drawing.Point(416, 114);
             this.FullScreen.Name = "FullScreen";
             this.FullScreen.Size = new System.Drawing.Size(75, 23);
@@ -242,7 +250,7 @@
             // 
             this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
             this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeDown.Location = new System.Drawing.Point(432, 203);
+            this.VolumeDown.Location = new System.Drawing.Point(273, 203);
             this.VolumeDown.Name = "VolumeDown";
             this.VolumeDown.Size = new System.Drawing.Size(31, 23);
             this.VolumeDown.TabIndex = 10;
@@ -264,6 +272,7 @@
             // 
             // closeVideo
             // 
+            this.closeVideo.Image = global::MainScreen.Properties.Resources.rsz_button;
             this.closeVideo.Location = new System.Drawing.Point(416, 143);
             this.closeVideo.Name = "closeVideo";
             this.closeVideo.Size = new System.Drawing.Size(75, 23);
@@ -275,7 +284,7 @@
             // VolumeUp
             // 
             this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeUp.Location = new System.Drawing.Point(273, 203);
+            this.VolumeUp.Location = new System.Drawing.Point(432, 203);
             this.VolumeUp.Name = "VolumeUp";
             this.VolumeUp.Size = new System.Drawing.Size(31, 23);
             this.VolumeUp.TabIndex = 14;
@@ -289,6 +298,7 @@
             this.VolumeProgress.Location = new System.Drawing.Point(310, 210);
             this.VolumeProgress.Name = "VolumeProgress";
             this.VolumeProgress.Size = new System.Drawing.Size(116, 10);
+            this.VolumeProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.VolumeProgress.TabIndex = 15;
             this.VolumeProgress.Value = 100;
             // 
@@ -307,10 +317,11 @@
             this.Controls.Add(this.Repeat);
             this.Controls.Add(this.Playlist);
             this.Controls.Add(this.menuStrip1);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainScreen";
-            this.Text = "Form1";
+            this.Text = "DantesPlayer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
