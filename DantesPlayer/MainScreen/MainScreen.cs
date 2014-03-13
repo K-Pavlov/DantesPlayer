@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using MainScreen.UserInterfaceDialogs;
-using MainScreen.VideoHandling;
-
-namespace MainScreen
+﻿namespace MainScreen
 {
+    #region Namespaces
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Linq;
+    using System.Windows.Forms;
+    using UserInterfaceDialogs;
+    using VideoHandling;
+    using AudioHandling;
+    #endregion
+
     public partial class MainScreen : Form
     {
         private static string videoName;
@@ -54,7 +57,7 @@ namespace MainScreen
             {
                 video = new Video(videoName, false, 800, 600);
                 video.StartVideo();
-                this.VolumeProgress.Value = 100;
+                AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
             }
 
         }
@@ -82,6 +85,13 @@ namespace MainScreen
             {
                 this.video.VolumeDown(this.VolumeProgress);
             }
+            else
+            {
+                if (this.VolumeProgress.Value > this.VolumeProgress.Minimum)
+                {
+                    this.VolumeProgress.Value -= this.VolumeProgress.Step;
+                }
+            }
         }
 
         private void VolumeUp_Click(object sender, EventArgs e)
@@ -90,6 +100,23 @@ namespace MainScreen
             {
                 this.video.VolumeUp(this.VolumeProgress);
             }
+            else
+            {
+                if (this.VolumeProgress.Value < this.VolumeProgress.Maximum)
+                {
+                    this.VolumeProgress.Value += this.VolumeProgress.Step;
+                }
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+                this.Close();
+                if (CheckException.CheckNull(video))
+                {
+                    this.video.CloseVideo();
+                }
+                this.Dispose();
         }
 
     }

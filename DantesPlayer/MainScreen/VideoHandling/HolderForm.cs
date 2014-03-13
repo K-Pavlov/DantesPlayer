@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
-
-namespace MainScreen.VideoHandling
+﻿namespace MainScreen.VideoHandling
 {
+    #region Namespaces
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Drawing;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
+    #endregion
     /// <summary>
     /// Configuration of the video meaning
     /// that here we make a panel with a set width and height 
@@ -22,6 +23,7 @@ namespace MainScreen.VideoHandling
         /// </summary>
         private static FormForVideo holderForm;
         private static FormForVideo fullScreenForm = new FormForVideo();
+
         /// <summary>
         /// Attach the video to the form and panel 
         /// and show it to the world

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows.Forms;
-using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
-using MainScreen.AudioHandling;
-
-namespace MainScreen.VideoHandling
+﻿namespace MainScreen.VideoHandling
 {
+    #region Namespaces
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
+    using AudioHandling;
+    #endregion 
     /// <summary>
     /// The main video class where we configure which
     /// video to play the size of the video
@@ -38,12 +39,10 @@ namespace MainScreen.VideoHandling
             this.Width = width;
         }
 
-        
-        ///////////// Properties //////////////////////
         /// <summary>
         /// Return the video, readonly 
         /// </summary>
-        public DirectAllias::Video directVideo { get; private set; }
+        public DirectAllias::Video DirectVideo { get; private set; }
 
         private string LoadedMovie
         {
@@ -109,16 +108,14 @@ namespace MainScreen.VideoHandling
                 this.width = value;
             }
         }
-        /////////////// End properties ////////////////////////
 
-        /////////////// Methods //////////////////////////////
         /// <summary>
         /// Starts the configured video
         /// </summary>
         public void StartVideo()
         {
             this.ConfigureVideo();
-            this.directVideo.Play();
+            this.DirectVideo.Play();
         }
 
         /// <summary>
@@ -127,8 +124,8 @@ namespace MainScreen.VideoHandling
         /// </summary>
         private void ConfigureVideo()
         {
-            this.directVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
-            HolderForm.AttachVideoToForm(this.directVideo, new Size(this.Height, this.Width));
+            this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
+            HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
         }
 
         
@@ -139,9 +136,9 @@ namespace MainScreen.VideoHandling
         {
             try
             {
-                if (this.directVideo.Playing)
+                if (this.DirectVideo.Playing)
                 {
-                    this.directVideo.Pause();
+                    this.DirectVideo.Pause();
                 }
             }
             catch(NullReferenceException)
@@ -157,9 +154,9 @@ namespace MainScreen.VideoHandling
         {
             try
             {
-                if (!this.directVideo.Playing)
+                if (!this.DirectVideo.Playing)
                 {
-                    this.directVideo.Play();
+                    this.DirectVideo.Play();
                 }
             }
             catch(NullReferenceException)
@@ -168,6 +165,7 @@ namespace MainScreen.VideoHandling
             }
         
         }
+
         /// <summary>
         /// Stops the video
         /// </summary>
@@ -175,13 +173,14 @@ namespace MainScreen.VideoHandling
         {
             try
             {
-                this.directVideo.Stop();
+                this.DirectVideo.Stop();
             }
             catch (NullReferenceException)
             {
 
             }
         }
+
         /// <summary>
         /// Closes the video
         /// </summary>
@@ -189,7 +188,7 @@ namespace MainScreen.VideoHandling
         {
             try
             {
-                HolderForm.DispatchVideoAndForm(this.directVideo);
+                HolderForm.DispatchVideoAndForm(this.DirectVideo);
             }
             catch(NullReferenceException)
             {
@@ -205,6 +204,7 @@ namespace MainScreen.VideoHandling
         {
             AudioForVideos.VolumeUp(this, bar);
         }
+
         /// <summary>
         /// Decreases volume by 10%
         /// </summary>
@@ -220,6 +220,5 @@ namespace MainScreen.VideoHandling
             HolderForm.ChangeFormSize(new Size(Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width));
         }
 
-        //////////// End methods //////////////////////////
     }
 }

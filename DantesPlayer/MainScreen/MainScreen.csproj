@@ -42,6 +42,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,21 +52,19 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioHandling\AudioForVideos.cs" />
     <Compile Include="CheckException.cs" />
+    <Compile Include="CustomControls\CustomSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainScreenM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainScreenS.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="StartPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,9 +103,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ButtonControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Properties\MainControlBackground.jpg" />
   </ItemGroup>

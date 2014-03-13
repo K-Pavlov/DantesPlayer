@@ -1,20 +1,45 @@
-﻿using System;
+﻿#region Namespaces
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+#endregion
 
 namespace MainScreen.AudioHandling
 {
+    #region Namespaces
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    #endregion
+
     public static class AudioForVideos
     {
-        private static const int noSound = -10000;
-        private static const int volumeStep = 400;
-        private static const int maxVolumeValue = 0;
-        private static const int minVolumeValue = -4000;
-        private static const int maxProgressBarValue = 100;
-        private static const double valueNormalizer = -((double)maxProgressBarValue / (double)minVolumeValue);
+        #region Constants
+        private const int noSound = -10000;
+        private const int volumeStep = 400;
+        private const int maxVolumeValue = 0;
+        private const int minVolumeValue = -4000;
+        private const int maxProgressBarValue = 100;
+        private const double valueNormalizer = -((double)minVolumeValue / (double)maxProgressBarValue);
+        #endregion
+        
+        /// <summary>
+        /// Initializes the volume of the video at start
+        /// with the value of the progress bar
+        /// </summary>
+        /// <param name="video"></param>
+        /// <param name="bar"></param>
+        public static void VolumeInit(VideoHandling.Video video, ProgressBar bar)
+        {
+            video.DirectVideo.Audio.Volume = Convert.ToInt32(bar.Value * (valueNormalizer) + minVolumeValue);
+        }
+        
         /// <summary>
         /// Increases volume with a step
         /// and adjusts the progress bar
@@ -23,23 +48,16 @@ namespace MainScreen.AudioHandling
         /// <param name="bar"></param>
         public static void VolumeUp(VideoHandling.Video video, ProgressBar bar)
         {
-            if (CheckException.CheckNull(video.directVideo.Audio))
+            if (bar.Value < maxProgressBarValue)
             {
-                if (video.directVideo.Audio.Volume < maxVolumeValue)
+                bar.Value += bar.Step;
+                if (CheckException.CheckNull(video.DirectVideo.Audio))
                 {
-                    if (video.directVideo.Audio.Volume == noSound)
-                    {
-                        video.directVideo.Audio.Volume = minVolumeValue + volumeStep;
-                    }
-                    else
-                    {
-                        video.directVideo.Audio.Volume += volumeStep;
-                    }
-
+                    HandleAudio(video, bar.Value);
                 }
             }
-            HandleProgressBar(bar, video.directVideo.Audio.Volume);
         }
+
         /// <summary>
         /// Decreases volume by a step
         /// and adjusts the progress bar
@@ -48,29 +66,32 @@ namespace MainScreen.AudioHandling
         /// <param name="bar"></param>
         public static void VolumeDown(VideoHandling.Video video, ProgressBar bar)
         {
-            if (CheckException.CheckNull(video.directVideo.Audio))
+            if (bar.Value > bar.Minimum)
             {
-                if (video.directVideo.Audio.Volume > minVolumeValue)
+                bar.Value -= bar.Step;
+                if(CheckException.CheckNull(video.DirectVideo.Audio))
                 {
-                    video.directVideo.Audio.Volume -= volumeStep;
-                    HandleProgressBar(bar, video.directVideo.Audio.Volume);
-                }
-                else
-                {
-                    video.directVideo.Audio.Volume = noSound;
-                    HandleProgressBar(bar, minVolumeValue);
+                    HandleAudio(video, bar.Value);
                 }
             }
         }
 
-        private static void HandleProgressBar(ProgressBar progressBar, int value)
+        private static void HandleAudio(VideoHandling.Video video, int value)
         {
-            progressBar.Value = GetCorrectValue(value);
+            if (value != 0)
+            {
+                video.DirectVideo.Audio.Volume = Convert.ToInt32(GetCorrectValue(value));
+            }
+            else
+            {
+                video.DirectVideo.Audio.Volume = noSound;
+            }
+            
         }
 
         private static int GetCorrectValue(double value)
         {
-            int usableValue = Convert.ToInt32(value * (valueNormalizer) + maxProgressBarValue);
+            int usableValue = Convert.ToInt32(value * (valueNormalizer) + minVolumeValue);
             return usableValue;
         }
 
