@@ -23,8 +23,18 @@
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            int i = 0;
+            if (CheckException.CheckNull(i))
+            {
+                i = 2;
+            }
             this.Left = Screen.PrimaryScreen.WorkingArea.Left + 100;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height/3;
+            #if EXPERIMENT
+                video = new Video(videoName, false, 800, 600);
+                video.StartVideo();
+                AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
+            #endif
         }
         
         private void PlayButton_Click(object sender, EventArgs e)

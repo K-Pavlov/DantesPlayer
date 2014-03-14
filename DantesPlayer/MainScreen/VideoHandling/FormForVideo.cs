@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Input;
-using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
-using System.Runtime.InteropServices;
-namespace MainScreen.VideoHandling
+﻿namespace MainScreen.VideoHandling
 {
+    #region Namespaces
+    using System;
+    using System.Windows.Forms;
+    using System.Windows.Input;
+    using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
+    using System.Runtime.InteropServices;
+    #endregion
+
     public class FormForVideo : Form
     {
         private DirectXAllias::Video video;

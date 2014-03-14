@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace MainScreen
+﻿namespace MainScreen
 {
+    #region Namespaces
+    using System;
+    using System.Windows.Forms;
+    #endregion
     static class StartPlayer
     {
         /// <summary>

@@ -2,15 +2,12 @@
 {
     #region Namespaces
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Drawing;
     using System.Windows.Forms;
     using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
     using AudioHandling;
     #endregion 
+
     /// <summary>
     /// The main video class where we configure which
     /// video to play the size of the video
@@ -127,7 +124,7 @@
             this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
             HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
         }
-
+    
         
         /// <summary>
         /// Check if the video is playing and if it is pauses it
@@ -219,6 +216,8 @@
         {
             HolderForm.ChangeFormSize(new Size(Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width));
         }
+
+
 
     }
 }

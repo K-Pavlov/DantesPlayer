@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MainScreen
+﻿namespace MainScreen
 {
+    #region Namespaces
+    using System;
+    using System.Diagnostics;
+    #endregion
     public static class CheckException
     {
         /// <summary>
@@ -15,7 +13,17 @@ namespace MainScreen
         /// <returns></returns>
         public static bool CheckNull(object objectToCheck)
         {
-            return objectToCheck != null;
+            bool isNotNull = objectToCheck != null;
+            if (isNotNull)
+            {
+                if (objectToCheck.GetType() != typeof(Nullable<>))
+                {
+                    Debug.Write("WARINING : Type ");
+                    Debug.Write(objectToCheck.GetType().Name);
+                    Debug.WriteLine(" cannot be null, no need for explict checking.");
+                }
+            }
+            return isNotNull;
         }   
     }
 }
