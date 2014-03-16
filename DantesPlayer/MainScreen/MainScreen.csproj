@@ -103,12 +103,56 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\buttonminus.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Properties\MainControlBackground.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\rsz_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonplus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeVideoButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fastForwardButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fullScreenButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainControlBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pauseButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\playButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\playListButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\repeatButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rewindButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rsz_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stopButtonUpdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

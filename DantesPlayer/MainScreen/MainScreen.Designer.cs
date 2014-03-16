@@ -61,50 +61,54 @@
             // PlayButton
             // 
             this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PlayButton.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.PlayButton.Location = new System.Drawing.Point(8, 45);
+            this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlayButton.Image = global::MainScreen.Properties.Resources.playButtonUpdate;
+            this.PlayButton.Location = new System.Drawing.Point(3, 54);
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(55, 25);
+            this.PlayButton.Size = new System.Drawing.Size(91, 37);
             this.PlayButton.TabIndex = 0;
-            this.PlayButton.Text = "Play";
             this.PlayButton.UseVisualStyleBackColor = true;
-            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
+            this.PlayButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseDown);
+            this.PlayButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseUp);
             // 
             // PauseButton
             // 
             this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PauseButton.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.PauseButton.Location = new System.Drawing.Point(135, 45);
+            this.PauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PauseButton.Image = global::MainScreen.Properties.Resources.pauseButtonUpdate;
+            this.PauseButton.Location = new System.Drawing.Point(212, 54);
             this.PauseButton.Name = "PauseButton";
-            this.PauseButton.Size = new System.Drawing.Size(55, 25);
+            this.PauseButton.Size = new System.Drawing.Size(91, 37);
             this.PauseButton.TabIndex = 1;
-            this.PauseButton.Text = "Pause";
             this.PauseButton.UseVisualStyleBackColor = true;
-            this.PauseButton.Click += new System.EventHandler(this.PauseButton_Click);
+            this.PauseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PauseButton_MouseDown);
+            this.PauseButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PauseButton_MouseUp);
             // 
             // FFButton
             // 
             this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FFButton.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.FFButton.Location = new System.Drawing.Point(74, 16);
+            this.FFButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FFButton.Image = global::MainScreen.Properties.Resources.fastForwardButton;
+            this.FFButton.Location = new System.Drawing.Point(111, 9);
             this.FFButton.Name = "FFButton";
-            this.FFButton.Size = new System.Drawing.Size(55, 25);
+            this.FFButton.Size = new System.Drawing.Size(91, 37);
             this.FFButton.TabIndex = 2;
-            this.FFButton.Text = "FF";
             this.FFButton.UseVisualStyleBackColor = true;
-            this.FFButton.Click += new System.EventHandler(this.FFButton_Click);
+            this.FFButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FFButton_MouseDown);
+            this.FFButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FFButton_MouseUp);
             // 
             // RewindButton
             // 
             this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RewindButton.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.RewindButton.Location = new System.Drawing.Point(74, 73);
+            this.RewindButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RewindButton.Image = global::MainScreen.Properties.Resources.rewindButtonUpdate;
+            this.RewindButton.Location = new System.Drawing.Point(111, 97);
             this.RewindButton.Name = "RewindButton";
-            this.RewindButton.Size = new System.Drawing.Size(55, 25);
+            this.RewindButton.Size = new System.Drawing.Size(91, 37);
             this.RewindButton.TabIndex = 3;
-            this.RewindButton.Text = "Rewind";
             this.RewindButton.UseVisualStyleBackColor = true;
-            this.RewindButton.Click += new System.EventHandler(this.RewindButton_Click);
+            this.RewindButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RewindButton_MouseDown);
+            this.RewindButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RewindButton_MouseUp);
             // 
             // menuStrip1
             // 
@@ -117,7 +121,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(534, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(572, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -209,60 +213,69 @@
             // StopButton
             // 
             this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.StopButton.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.StopButton.Location = new System.Drawing.Point(74, 47);
+            this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StopButton.Image = global::MainScreen.Properties.Resources.stopButtonUpdate;
+            this.StopButton.Location = new System.Drawing.Point(111, 54);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(55, 20);
+            this.StopButton.Size = new System.Drawing.Size(91, 37);
             this.StopButton.TabIndex = 5;
-            this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
-            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            this.StopButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StopButton_MouseDown);
+            this.StopButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.StopButton_MouseUp);
             // 
             // Playlist
             // 
-            this.Playlist.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.Playlist.Location = new System.Drawing.Point(416, 84);
+            this.Playlist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Playlist.Image = global::MainScreen.Properties.Resources.playListButtonUpdate;
+            this.Playlist.Location = new System.Drawing.Point(414, 80);
             this.Playlist.Name = "Playlist";
-            this.Playlist.Size = new System.Drawing.Size(75, 23);
+            this.Playlist.Size = new System.Drawing.Size(91, 37);
             this.Playlist.TabIndex = 6;
-            this.Playlist.Text = "Playlist";
             this.Playlist.UseVisualStyleBackColor = true;
+            this.Playlist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Playlist_MouseDown);
+            this.Playlist.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Playlist_MouseUp);
             // 
             // Repeat
             // 
-            this.Repeat.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.Repeat.Location = new System.Drawing.Point(416, 55);
+            this.Repeat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Repeat.Image = global::MainScreen.Properties.Resources.repeatButtonUpdate;
+            this.Repeat.Location = new System.Drawing.Point(414, 22);
             this.Repeat.Name = "Repeat";
-            this.Repeat.Size = new System.Drawing.Size(75, 23);
+            this.Repeat.Size = new System.Drawing.Size(91, 37);
             this.Repeat.TabIndex = 7;
-            this.Repeat.Text = "Repeat";
             this.Repeat.UseVisualStyleBackColor = true;
+            this.Repeat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Repeat_MouseDown);
+            this.Repeat.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Repeat_MouseUp);
             // 
             // FullScreen
             // 
-            this.FullScreen.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.FullScreen.Location = new System.Drawing.Point(416, 114);
+            this.FullScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FullScreen.Image = global::MainScreen.Properties.Resources.fullScreenButtonUpdate;
+            this.FullScreen.Location = new System.Drawing.Point(414, 141);
             this.FullScreen.Name = "FullScreen";
-            this.FullScreen.Size = new System.Drawing.Size(75, 23);
+            this.FullScreen.Size = new System.Drawing.Size(91, 37);
             this.FullScreen.TabIndex = 8;
-            this.FullScreen.Text = "FullScreen";
             this.FullScreen.UseVisualStyleBackColor = true;
-            this.FullScreen.Click += new System.EventHandler(this.FullScreen_Click);
+            this.FullScreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseDown);
+            this.FullScreen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseUp);
             // 
             // VolumeDown
             // 
             this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
             this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeDown.Location = new System.Drawing.Point(273, 203);
+            this.VolumeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VolumeDown.Image = global::MainScreen.Properties.Resources.buttonminus;
+            this.VolumeDown.Location = new System.Drawing.Point(75, 232);
             this.VolumeDown.Name = "VolumeDown";
             this.VolumeDown.Size = new System.Drawing.Size(31, 23);
             this.VolumeDown.TabIndex = 10;
-            this.VolumeDown.Text = "-";
             this.VolumeDown.UseVisualStyleBackColor = true;
-            this.VolumeDown.Click += new System.EventHandler(this.VolumeDown_Click);
+            this.VolumeDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseDown);
+            this.VolumeDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseUp);
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.StopButton);
             this.panel1.Controls.Add(this.FFButton);
             this.panel1.Controls.Add(this.PauseButton);
@@ -270,35 +283,38 @@
             this.panel1.Controls.Add(this.PlayButton);
             this.panel1.Location = new System.Drawing.Point(12, 55);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 114);
+            this.panel1.Size = new System.Drawing.Size(306, 142);
             this.panel1.TabIndex = 12;
             // 
             // closeVideo
             // 
-            this.closeVideo.Image = global::MainScreen.Properties.Resources.rsz_button;
-            this.closeVideo.Location = new System.Drawing.Point(416, 143);
+            this.closeVideo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeVideo.Image = global::MainScreen.Properties.Resources.closeVideoButtonUpdate;
+            this.closeVideo.Location = new System.Drawing.Point(414, 196);
             this.closeVideo.Name = "closeVideo";
-            this.closeVideo.Size = new System.Drawing.Size(75, 23);
+            this.closeVideo.Size = new System.Drawing.Size(91, 37);
             this.closeVideo.TabIndex = 13;
-            this.closeVideo.Text = "Close video";
             this.closeVideo.UseVisualStyleBackColor = true;
-            this.closeVideo.Click += new System.EventHandler(this.closeVideo_Click);
+            this.closeVideo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.closeVideo_MouseDown);
+            this.closeVideo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.closeVideo_MouseUp);
             // 
             // VolumeUp
             // 
             this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeUp.Location = new System.Drawing.Point(432, 203);
+            this.VolumeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VolumeUp.Image = global::MainScreen.Properties.Resources.buttonplus;
+            this.VolumeUp.Location = new System.Drawing.Point(234, 232);
             this.VolumeUp.Name = "VolumeUp";
             this.VolumeUp.Size = new System.Drawing.Size(31, 23);
             this.VolumeUp.TabIndex = 14;
-            this.VolumeUp.Text = "+";
             this.VolumeUp.UseVisualStyleBackColor = true;
-            this.VolumeUp.Click += new System.EventHandler(this.VolumeUp_Click);
+            this.VolumeUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseDown);
+            this.VolumeUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseUp);
             // 
             // VolumeProgress
             // 
             this.VolumeProgress.BackColor = System.Drawing.SystemColors.Control;
-            this.VolumeProgress.Location = new System.Drawing.Point(310, 210);
+            this.VolumeProgress.Location = new System.Drawing.Point(112, 240);
             this.VolumeProgress.Name = "VolumeProgress";
             this.VolumeProgress.Size = new System.Drawing.Size(116, 10);
             this.VolumeProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -309,8 +325,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::MainScreen.Properties.Resources.MainControlBackground;
-            this.ClientSize = new System.Drawing.Size(534, 238);
+            this.BackgroundImage = global::MainScreen.Properties.Resources.bg3;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(572, 267);
             this.Controls.Add(this.VolumeProgress);
             this.Controls.Add(this.VolumeUp);
             this.Controls.Add(this.closeVideo);
@@ -321,6 +338,7 @@
             this.Controls.Add(this.Playlist);
             this.Controls.Add(this.menuStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainScreen";

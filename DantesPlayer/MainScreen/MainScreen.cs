@@ -37,10 +37,10 @@
             {
                 if (CheckException.CheckNull(video))
                 {
-                    if (this.video.DirectVideo.CurrentPosition < 6.00)
-                    {
-                        timer.Stop();
-                    }
+                    //if (this.video.DirectVideo.CurrentPosition < 6.00)
+                    //{
+                    //    timer.Stop();
+                    //}
                     this.video.FastForward();
                    // fastForwardFired = false;
                     if (this.video.Speed == 0)
@@ -55,10 +55,10 @@
                 if (CheckException.CheckNull(video))
                 {
                     this.video.Rewind();
-                    if (this.video.DirectVideo.CurrentPosition < 6.00)
-                    {
-                        timer.Stop();
-                    }
+                    //if (this.video.DirectVideo.CurrentPosition < 6.00)
+                    //{
+                    //    timer.Stop();
+                    //}
                     //rewindFired = false;
                     if (this.video.Speed == 0)
                     {
@@ -68,29 +68,6 @@
             }
         }
         
-        private void PlayButton_Click(object sender, EventArgs e)
-        {
-            if (CheckException.CheckNull(video))
-            {
-                this.video.PlayVideo();
-            }
-        }
-        
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            if (CheckException.CheckNull(video))
-            {
-                this.video.StopVideo();
-            }
-        }
-        private void PauseButton_Click(object sender, EventArgs e)
-        {
-            if (CheckException.CheckNull(video))
-            {
-                this.video.PauseVideo();
-            }
-        }
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoName = ChooseVideoDialog.TakePathToVideo();
@@ -103,25 +80,96 @@
 
         }
 
-        private void closeVideo_Click(object sender, EventArgs e)
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+                this.Close();
+                if (CheckException.CheckNull(video))
+                {
+                    this.video.CloseVideo();
+                }
+                this.Dispose();
+        }
+
+        #region ButtonOnClickStyles
+        private void PauseButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.PauseButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                this.video.CloseVideo();
-                this.video = null;
+                this.video.PauseVideo();
             }
         }
 
-        private void FullScreen_Click(object sender, EventArgs e)
+        private void StopButton_MouseDown(object sender, MouseEventArgs e)
         {
+            this.StopButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                this.video.OpenVideoInFullScreen();
+                timer.Stop();
+                this.video.StopVideo();
             }
         }
 
-        private void VolumeDown_Click(object sender, EventArgs e)
+        private void RewindButton_MouseDown(object sender, MouseEventArgs e)
         {
+            this.RewindButton.FlatStyle = FlatStyle.Popup;
+            if (CheckException.CheckNull(video))
+            {
+                timer.Start();
+                this.video.Speed -= 5;
+                rewindFired = true;
+            }
+        }
+
+        private void PlayButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.PlayButton.FlatStyle = FlatStyle.Popup;
+            if (CheckException.CheckNull(video))
+            {
+                this.video.PlayVideo();
+            }
+        }
+
+        private void FFButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.FFButton.FlatStyle = FlatStyle.Popup;
+            if (CheckException.CheckNull(video))
+            {
+                timer.Start();
+                this.video.Speed += 5;
+                fastForwardFired = true;
+            }
+        }
+
+        private void FFButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.FFButton.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void StopButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.StopButton.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void RewindButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.RewindButton.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void PauseButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.PauseButton.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void PlayButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.PlayButton.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void VolumeDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.VolumeDown.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
                 this.video.VolumeDown(this.VolumeProgress);
@@ -135,8 +183,9 @@
             }
         }
 
-        private void VolumeUp_Click(object sender, EventArgs e)
+        private void VolumeUp_MouseDown(object sender, MouseEventArgs e)
         {
+            this.VolumeUp.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
                 this.video.VolumeUp(this.VolumeProgress);
@@ -150,35 +199,64 @@
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void VolumeDown_MouseUp(object sender, MouseEventArgs e)
         {
-                this.Close();
-                if (CheckException.CheckNull(video))
-                {
-                    this.video.CloseVideo();
-                }
-                this.Dispose();
+            this.VolumeDown.FlatStyle = FlatStyle.Flat;
         }
 
-        private void FFButton_Click(object sender, EventArgs e)
+        private void VolumeUp_MouseUp(object sender, MouseEventArgs e)
         {
+            this.VolumeUp.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void Repeat_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.Repeat.FlatStyle = FlatStyle.Popup;
+        }
+
+        private void Playlist_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.Playlist.FlatStyle = FlatStyle.Popup;
+        }
+
+        private void FullScreen_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.FullScreen.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                timer.Start();
-                this.video.Speed += 5;
-                fastForwardFired = true;
+                this.video.OpenVideoInFullScreen();
             }
         }
 
-        private void RewindButton_Click(object sender, EventArgs e)
+        private void closeVideo_MouseDown(object sender, MouseEventArgs e)
         {
+            this.closeVideo.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                timer.Start();
-                this.video.Speed -= 5;
-                rewindFired = true;
+                this.video.CloseVideo();
+                this.video = null;
             }
         }
 
+        private void Repeat_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Repeat.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void Playlist_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Playlist.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void FullScreen_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.FullScreen.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void closeVideo_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.closeVideo.FlatStyle = FlatStyle.Flat;
+        }
+        #endregion
     }
 }
