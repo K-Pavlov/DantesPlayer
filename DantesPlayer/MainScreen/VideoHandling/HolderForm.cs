@@ -25,9 +25,9 @@
         /// Attach the video to the form and panel 
         /// and show it to the world
         /// </summary>
-        /// <param name="video"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
+        /// <param name="video">DirectX video</param>
+        /// <param name="height">The height of the video</param>
+        /// <param name="width">The width of the video</param>
         public static void AttachVideoToForm(DirectXAllias::Video video, Size size)
         {
             holderForm = new FormForVideo();
@@ -40,24 +40,20 @@
             video.Size = holderForm.Size;
             holderForm.Show();
         }
-
+        
         /// <summary>
         /// Dispatches the video and form meaning
         /// it cleans all resources behind
         /// after and the video is stopped 
         /// AND the form is closed
         /// </summary>
-        /// <param name="video"></param>
+        /// <param name="video">The DirectX video</param>
         public static void DispatchVideoAndForm(DirectXAllias::Video video)
         {
             holderForm.Dispose();
             video.Dispose();
         }
 
-        public static void  ChangeFormSize(Size size)
-        {
-            holderForm.Size = size;
-        }
 
     }
 }

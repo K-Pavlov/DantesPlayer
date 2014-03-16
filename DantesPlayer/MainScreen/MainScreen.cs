@@ -11,9 +11,11 @@
     using VideoHandling;
     using AudioHandling;
     #endregion
-
     public partial class MainScreen : Form
     {
+        private static Timer timer = new Timer();
+        private static bool fastForwardFired = false;
+        private static bool rewindFired = false;
         private static string videoName;
         private Video video;
         public MainScreen()
@@ -23,18 +25,47 @@
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int i = 0;
-            if (CheckException.CheckNull(i))
-            {
-                i = 2;
-            }
             this.Left = Screen.PrimaryScreen.WorkingArea.Left + 100;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height/3;
-            #if EXPERIMENT
-                video = new Video(videoName, false, 800, 600);
-                video.StartVideo();
-                AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
-            #endif
+            timer.Interval = 1000;
+            timer.Tick += timer_Tick;
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if (fastForwardFired)
+            {
+                if (CheckException.CheckNull(video))
+                {
+                    if (this.video.DirectVideo.CurrentPosition < 6.00)
+                    {
+                        timer.Stop();
+                    }
+                    this.video.FastForward();
+                   // fastForwardFired = false;
+                    if (this.video.Speed == 0)
+                    {
+                        timer.Stop();
+                    }
+                }
+            }
+            
+            if (rewindFired)
+            {
+                if (CheckException.CheckNull(video))
+                {
+                    this.video.Rewind();
+                    if (this.video.DirectVideo.CurrentPosition < 6.00)
+                    {
+                        timer.Stop();
+                    }
+                    //rewindFired = false;
+                    if (this.video.Speed == 0)
+                    {
+                        timer.Stop();
+                    }
+                }
+            }
         }
         
         private void PlayButton_Click(object sender, EventArgs e)
@@ -127,6 +158,26 @@
                     this.video.CloseVideo();
                 }
                 this.Dispose();
+        }
+
+        private void FFButton_Click(object sender, EventArgs e)
+        {
+            if (CheckException.CheckNull(video))
+            {
+                timer.Start();
+                this.video.Speed += 5;
+                fastForwardFired = true;
+            }
+        }
+
+        private void RewindButton_Click(object sender, EventArgs e)
+        {
+            if (CheckException.CheckNull(video))
+            {
+                timer.Start();
+                this.video.Speed -= 5;
+                rewindFired = true;
+            }
         }
 
     }

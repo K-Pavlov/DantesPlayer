@@ -34,11 +34,14 @@
             this.AutoPlay = autoPlay;
             this.Height = height;
             this.Width = width;
+            this.Speed = 0;
         }
 
         /// <summary>
         /// Return the video, readonly 
         /// </summary>
+
+        public int Speed { get; set; }
         public DirectAllias::Video DirectVideo { get; private set; }
 
         private string LoadedMovie
@@ -214,10 +217,36 @@
         // TODO: Open in fullscr
         public void OpenVideoInFullScreen()
         {
-            HolderForm.ChangeFormSize(new Size(Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width));
+
         }
 
+        /// <summary>
+        /// Moves forward the current position of the video with x
+        /// </summary>
+        public void FastForward()
+        {
+            if(CheckException.CheckNull(this.DirectVideo))
+            {
+                if (this.DirectVideo.CurrentPosition + this.Speed > 0)
+                {
+                    this.DirectVideo.CurrentPosition += this.Speed;
+                }
+            }    
+        }
 
+        /// <summary>
+        /// Moves back the current position of the video with x
+        /// </summary>
+        public void Rewind()
+        {
+            if (CheckException.CheckNull(this.DirectVideo))
+            {
+                if (this.DirectVideo.CurrentPosition + this.Speed > 0)
+                {
+                    this.DirectVideo.CurrentPosition += this.Speed;
+                }
+            }
+        }
 
     }
 }
