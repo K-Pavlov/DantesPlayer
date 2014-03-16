@@ -13,7 +13,8 @@
     #endregion
     public partial class MainScreen : Form
     {
-        private static Timer timer = new Timer();
+        private static Timer timerForRF = new Timer();
+        private static Timer timerForVideoProgress = new Timer();
         private static bool fastForwardFired = false;
         private static bool rewindFired = false;
         private static string videoName;
@@ -27,8 +28,29 @@
         {
             this.Left = Screen.PrimaryScreen.WorkingArea.Left + 100;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height/3;
-            timer.Interval = 1000;
-            timer.Tick += timer_Tick;
+            timerForRF.Interval = 1000;
+            timerForRF.Tick += timer_Tick;
+            timerForVideoProgress.Interval = 1000;
+            timerForVideoProgress.Tick += timerForVideoProgress_Tick;
+        }
+
+        void timerForVideoProgress_Tick(object sender, EventArgs e)
+        {
+            if (CheckException.CheckNull(video))
+            {
+                if (CheckException.CheckNull(this.video.DirectVideo))
+                {
+                    HolderForm.HandleVideoProgress(VideoProgress, this.video.DirectVideo);
+                }
+                else
+                {
+                    timerForVideoProgress.Stop();
+                }
+            }
+            else
+            {
+                timerForVideoProgress.Stop();
+            }
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -45,7 +67,7 @@
                    // fastForwardFired = false;
                     if (this.video.Speed == 0)
                     {
-                        timer.Stop();
+                        timerForRF.Stop();
                     }
                 }
             }
@@ -62,7 +84,7 @@
                     //rewindFired = false;
                     if (this.video.Speed == 0)
                     {
-                        timer.Stop();
+                        timerForRF.Stop();
                     }
                 }
             }
@@ -75,6 +97,7 @@
             {
                 video = new Video(videoName, false, 800, 600);
                 video.StartVideo();
+                timerForVideoProgress.Start();
                 AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
             }
 
@@ -106,7 +129,7 @@
             this.StopButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                timer.Stop();
+                timerForRF.Stop();
                 this.video.StopVideo();
             }
         }
@@ -116,7 +139,7 @@
             this.RewindButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                timer.Start();
+                timerForRF.Start();
                 this.video.Speed -= 5;
                 rewindFired = true;
             }
@@ -136,7 +159,7 @@
             this.FFButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                timer.Start();
+                timerForRF.Start();
                 this.video.Speed += 5;
                 fastForwardFired = true;
             }

@@ -54,6 +54,7 @@
             this.closeVideo = new System.Windows.Forms.Button();
             this.VolumeUp = new System.Windows.Forms.Button();
             this.VolumeProgress = new System.Windows.Forms.ProgressBar();
+            this.VideoProgress = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -137,14 +138,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -321,6 +322,14 @@
             this.VolumeProgress.TabIndex = 15;
             this.VolumeProgress.Value = 100;
             // 
+            // VideoProgress
+            // 
+            this.VideoProgress.BackColor = System.Drawing.Color.Aqua;
+            this.VideoProgress.Location = new System.Drawing.Point(15, 204);
+            this.VideoProgress.Name = "VideoProgress";
+            this.VideoProgress.Size = new System.Drawing.Size(300, 10);
+            this.VideoProgress.TabIndex = 16;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,6 +337,7 @@
             this.BackgroundImage = global::MainScreen.Properties.Resources.bg3;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(572, 267);
+            this.Controls.Add(this.VideoProgress);
             this.Controls.Add(this.VolumeProgress);
             this.Controls.Add(this.VolumeUp);
             this.Controls.Add(this.closeVideo);
@@ -379,6 +389,7 @@
         private System.Windows.Forms.Button closeVideo;
         private System.Windows.Forms.Button VolumeUp;
         private System.Windows.Forms.ProgressBar VolumeProgress;
+        private System.Windows.Forms.ProgressBar VideoProgress;
     }
 }
 
