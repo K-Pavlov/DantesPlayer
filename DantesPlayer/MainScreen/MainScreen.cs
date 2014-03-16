@@ -59,12 +59,7 @@
             {
                 if (CheckException.CheckNull(video))
                 {
-                    //if (this.video.DirectVideo.CurrentPosition < 6.00)
-                    //{
-                    //    timer.Stop();
-                    //}
                     this.video.FastForward();
-                   // fastForwardFired = false;
                     if (this.video.Speed == 0)
                     {
                         timerForRF.Stop();
@@ -77,11 +72,6 @@
                 if (CheckException.CheckNull(video))
                 {
                     this.video.Rewind();
-                    //if (this.video.DirectVideo.CurrentPosition < 6.00)
-                    //{
-                    //    timer.Stop();
-                    //}
-                    //rewindFired = false;
                     if (this.video.Speed == 0)
                     {
                         timerForRF.Stop();
@@ -151,6 +141,11 @@
             if (CheckException.CheckNull(video))
             {
                 this.video.PlayVideo();
+            }
+            if (timerForRF.Enabled)
+            {
+                timerForRF.Stop();
+                this.video.Speed = 0;
             }
         }
 

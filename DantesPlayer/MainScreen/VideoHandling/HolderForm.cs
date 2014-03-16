@@ -57,6 +57,11 @@
         public static void HandleVideoProgress(ProgressBar bar, DirectXAllias::Video video)
         {
             bar.Maximum = Convert.ToInt32(video.Duration);
+            if (Convert.ToInt32(video.CurrentPosition) > bar.Maximum)
+            {
+                bar.Value = bar.Maximum;
+                return;
+            }
             bar.Value = Convert.ToInt32(video.CurrentPosition);
         }
     }
