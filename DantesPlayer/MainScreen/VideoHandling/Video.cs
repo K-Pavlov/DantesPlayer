@@ -124,8 +124,15 @@
         /// </summary>
         private void ConfigureVideo()
         {
-            this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
-            HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
+            try
+            {
+                this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
+                HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
+            }
+            catch
+            {
+                throw new TypeLoadException();
+            }
         }
     
         

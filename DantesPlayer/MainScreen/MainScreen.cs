@@ -18,6 +18,7 @@
         private static bool fastForwardFired = false;
         private static bool rewindFired = false;
         private static string videoName;
+        private static string typeExpecption = "The type ";
         private Video video;
         public MainScreen()
         {
@@ -85,10 +86,19 @@
             videoName = ChooseVideoDialog.TakePathToVideo();
             if(CheckException.CheckNull(videoName))
             {
-                video = new Video(videoName, false, 800, 600);
-                video.StartVideo();
-                timerForVideoProgress.Start();
-                AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
+                try
+                {
+                    video = new Video(videoName, false, 800, 600);
+                    video.StartVideo();
+                    timerForVideoProgress.Start();
+                    AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
+                }
+                catch (TypeLoadException)
+                {
+                    typeExpecption += videoName.Substring(videoName.LastIndexOf('.') + 1) ;
+                    typeExpecption += " is currently unsupported. We are sorry for the inconvinience.";
+                    MessageBox.Show(typeExpecption,"Warning");
+                }
             }
 
         }
@@ -112,6 +122,11 @@
             {
                 this.video.PauseVideo();
             }
+            if (timerForRF.Enabled)
+            {
+                timerForRF.Stop();
+                this.video.Speed = 0;
+            }
         }
 
         private void StopButton_MouseDown(object sender, MouseEventArgs e)
@@ -121,6 +136,7 @@
             {
                 timerForRF.Stop();
                 this.video.StopVideo();
+                this.VideoProgress.Value = 0;
             }
         }
 
@@ -253,6 +269,7 @@
             {
                 this.video.CloseVideo();
                 this.video = null;
+                this.VideoProgress.Value = 0;
             }
         }
 
