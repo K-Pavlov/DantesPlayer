@@ -25,9 +25,13 @@
         private static string videoName;
         private static string typeExpecption = "The type ";
         AudioFormControl control = new AudioFormControl();
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public MainScreen()
         {
+            this.control.TopMost = true;
+            this.TopMost = true;
             control.Show();
             InitializeComponent();
         }
@@ -323,13 +327,11 @@
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            this.control.BringToFront();
         }
 
-        protected override void OnResizeEnd(EventArgs e)
+        protected override void OnGotFocus(EventArgs e)
         {
-            this.control.BringToFront();
-            base.OnResizeEnd(e);
+            base.OnGotFocus(e);
         }
 
         protected override CreateParams CreateParams
@@ -356,9 +358,17 @@
 
                     return;
             }
-            control.Location = this.Location - new Size(250, -50);
+            control.Location = this.Location - new Size(280, -50);
             base.WndProc(ref m);
         }
         #endregion
+
+        private void VolumeProgress_ValueChanged(object sender, decimal value)
+        {
+            if (CheckException.CheckNull(video))
+            {
+                AudioForVideos.VolumeInit(video, VolumeProgress);
+            }
+        }
     }
 }

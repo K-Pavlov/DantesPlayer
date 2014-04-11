@@ -383,6 +383,7 @@
             this.VolumeProgress.TrackLineColor = System.Drawing.Color.White;
             this.VolumeProgress.TrackLineHeight = 7;
             this.VolumeProgress.Value = 0;
+            this.VolumeProgress.ValueChanged += new CustomControls.CustomSlider.ValueChangedHandler(this.VolumeProgress_ValueChanged);
             // 
             // MainScreen
             // 
