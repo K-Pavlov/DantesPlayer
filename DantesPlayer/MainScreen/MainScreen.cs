@@ -13,15 +13,22 @@
     #endregion
     public partial class MainScreen : Form
     {
-        private static Timer timerForRF = new Timer();
-        private static Timer timerForVideoProgress = new Timer();
-        private static bool fastForwardFired = false;
-        private static bool rewindFired = false;
+        #region Constant Values
+        private const int WS_MINIMIZEBOX = 0x20000;
+        private const int CS_DBLCLKS = 0x8;
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+        private const int volumeStep = 10;
+        #endregion
+        private bool valueCanChange = true;
         private static string videoName;
         private static string typeExpecption = "The type ";
-        private Video video;
+        AudioFormControl control = new AudioFormControl();
+
         public MainScreen()
         {
+            control.Show();
             InitializeComponent();
         }
 
@@ -33,15 +40,17 @@
             timerForRF.Tick += timer_Tick;
             timerForVideoProgress.Interval = 1000;
             timerForVideoProgress.Tick += timerForVideoProgress_Tick;
+            this.VideoSlider.Enabled = false;
         }
 
         void timerForVideoProgress_Tick(object sender, EventArgs e)
         {
+            this.valueCanChange = false;
             if (CheckException.CheckNull(video))
             {
                 if (CheckException.CheckNull(this.video.DirectVideo))
                 {
-                    HolderForm.HandleVideoProgress(VideoProgress, this.video.DirectVideo);
+                    HolderForm.HandleVideoProgress(this.VideoSlider, this.video.DirectVideo);
                 }
                 else
                 {
@@ -52,6 +61,7 @@
             {
                 timerForVideoProgress.Stop();
             }
+            this.valueCanChange = false;
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -92,6 +102,7 @@
                     video.StartVideo();
                     timerForVideoProgress.Start();
                     AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
+                    this.VideoSlider.Enabled = true;
                 }
                 catch (TypeLoadException)
                 {
@@ -112,6 +123,19 @@
                     this.video.CloseVideo();
                 }
                 this.Dispose();
+        }
+
+        private void customSlider1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (CheckException.CheckNull(this.video))
+            {
+                HolderForm.HandleBarMovemenet(this.VideoSlider, this.video.DirectVideo);
+            }
+        }
+
+        private void MinimizeButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
 
         #region ButtonOnClickStyles
@@ -136,7 +160,6 @@
             {
                 timerForRF.Stop();
                 this.video.StopVideo();
-                this.VideoProgress.Value = 0;
             }
         }
 
@@ -212,7 +235,7 @@
             {
                 if (this.VolumeProgress.Value > this.VolumeProgress.Minimum)
                 {
-                    this.VolumeProgress.Value -= this.VolumeProgress.Step;
+                    this.VolumeProgress.Value -= volumeStep;
                 }
             }
         }
@@ -228,7 +251,7 @@
             {
                 if (this.VolumeProgress.Value < this.VolumeProgress.Maximum)
                 {
-                    this.VolumeProgress.Value += this.VolumeProgress.Step;
+                    this.VolumeProgress.Value += volumeStep;
                 }
             }
         }
@@ -269,8 +292,9 @@
             {
                 this.video.CloseVideo();
                 this.video = null;
-                this.VideoProgress.Value = 0;
             }
+            this.VideoSlider.Value = 0;
+            this.VideoSlider.Enabled = false;
         }
 
         private void Repeat_MouseUp(object sender, MouseEventArgs e)
@@ -291,6 +315,49 @@
         private void closeVideo_MouseUp(object sender, MouseEventArgs e)
         {
             this.closeVideo.FlatStyle = FlatStyle.Flat;
+        }
+        #endregion
+
+        #region Protected Methods
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            this.control.BringToFront();
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            this.control.BringToFront();
+            base.OnResizeEnd(e);
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style |= WS_MINIMIZEBOX;
+                cp.ClassStyle |= CS_DBLCLKS;
+                return cp;
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    if ((int)m.Result == HTCLIENT)
+                    {
+                        m.Result = (IntPtr)HTCAPTION;
+                    }
+
+                    return;
+            }
+            control.Location = this.Location - new Size(250, -50);
+            base.WndProc(ref m);
         }
         #endregion
     }

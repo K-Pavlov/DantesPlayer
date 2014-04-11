@@ -53,10 +53,10 @@
             // FormForVideo
             // 
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ControlBox = false;
+            this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "FormForVideo";
-            //this.MouseEnter += new System.EventHandler(this.FormForVideo_MouseEnter);
-            //this.MouseLeave += new System.EventHandler(this.FormForVideo_MouseLeave);
             this.ResumeLayout(false);
 
         }

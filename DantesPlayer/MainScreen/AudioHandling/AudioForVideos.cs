@@ -3,13 +3,14 @@
     #region Namespaces
     using System;
     using System.Windows.Forms;
+    using CustomControls;
     #endregion
 
     public static class AudioForVideos
     {
         #region Constants
         private const int noSound = -10000;
-        private const int volumeStep = 400;
+        private const int volumeStep = 10;
         private const int maxVolumeValue = 0;
         private const int minVolumeValue = -4000;
         private const int maxProgressBarValue = 100;
@@ -21,10 +22,10 @@
         /// with the value of the progress bar
         /// </summary>
         /// <param name="video"></param>
-        /// <param name="bar"></param>
-        public static void VolumeInit(VideoHandling.Video video, ProgressBar bar)
+        /// <param name="slider"></param>
+        public static void VolumeInit(VideoHandling.Video video, CustomSlider slider)
         {
-            video.DirectVideo.Audio.Volume = Convert.ToInt32(bar.Value * (valueNormalizer) + minVolumeValue);
+            video.DirectVideo.Audio.Volume = Convert.ToInt32(slider.Value * (valueNormalizer) + minVolumeValue);
         }
         
         /// <summary>
@@ -32,15 +33,15 @@
         /// and adjusts the progress bar
         /// </summary>
         /// <param name="video"></param>
-        /// <param name="bar"></param>
-        public static void VolumeUp(VideoHandling.Video video, ProgressBar bar)
+        /// <param name="slider"></param>
+        public static void VolumeUp(VideoHandling.Video video, CustomSlider slider)
         {
-            if (bar.Value < maxProgressBarValue)
+            if (slider.Value < maxProgressBarValue)
             {
-                bar.Value += bar.Step;
+                slider.Value += volumeStep;
                 if (CheckException.CheckNull(video.DirectVideo.Audio))
                 {
-                    HandleAudio(video, bar.Value);
+                    HandleAudio(video, slider.Value);
                 }
             }
         }
@@ -50,15 +51,15 @@
         /// and adjusts the progress bar
         /// </summary>
         /// <param name="video"></param>
-        /// <param name="bar"></param>
-        public static void VolumeDown(VideoHandling.Video video, ProgressBar bar)
+        /// <param name="slider"></param>
+        public static void VolumeDown(VideoHandling.Video video, CustomSlider slider)
         {
-            if (bar.Value > bar.Minimum)
+            if (slider.Value > slider.Minimum)
             {
-                bar.Value -= bar.Step;
+                slider.Value -= volumeStep;
                 if(CheckException.CheckNull(video.DirectVideo.Audio))
                 {
-                    HandleAudio(video, bar.Value);
+                    HandleAudio(video, slider.Value);
                 }
             }
         }

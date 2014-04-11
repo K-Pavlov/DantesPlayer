@@ -6,6 +6,7 @@
     using System.Windows.Forms;
     using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
     using AudioHandling;
+    using CustomControls;
     #endregion 
 
     /// <summary>
@@ -18,6 +19,7 @@
         private bool autoPlay;
         private int height;
         private int width;
+        private HolderForm holderForm = new HolderForm();
         /// <summary>
         /// Constructor of the video class
         /// takes which movie to play as a string
@@ -127,7 +129,7 @@
             try
             {
                 this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
-                HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
+                holderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
             }
             catch
             {
@@ -195,7 +197,7 @@
         {
             try
             {
-                HolderForm.DispatchVideoAndForm(this.DirectVideo);
+                holderForm.DispatchVideoAndForm(this.DirectVideo);
             }
             catch(NullReferenceException)
             {
@@ -207,18 +209,18 @@
         /// Increases volume by 10%
         /// </summary>
         /// <param name="bar"></param>
-        public void VolumeUp(ProgressBar bar)
+        public void VolumeUp(CustomSlider slider)
         {
-            AudioForVideos.VolumeUp(this, bar);
+            AudioForVideos.VolumeUp(this, slider);
         }
 
         /// <summary>
         /// Decreases volume by 10%
         /// </summary>
         /// <param name="bar"></param>
-        public void VolumeDown(ProgressBar bar)
+        public void VolumeDown(CustomSlider slider)
         {
-            AudioForVideos.VolumeDown(this, bar);
+            AudioForVideos.VolumeDown(this, slider);
         }
 
         // TODO: Open in fullscr

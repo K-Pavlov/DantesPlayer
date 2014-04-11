@@ -14,15 +14,6 @@
         public static bool CheckNull(object objectToCheck)
         {
             bool isNotNull = objectToCheck != null;
-            if (isNotNull)
-            {
-                if (objectToCheck.GetType() != typeof(Nullable<>))
-                {
-                    Debug.Write("WARINING : Type ");
-                    Debug.Write(objectToCheck.GetType().Name);
-                    Debug.WriteLine(" cannot be null, no need for explict checking.");
-                }
-            }
             return isNotNull;
         }   
     }

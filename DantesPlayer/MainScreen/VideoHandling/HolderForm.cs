@@ -6,20 +6,18 @@
     using System.Windows.Forms;
     using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
     #endregion
-
     /// <summary>
     /// Configuration of the video meaning
     /// that here we make a panel with a set width and height 
     /// and we show the form the world
     /// </summary>
-    public static class HolderForm
+    public class HolderForm
     {       
 
         /// <summary>
         /// A static form where we will the video
         /// </summary>
-        private static FormForVideo holderForm;
-        private static FormForVideo fullScreenForm = new FormForVideo();
+        private FormForVideo holderForm = new FormForVideo();
 
         /// <summary>
         /// Attach the video to the form and panel 
@@ -28,17 +26,19 @@
         /// <param name="video">DirectX video</param>
         /// <param name="height">The height of the video</param>
         /// <param name="width">The width of the video</param>
-        public static void AttachVideoToForm(DirectXAllias::Video video, Size size)
+        public void AttachVideoToForm(DirectXAllias::Video video, Size size)
         {
-            holderForm = new FormForVideo();
             holderForm.MinimumSize = new Size(200, 200);
-            holderForm.StartPosition = FormStartPosition.CenterScreen;
+            holderForm.MaximumSize = new Size(801, 601);
             holderForm.Video = video;
             holderForm.ControlBox = false;
-            holderForm.Size = size;
+            holderForm.Size = new Size(800, 600);
+           // Display the form in the center of the screen.
+            holderForm.StartPosition = FormStartPosition.CenterScreen;
             video.Owner = holderForm;
-            video.Size = holderForm.Size;
             holderForm.Show();
+            holderForm.Activate();
+            video.Size = new Size(800,600);
         }
         
         /// <summary>
@@ -48,21 +48,29 @@
         /// AND the form is closed
         /// </summary>
         /// <param name="video">The DirectX video</param>
-        public static void DispatchVideoAndForm(DirectXAllias::Video video)
+        public void DispatchVideoAndForm(DirectXAllias::Video video)
         {
             holderForm.Dispose();
             video.Dispose();
         }
 
-        public static void HandleVideoProgress(ProgressBar bar, DirectXAllias::Video video)
+        public static void HandleVideoProgress(CustomControls.CustomSlider slider, DirectXAllias::Video video)
         {
-            bar.Maximum = Convert.ToInt32(video.Duration);
-            if (Convert.ToInt32(video.CurrentPosition) > bar.Maximum)
+            slider.Maximum = Convert.ToInt32(video.Duration);
+            slider.Value = Convert.ToInt32(video.CurrentPosition);
+            if (Convert.ToInt32(video.CurrentPosition) > slider.Maximum)
             {
-                bar.Value = bar.Maximum;
+                slider.Value = slider.Maximum;
                 return;
             }
-            bar.Value = Convert.ToInt32(video.CurrentPosition);
+        }
+
+        public static void HandleBarMovemenet(CustomControls.CustomSlider slider, DirectXAllias::Video video)
+        {
+            if(CheckException.CheckNull(video))
+            {
+                video.CurrentPosition = slider.Value;
+            }
         }
     }
 }
