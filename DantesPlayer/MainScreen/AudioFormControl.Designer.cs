@@ -28,36 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.VolumeDownButton = new System.Windows.Forms.Button();
-            this.VolumeUpButton = new System.Windows.Forms.Button();
+            this.VolumeProgress = new CustomControls.CustomSlider();
+            this.VolumeDown = new System.Windows.Forms.Button();
+            this.VolumeUp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // VolumeDownButton
+            // VolumeProgress
             // 
-            this.VolumeDownButton.Location = new System.Drawing.Point(26, 114);
-            this.VolumeDownButton.Name = "VolumeDownButton";
-            this.VolumeDownButton.Size = new System.Drawing.Size(75, 23);
-            this.VolumeDownButton.TabIndex = 0;
-            this.VolumeDownButton.UseVisualStyleBackColor = true;
-            this.VolumeDownButton.Click += new System.EventHandler(this.VolumeDownButton_Click);
+            this.VolumeProgress.BackColor = System.Drawing.Color.Transparent;
+            this.VolumeProgress.BorderColor = System.Drawing.SystemColors.ActiveBorder;
+            this.VolumeProgress.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.VolumeProgress.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VolumeProgress.ForeColor = System.Drawing.Color.Black;
+            this.VolumeProgress.IndentHeight = 6;
+            this.VolumeProgress.IndentWidth = 7;
+            this.VolumeProgress.Location = new System.Drawing.Point(78, 75);
+            this.VolumeProgress.Maximum = 100;
+            this.VolumeProgress.Minimum = 0;
+            this.VolumeProgress.Name = "VolumeProgress";
+            this.VolumeProgress.Size = new System.Drawing.Size(127, 42);
+            this.VolumeProgress.TabIndex = 20;
+            this.VolumeProgress.TickColor = System.Drawing.SystemColors.MenuHighlight;
+            this.VolumeProgress.TickFrequency = 50;
+            this.VolumeProgress.TickHeight = 7;
+            this.VolumeProgress.TrackerColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(130)))), ((int)(((byte)(198)))));
+            this.VolumeProgress.TrackerSize = new System.Drawing.Size(8, 8);
+            this.VolumeProgress.TrackLineColor = System.Drawing.Color.White;
+            this.VolumeProgress.TrackLineHeight = 8;
+            this.VolumeProgress.Value = 0;
+            this.VolumeProgress.ValueChanged += new CustomControls.CustomSlider.ValueChangedHandler(this.VolumeProgress_ValueChanged);
             // 
-            // VolumeUpButton
+            // VolumeDown
             // 
-            this.VolumeUpButton.Location = new System.Drawing.Point(160, 56);
-            this.VolumeUpButton.Name = "VolumeUpButton";
-            this.VolumeUpButton.Size = new System.Drawing.Size(75, 23);
-            this.VolumeUpButton.TabIndex = 1;
-            this.VolumeUpButton.UseVisualStyleBackColor = true;
-            this.VolumeUpButton.Click += new System.EventHandler(this.VolumeUpButton_Click);
+            this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
+            this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.VolumeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VolumeDown.Image = global::MainScreen.Properties.Resources.buttonminus;
+            this.VolumeDown.Location = new System.Drawing.Point(41, 78);
+            this.VolumeDown.Name = "VolumeDown";
+            this.VolumeDown.Size = new System.Drawing.Size(31, 23);
+            this.VolumeDown.TabIndex = 21;
+            this.VolumeDown.UseVisualStyleBackColor = true;
+            this.VolumeDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseDown);
+            this.VolumeDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseUp);
+            // 
+            // VolumeUp
+            // 
+            this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.VolumeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VolumeUp.Image = global::MainScreen.Properties.Resources.buttonplus;
+            this.VolumeUp.Location = new System.Drawing.Point(211, 78);
+            this.VolumeUp.Name = "VolumeUp";
+            this.VolumeUp.Size = new System.Drawing.Size(31, 23);
+            this.VolumeUp.TabIndex = 22;
+            this.VolumeUp.UseVisualStyleBackColor = true;
+            this.VolumeUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseDown);
+            this.VolumeUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseUp);
             // 
             // AudioFormControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 174);
+            this.ClientSize = new System.Drawing.Size(301, 127);
             this.ControlBox = false;
-            this.Controls.Add(this.VolumeUpButton);
-            this.Controls.Add(this.VolumeDownButton);
+            this.Controls.Add(this.VolumeUp);
+            this.Controls.Add(this.VolumeDown);
+            this.Controls.Add(this.VolumeProgress);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -66,12 +102,14 @@
             this.ShowInTaskbar = false;
             this.Text = "AudioFormControl";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button VolumeDownButton;
-        private System.Windows.Forms.Button VolumeUpButton;
+        private CustomControls.CustomSlider VolumeProgress;
+        private System.Windows.Forms.Button VolumeDown;
+        private System.Windows.Forms.Button VolumeUp;
     }
 }

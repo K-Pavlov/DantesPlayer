@@ -14,6 +14,7 @@
     public partial class MainScreen : Form
     {
         #region Constant Values
+        private const int WM_NCLBUTTONDBLCLK = 0x00A3;
         private const int WS_MINIMIZEBOX = 0x20000;
         private const int CS_DBLCLKS = 0x8;
         private const int WM_NCHITTEST = 0x84;
@@ -21,21 +22,24 @@
         private const int HTCAPTION = 0x2;
         private const int volumeStep = 10;
         #endregion
-        private bool valueCanChange = true;
-        private static string videoName;
-        private static string typeExpecption = "The type ";
-        AudioFormControl control = new AudioFormControl();
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        private static bool audioHidden = false;
+        private static string videoName;
+        private const string typeExpecption = "I can't play the video :(.";
+        private AudioFormControl audioControl;
+
+        #region Constructor
         public MainScreen()
         {
-            this.control.TopMost = true;
+            audioControl = new AudioFormControl();
+            this.audioControl.TopMost = true;
             this.TopMost = true;
-            control.Show();
+            audioControl.Show();
             InitializeComponent();
         }
+        #endregion
 
+        #region Private Methods
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Left = Screen.PrimaryScreen.WorkingArea.Left + 100;
@@ -47,14 +51,13 @@
             this.VideoSlider.Enabled = false;
         }
 
-        void timerForVideoProgress_Tick(object sender, EventArgs e)
+        private void timerForVideoProgress_Tick(object sender, EventArgs e)
         {
-            this.valueCanChange = false;
             if (CheckException.CheckNull(video))
             {
-                if (CheckException.CheckNull(this.video.DirectVideo))
+                if (CheckException.CheckNull(video.DirectVideo))
                 {
-                    HolderForm.HandleVideoProgress(this.VideoSlider, this.video.DirectVideo);
+                    HolderForm.HandleVideoProgress(this.VideoSlider, video.DirectVideo);
                 }
                 else
                 {
@@ -65,17 +68,17 @@
             {
                 timerForVideoProgress.Stop();
             }
-            this.valueCanChange = false;
+            
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
             if (fastForwardFired)
             {
                 if (CheckException.CheckNull(video))
                 {
-                    this.video.FastForward();
-                    if (this.video.Speed == 0)
+                    video.FastForward();
+                    if (video.Speed == 0)
                     {
                         timerForRF.Stop();
                     }
@@ -86,8 +89,8 @@
             {
                 if (CheckException.CheckNull(video))
                 {
-                    this.video.Rewind();
-                    if (this.video.Speed == 0)
+                    video.Rewind();
+                    if (video.Speed == 0)
                     {
                         timerForRF.Stop();
                     }
@@ -105,13 +108,10 @@
                     video = new Video(videoName, false, 800, 600);
                     video.StartVideo();
                     timerForVideoProgress.Start();
-                    AudioForVideos.VolumeInit(this.video, this.VolumeProgress);
                     this.VideoSlider.Enabled = true;
                 }
                 catch (TypeLoadException)
                 {
-                    typeExpecption += videoName.Substring(videoName.LastIndexOf('.') + 1) ;
-                    typeExpecption += " is currently unsupported. We are sorry for the inconvinience.";
                     MessageBox.Show(typeExpecption,"Warning");
                 }
             }
@@ -124,23 +124,35 @@
                 this.Close();
                 if (CheckException.CheckNull(video))
                 {
-                    this.video.CloseVideo();
+                    video.CloseVideo();
                 }
                 this.Dispose();
         }
 
+        /// <summary>
+        /// Slider moves, video changes appropriately
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void customSlider1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (CheckException.CheckNull(this.video))
+            if (CheckException.CheckNull(video))
             {
-                HolderForm.HandleBarMovemenet(this.VideoSlider, this.video.DirectVideo);
+                HolderForm.HandleBarMovemenet(this.VideoSlider, video.DirectVideo);
             }
         }
 
+        /// <summary>
+        /// Minimizes the forms
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        #endregion 
 
         #region ButtonOnClickStyles
         private void PauseButton_MouseDown(object sender, MouseEventArgs e)
@@ -148,12 +160,12 @@
             this.PauseButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                this.video.PauseVideo();
+                video.PauseVideo();
             }
             if (timerForRF.Enabled)
             {
                 timerForRF.Stop();
-                this.video.Speed = 0;
+                video.Speed = 0;
             }
         }
 
@@ -163,7 +175,7 @@
             if (CheckException.CheckNull(video))
             {
                 timerForRF.Stop();
-                this.video.StopVideo();
+                video.StopVideo();
             }
         }
 
@@ -173,7 +185,7 @@
             if (CheckException.CheckNull(video))
             {
                 timerForRF.Start();
-                this.video.Speed -= 5;
+                video.Speed -= 5;
                 rewindFired = true;
             }
         }
@@ -183,12 +195,12 @@
             this.PlayButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                this.video.PlayVideo();
+                video.PlayVideo();
             }
             if (timerForRF.Enabled)
             {
                 timerForRF.Stop();
-                this.video.Speed = 0;
+                video.Speed = 0;
             }
         }
 
@@ -198,7 +210,7 @@
             if (CheckException.CheckNull(video))
             {
                 timerForRF.Start();
-                this.video.Speed += 5;
+                video.Speed += 5;
                 fastForwardFired = true;
             }
         }
@@ -228,47 +240,6 @@
             this.PlayButton.FlatStyle = FlatStyle.Flat;
         }
 
-        private void VolumeDown_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.VolumeDown.FlatStyle = FlatStyle.Popup;
-            if (CheckException.CheckNull(video))
-            {
-                this.video.VolumeDown(this.VolumeProgress);
-            }
-            else
-            {
-                if (this.VolumeProgress.Value > this.VolumeProgress.Minimum)
-                {
-                    this.VolumeProgress.Value -= volumeStep;
-                }
-            }
-        }
-
-        private void VolumeUp_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.VolumeUp.FlatStyle = FlatStyle.Popup;
-            if (CheckException.CheckNull(video))
-            {
-                this.video.VolumeUp(this.VolumeProgress);
-            }
-            else
-            {
-                if (this.VolumeProgress.Value < this.VolumeProgress.Maximum)
-                {
-                    this.VolumeProgress.Value += volumeStep;
-                }
-            }
-        }
-
-        private void VolumeDown_MouseUp(object sender, MouseEventArgs e)
-        {
-            this.VolumeDown.FlatStyle = FlatStyle.Flat;
-        }
-
-        private void VolumeUp_MouseUp(object sender, MouseEventArgs e)
-        {
-            this.VolumeUp.FlatStyle = FlatStyle.Flat;
-        }
 
         private void Repeat_MouseDown(object sender, MouseEventArgs e)
         {
@@ -285,7 +256,7 @@
             this.FullScreen.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                this.video.OpenVideoInFullScreen();
+                video.OpenVideoInFullScreen();
             }
         }
 
@@ -294,8 +265,8 @@
             this.closeVideo.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                this.video.CloseVideo();
-                this.video = null;
+                video.CloseVideo();
+                video = null;
             }
             this.VideoSlider.Value = 0;
             this.VideoSlider.Enabled = false;
@@ -324,16 +295,9 @@
 
         #region Protected Methods
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-        }
-
-        protected override void OnGotFocus(EventArgs e)
-        {
-            base.OnGotFocus(e);
-        }
-
+        /// <summary>
+        /// ???
+        /// </summary>
         protected override CreateParams CreateParams
         {
             get
@@ -345,6 +309,10 @@
             }
         }
 
+        /// <summary>
+        /// Clicks on main form
+        /// </summary>
+        /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -358,17 +326,30 @@
 
                     return;
             }
-            control.Location = this.Location - new Size(280, -50);
+            if (m.Msg == WM_NCLBUTTONDBLCLK)
+            {
+                m.Result = IntPtr.Zero;
+                return;
+            }
+            audioControl.Location = this.Location - new Size(301, -70);
             base.WndProc(ref m);
+            this.MinimumSize = this.MaximumSize;
         }
         #endregion
 
-        private void VolumeProgress_ValueChanged(object sender, decimal value)
+        private void ShowHideAudioButton_Click(object sender, EventArgs e)
         {
-            if (CheckException.CheckNull(video))
+            
+            if(!audioHidden)
             {
-                AudioForVideos.VolumeInit(video, VolumeProgress);
+                this.audioControl.Hide();
+                this.ShowHideAudioButton.Text = "Show";
+                audioHidden = true;
+                return;
             }
+            this.audioControl.Show();
+            this.ShowHideAudioButton.Text = "Hide";
+            audioHidden = false;
         }
     }
 }

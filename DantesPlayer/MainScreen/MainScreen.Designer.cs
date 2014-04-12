@@ -61,13 +61,11 @@
             this.Playlist = new System.Windows.Forms.Button();
             this.Repeat = new System.Windows.Forms.Button();
             this.FullScreen = new System.Windows.Forms.Button();
-            this.VolumeDown = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.closeVideo = new System.Windows.Forms.Button();
-            this.VolumeUp = new System.Windows.Forms.Button();
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.VideoSlider = new CustomControls.CustomSlider();
-            this.VolumeProgress = new CustomControls.CustomSlider();
+            this.ShowHideAudioButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -135,7 +133,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(572, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(571, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -273,20 +271,6 @@
             this.FullScreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseDown);
             this.FullScreen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseUp);
             // 
-            // VolumeDown
-            // 
-            this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
-            this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VolumeDown.Image = global::MainScreen.Properties.Resources.buttonminus;
-            this.VolumeDown.Location = new System.Drawing.Point(75, 232);
-            this.VolumeDown.Name = "VolumeDown";
-            this.VolumeDown.Size = new System.Drawing.Size(31, 23);
-            this.VolumeDown.TabIndex = 10;
-            this.VolumeDown.UseVisualStyleBackColor = true;
-            this.VolumeDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseDown);
-            this.VolumeDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseUp);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
@@ -312,19 +296,6 @@
             this.closeVideo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.closeVideo_MouseDown);
             this.closeVideo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.closeVideo_MouseUp);
             // 
-            // VolumeUp
-            // 
-            this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VolumeUp.Image = global::MainScreen.Properties.Resources.buttonplus;
-            this.VolumeUp.Location = new System.Drawing.Point(234, 232);
-            this.VolumeUp.Name = "VolumeUp";
-            this.VolumeUp.Size = new System.Drawing.Size(31, 23);
-            this.VolumeUp.TabIndex = 14;
-            this.VolumeUp.UseVisualStyleBackColor = true;
-            this.VolumeUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseDown);
-            this.VolumeUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseUp);
-            // 
             // MinimizeButton
             // 
             this.MinimizeButton.Location = new System.Drawing.Point(511, 12);
@@ -343,7 +314,7 @@
             this.VideoSlider.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VideoSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
             this.VideoSlider.IndentHeight = 10;
-            this.VideoSlider.Location = new System.Drawing.Point(15, 203);
+            this.VideoSlider.Location = new System.Drawing.Point(14, 201);
             this.VideoSlider.Maximum = 20;
             this.VideoSlider.Minimum = 0;
             this.VideoSlider.Name = "VideoSlider";
@@ -361,29 +332,15 @@
             this.VideoSlider.Value = 0;
             this.VideoSlider.MouseClick += new System.Windows.Forms.MouseEventHandler(this.customSlider1_MouseClick);
             // 
-            // VolumeProgress
+            // ShowHideAudioButton
             // 
-            this.VolumeProgress.BackColor = System.Drawing.Color.Transparent;
-            this.VolumeProgress.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            this.VolumeProgress.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VolumeProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
-            this.VolumeProgress.IndentHeight = 6;
-            this.VolumeProgress.IndentWidth = 4;
-            this.VolumeProgress.Location = new System.Drawing.Point(112, 231);
-            this.VolumeProgress.Maximum = 100;
-            this.VolumeProgress.Minimum = 0;
-            this.VolumeProgress.Name = "VolumeProgress";
-            this.VolumeProgress.Size = new System.Drawing.Size(116, 40);
-            this.VolumeProgress.TabIndex = 19;
-            this.VolumeProgress.TickColor = System.Drawing.SystemColors.MenuHighlight;
-            this.VolumeProgress.TickFrequency = 50;
-            this.VolumeProgress.TickHeight = 5;
-            this.VolumeProgress.TrackerColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(130)))), ((int)(((byte)(198)))));
-            this.VolumeProgress.TrackerSize = new System.Drawing.Size(8, 8);
-            this.VolumeProgress.TrackLineColor = System.Drawing.Color.White;
-            this.VolumeProgress.TrackLineHeight = 7;
-            this.VolumeProgress.Value = 0;
-            this.VolumeProgress.ValueChanged += new CustomControls.CustomSlider.ValueChangedHandler(this.VolumeProgress_ValueChanged);
+            this.ShowHideAudioButton.Location = new System.Drawing.Point(15, 28);
+            this.ShowHideAudioButton.Name = "ShowHideAudioButton";
+            this.ShowHideAudioButton.Size = new System.Drawing.Size(49, 23);
+            this.ShowHideAudioButton.TabIndex = 19;
+            this.ShowHideAudioButton.Text = "button1";
+            this.ShowHideAudioButton.UseVisualStyleBackColor = true;
+            this.ShowHideAudioButton.Click += new System.EventHandler(this.ShowHideAudioButton_Click);
             // 
             // MainScreen
             // 
@@ -391,15 +348,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MainScreen.Properties.Resources.bg3;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(572, 267);
+            this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
-            this.Controls.Add(this.VolumeProgress);
+            this.Controls.Add(this.ShowHideAudioButton);
             this.Controls.Add(this.MinimizeButton);
             this.Controls.Add(this.VideoSlider);
-            this.Controls.Add(this.VolumeUp);
             this.Controls.Add(this.closeVideo);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.VolumeDown);
             this.Controls.Add(this.FullScreen);
             this.Controls.Add(this.Repeat);
             this.Controls.Add(this.Playlist);
@@ -409,6 +364,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "MainScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DantesPlayer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -441,18 +397,16 @@
         private System.Windows.Forms.Button Playlist;
         private System.Windows.Forms.Button Repeat;
         private System.Windows.Forms.Button FullScreen;
-        private System.Windows.Forms.Button VolumeDown;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeVideo;
-        private System.Windows.Forms.Button VolumeUp;
         private static Timer timerForRF = new Timer();
         private static Timer timerForVideoProgress = new Timer();
         private static bool fastForwardFired = false;
         private static bool rewindFired = false;
-        private Video video;
+        internal static Video video;
         private CustomControls.CustomSlider VideoSlider;
         private Button MinimizeButton;
-        private CustomSlider VolumeProgress;
+        private Button ShowHideAudioButton;
 
         
     }
