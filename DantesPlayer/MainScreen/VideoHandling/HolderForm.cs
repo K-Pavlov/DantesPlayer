@@ -17,7 +17,7 @@
         /// <summary>
         /// A static form where we will the video
         /// </summary>
-        private FormForVideo holderForm = new FormForVideo();
+        private static FormForVideo holderForm = new FormForVideo();
 
         /// <summary>
         /// Attach the video to the form and panel 
@@ -72,5 +72,15 @@
                 video.CurrentPosition = slider.Value;
             }
         }
+
+
+
+        public static bool TopMost
+        {
+            get { return holderForm.TopMost; }
+            set { holderForm.TopMost = value; }
+        }
+        
+
     }
 }

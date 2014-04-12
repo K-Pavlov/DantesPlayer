@@ -15,13 +15,25 @@ namespace MainScreen
     public partial class AudioFormControl : Form
     {
         private const int VolumeStep = 10;
-        public AudioFormControl()
+
+        #region SingletonImpelementation
+        private static Lazy<AudioFormControl> lazy =
+            new Lazy<AudioFormControl>(() => new AudioFormControl());
+
+        public static AudioFormControl Instance { get { return lazy.Value; } }
+
+        private AudioFormControl()
         {
+            this.Click += new System.EventHandler(this.SetTopMost);
             InitializeComponent();
         }
+        #endregion 
 
-
-
+        private void SetTopMost(object sender, EventArgs e)
+        {
+            this.TopMost = true;
+            ApplicationSetUp.mainScreen.TopMost = true;
+        }
         private void VolumeDown_MouseDown(object sender, MouseEventArgs e)
         {
             this.VolumeDown.FlatStyle = FlatStyle.Popup;

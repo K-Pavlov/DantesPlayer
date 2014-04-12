@@ -12,7 +12,7 @@
     using AudioHandling;
     using CustomControls;
     #endregion
-    partial class MainScreen
+    public sealed partial class MainScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -61,13 +61,11 @@
             this.Playlist = new System.Windows.Forms.Button();
             this.Repeat = new System.Windows.Forms.Button();
             this.FullScreen = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.closeVideo = new System.Windows.Forms.Button();
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.VideoSlider = new CustomControls.CustomSlider();
             this.ShowHideAudioButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlayButton
@@ -75,7 +73,7 @@
             this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PlayButton.Image = global::MainScreen.Properties.Resources.playButtonUpdate;
-            this.PlayButton.Location = new System.Drawing.Point(3, 54);
+            this.PlayButton.Location = new System.Drawing.Point(22, 105);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(91, 37);
             this.PlayButton.TabIndex = 0;
@@ -88,7 +86,7 @@
             this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PauseButton.Image = global::MainScreen.Properties.Resources.pauseButtonUpdate;
-            this.PauseButton.Location = new System.Drawing.Point(212, 54);
+            this.PauseButton.Location = new System.Drawing.Point(231, 105);
             this.PauseButton.Name = "PauseButton";
             this.PauseButton.Size = new System.Drawing.Size(91, 37);
             this.PauseButton.TabIndex = 1;
@@ -101,7 +99,7 @@
             this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.FFButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FFButton.Image = global::MainScreen.Properties.Resources.fastForwardButton;
-            this.FFButton.Location = new System.Drawing.Point(111, 9);
+            this.FFButton.Location = new System.Drawing.Point(130, 60);
             this.FFButton.Name = "FFButton";
             this.FFButton.Size = new System.Drawing.Size(91, 37);
             this.FFButton.TabIndex = 2;
@@ -114,7 +112,7 @@
             this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.RewindButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RewindButton.Image = global::MainScreen.Properties.Resources.rewindButtonUpdate;
-            this.RewindButton.Location = new System.Drawing.Point(111, 97);
+            this.RewindButton.Location = new System.Drawing.Point(130, 148);
             this.RewindButton.Name = "RewindButton";
             this.RewindButton.Size = new System.Drawing.Size(91, 37);
             this.RewindButton.TabIndex = 3;
@@ -227,7 +225,7 @@
             this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopButton.Image = global::MainScreen.Properties.Resources.stopButtonUpdate;
-            this.StopButton.Location = new System.Drawing.Point(111, 54);
+            this.StopButton.Location = new System.Drawing.Point(130, 105);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(91, 37);
             this.StopButton.TabIndex = 5;
@@ -270,19 +268,6 @@
             this.FullScreen.UseVisualStyleBackColor = true;
             this.FullScreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseDown);
             this.FullScreen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseUp);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.StopButton);
-            this.panel1.Controls.Add(this.FFButton);
-            this.panel1.Controls.Add(this.PauseButton);
-            this.panel1.Controls.Add(this.RewindButton);
-            this.panel1.Controls.Add(this.PlayButton);
-            this.panel1.Location = new System.Drawing.Point(12, 55);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(306, 142);
-            this.panel1.TabIndex = 12;
             // 
             // closeVideo
             // 
@@ -350,11 +335,15 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.ShowHideAudioButton);
+            this.Controls.Add(this.FFButton);
+            this.Controls.Add(this.PauseButton);
             this.Controls.Add(this.MinimizeButton);
+            this.Controls.Add(this.RewindButton);
             this.Controls.Add(this.VideoSlider);
+            this.Controls.Add(this.PlayButton);
             this.Controls.Add(this.closeVideo);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.FullScreen);
             this.Controls.Add(this.Repeat);
             this.Controls.Add(this.Playlist);
@@ -367,9 +356,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DantesPlayer";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseDown);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -397,16 +387,8 @@
         private System.Windows.Forms.Button Playlist;
         private System.Windows.Forms.Button Repeat;
         private System.Windows.Forms.Button FullScreen;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeVideo;
-        private static Timer timerForRF = new Timer();
-        private static Timer timerForVideoProgress = new Timer();
-        private static bool fastForwardFired = false;
-        private static bool rewindFired = false;
-        internal static Video video;
         private CustomControls.CustomSlider VideoSlider;
-        private Button MinimizeButton;
-        private Button ShowHideAudioButton;
 
         
     }

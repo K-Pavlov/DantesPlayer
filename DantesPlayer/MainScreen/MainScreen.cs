@@ -11,9 +11,11 @@
     using VideoHandling;
     using AudioHandling;
     #endregion
-    public partial class MainScreen : Form
+    public sealed partial class MainScreen : Form
     {
         #region Constant Values
+        private const int WM_MOUSEMOVE = 0x0200;
+        private const int WM_LBUTTONDOWN = 0x0201;
         private const int WM_NCLBUTTONDBLCLK = 0x00A3;
         private const int WS_MINIMIZEBOX = 0x20000;
         private const int CS_DBLCLKS = 0x8;
@@ -22,16 +24,35 @@
         private const int HTCAPTION = 0x2;
         private const int volumeStep = 10;
         #endregion
-
+        #region Private Variables
+        private static int xPosition;
+        private static int yPosition;
+        private static Point formStartLocation;
+        private static Point startMouseLocation;
+        private Button MinimizeButton;
+        private Button ShowHideAudioButton;
+        private static Timer timerForRF = new Timer();
+        private static Timer timerForVideoProgress = new Timer();
+        private static Timer timerForMouseFormMovement = new Timer();
+        private static bool fastForwardFired = false;
+        private static bool rewindFired = false;
         private static bool audioHidden = false;
         private static string videoName;
         private const string typeExpecption = "I can't play the video :(.";
         private AudioFormControl audioControl;
+        #endregion 
 
-        #region Constructor
-        public MainScreen()
+        internal static Video video;
+
+        #region SingletonImpelemntation
+        private static Lazy<MainScreen> lazy =
+            new Lazy<MainScreen>(() => new MainScreen());
+        public static MainScreen Instance { get { return lazy.Value; } }
+
+        private MainScreen()
         {
-            audioControl = new AudioFormControl();
+            //this.Click += new System.EventHandler(this.SetTopMost);
+            audioControl = AudioFormControl.Instance;
             this.audioControl.TopMost = true;
             this.TopMost = true;
             audioControl.Show();
@@ -44,11 +65,28 @@
         {
             this.Left = Screen.PrimaryScreen.WorkingArea.Left + 100;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height/3;
+            timerForMouseFormMovement.Interval = 1;
+            timerForMouseFormMovement.Tick += timerForMouseFormMovementTick;
             timerForRF.Interval = 1000;
             timerForRF.Tick += timer_Tick;
             timerForVideoProgress.Interval = 1000;
             timerForVideoProgress.Tick += timerForVideoProgress_Tick;
             this.VideoSlider.Enabled = false;
+        }
+
+        private void timerForMouseFormMovementTick(object sender, EventArgs e)
+        {
+            xPosition = formStartLocation.X + Cursor.Position.X - startMouseLocation.X;
+            yPosition = formStartLocation.Y + Cursor.Position.Y - startMouseLocation.Y;
+            this.Location = new Point(xPosition, yPosition);
+        }
+
+
+        private void SetTopMost()
+        {
+            this.audioControl.TopMost = true;
+            this.TopMost = true;
+            //HolderForm.TopMost = false;
         }
 
         private void timerForVideoProgress_Tick(object sender, EventArgs e)
@@ -296,7 +334,7 @@
         #region Protected Methods
 
         /// <summary>
-        /// ???
+        /// Disable maximize
         /// </summary>
         protected override CreateParams CreateParams
         {
@@ -310,22 +348,18 @@
         }
 
         /// <summary>
-        /// Clicks on main form
-        /// </summary>
+        /// Make the main form draggable 
+        /// /// </summary>
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    if ((int)m.Result == HTCLIENT)
-                    {
-                        m.Result = (IntPtr)HTCAPTION;
-                    }
-
-                    return;
-            }
+            //if (m.Msg == WM_LBUTTONDOWN)
+            //{
+              //  base.WndProc(ref m);
+               // this.SetTopMost();
+                //this.Location = Cursor.Position - new Size(250, -10);
+                //return;
+            //}
             if (m.Msg == WM_NCLBUTTONDBLCLK)
             {
                 m.Result = IntPtr.Zero;
@@ -333,7 +367,7 @@
             }
             audioControl.Location = this.Location - new Size(301, -70);
             base.WndProc(ref m);
-            this.MinimumSize = this.MaximumSize;
+            //this.MinimumSize = this.MaximumSize;
         }
         #endregion
 
@@ -351,5 +385,20 @@
             this.ShowHideAudioButton.Text = "Hide";
             audioHidden = false;
         }
+
+        private void MainScreen_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.SetTopMost();
+            formStartLocation = this.Location;
+            startMouseLocation = Cursor.Position;
+            Console.WriteLine(Cursor.Position - new Size(this.Location));
+            timerForMouseFormMovement.Start();
+        }
+
+        private void MainScreen_MouseUp(object sender, MouseEventArgs e)
+        {
+            timerForMouseFormMovement.Stop();
+        }
+
     }
 }

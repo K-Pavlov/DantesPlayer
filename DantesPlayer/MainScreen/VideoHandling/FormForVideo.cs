@@ -57,8 +57,16 @@
             this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "FormForVideo";
+            this.Load += new System.EventHandler(this.SetTopMost);
+            this.Click += new System.EventHandler(this.SetTopMost);
             this.ResumeLayout(false);
 
+        }
+
+        private void SetTopMost(object sender, EventArgs e)
+        {
+            this.TopMost = true;
+            //ApplicationSetUp.mainScreen.TopMost = false;
         }
 
         private void PlayPauseVideo()
@@ -75,6 +83,7 @@
                 }
             }
         }
+
 
         //private void FormForVideo_MouseEnter(object sender, EventArgs e)
         //{
