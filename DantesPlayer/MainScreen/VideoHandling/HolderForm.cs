@@ -17,8 +17,13 @@
         /// <summary>
         /// A static form where we will the video
         /// </summary>
-        private static FormForVideo holderForm = new FormForVideo();
-
+        internal static FormForVideo holderForm;
+        public static bool TopMost
+        {
+            get { return holderForm.TopMost; }
+            set { holderForm.TopMost = value; }
+        }
+        
         /// <summary>
         /// Attach the video to the form and panel 
         /// and show it to the world
@@ -28,6 +33,7 @@
         /// <param name="width">The width of the video</param>
         public void AttachVideoToForm(DirectXAllias::Video video, Size size)
         {
+            holderForm = new FormForVideo();
             holderForm.MinimumSize = new Size(200, 200);
             holderForm.MaximumSize = new Size(801, 601);
             holderForm.Video = video;
@@ -54,14 +60,31 @@
             video.Dispose();
         }
 
+        public static void NullVideoAndForm(DirectXAllias::Video video)
+        {
+            if (CheckException.CheckNull(holderForm))
+            {
+                holderForm.Dispose();
+                holderForm = null;
+            }
+            if (CheckException.CheckNull(video))
+            {
+                video.Dispose();
+                video = null;
+            }
+        }
+
         public static void HandleVideoProgress(CustomControls.CustomSlider slider, DirectXAllias::Video video)
         {
-            slider.Maximum = Convert.ToInt32(video.Duration);
-            slider.Value = Convert.ToInt32(video.CurrentPosition);
-            if (Convert.ToInt32(video.CurrentPosition) > slider.Maximum)
+            if (video.Disposed == false)
             {
-                slider.Value = slider.Maximum;
-                return;
+                slider.Maximum = Convert.ToInt32(video.Duration);
+                slider.Value = Convert.ToInt32(video.CurrentPosition);
+                if (Convert.ToInt32(video.CurrentPosition) > slider.Maximum)
+                {
+                    slider.Value = slider.Maximum;
+                    return;
+                }
             }
         }
 
@@ -73,14 +96,10 @@
             }
         }
 
-
-
-        public static bool TopMost
+        public static void OpenInFullScreen()
         {
-            get { return holderForm.TopMost; }
-            set { holderForm.TopMost = value; }
+            holderForm.MaximumSize = new Size(5000, 5000);
+            holderForm.WindowState = FormWindowState.Maximized;
         }
-        
-
     }
 }

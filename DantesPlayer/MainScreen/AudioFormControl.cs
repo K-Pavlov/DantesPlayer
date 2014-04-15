@@ -24,15 +24,30 @@ namespace MainScreen
 
         private AudioFormControl()
         {
+            this.ShowInTaskbar = false;
             this.Click += new System.EventHandler(this.SetTopMost);
             InitializeComponent();
         }
-        #endregion 
+        #endregion
+        /// <summary>
+        /// Remove from task manager, property override
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x80;  // Turn on WS_EX_TOOLWINDOW
+                return cp;
+            }
+        }
 
         private void SetTopMost(object sender, EventArgs e)
         {
-            this.TopMost = true;
-            ApplicationSetUp.mainScreen.TopMost = true;
+            this.BringToFront();
+            ApplicationSetUp.mainScreen.BringToFront();
+            //this.TopMost = true;
+            //ApplicationSetUp.mainScreen.TopMost = true;
         }
         private void VolumeDown_MouseDown(object sender, MouseEventArgs e)
         {

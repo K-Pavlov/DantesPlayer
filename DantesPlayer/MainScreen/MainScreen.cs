@@ -14,23 +14,19 @@
     public sealed partial class MainScreen : Form
     {
         #region Constant Values
-        private const int WM_MOUSEMOVE = 0x0200;
-        private const int WM_LBUTTONDOWN = 0x0201;
         private const int WM_NCLBUTTONDBLCLK = 0x00A3;
-        private const int WS_MINIMIZEBOX = 0x20000;
-        private const int CS_DBLCLKS = 0x8;
-        private const int WM_NCHITTEST = 0x84;
-        private const int HTCLIENT = 0x1;
-        private const int HTCAPTION = 0x2;
         private const int volumeStep = 10;
         #endregion
+
         #region Private Variables
+        private static FormWindowState lastWindowState;
         private static int xPosition;
         private static int yPosition;
         private static Point formStartLocation;
         private static Point startMouseLocation;
         private Button MinimizeButton;
         private Button ShowHideAudioButton;
+        private static Timer timerForVideoTime = new Timer();
         private static Timer timerForRF = new Timer();
         private static Timer timerForVideoProgress = new Timer();
         private static Timer timerForMouseFormMovement = new Timer();
@@ -45,26 +41,45 @@
         internal static Video video;
 
         #region SingletonImpelemntation
+        /// <summary>
+        /// Thread safe c# singleton ~~ lazy right?
+        /// </summary>
         private static Lazy<MainScreen> lazy =
             new Lazy<MainScreen>(() => new MainScreen());
-        public static MainScreen Instance { get { return lazy.Value; } }
 
+        /// <summary>
+        /// Singleton instance
+        /// </summary>
+        public static MainScreen Instance { get { return lazy.Value; } }
+        /// <summary>
+        /// Constructor - gets:
+        /// -audio control instance and shows it
+        /// - sets forms to top most
+        /// </summary>
         private MainScreen()
         {
-            //this.Click += new System.EventHandler(this.SetTopMost);
+            this.Click += new System.EventHandler(this.SetTopMost);
             audioControl = AudioFormControl.Instance;
-            this.audioControl.TopMost = true;
-            this.TopMost = true;
+            this.audioControl.VolumeProgress.Value = 50;
             audioControl.Show();
             InitializeComponent();
         }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// On load gives the form a nice starting position
+        /// the intervals for the timers and gives their
+        /// tick events a method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Left = Screen.PrimaryScreen.WorkingArea.Left + 100;
-            this.Top = Screen.PrimaryScreen.WorkingArea.Height/3;
+            this.Left = Screen.PrimaryScreen.WorkingArea.Left + Screen.PrimaryScreen.WorkingArea.Right/4;
+            this.Top = Screen.PrimaryScreen.WorkingArea.Height/2;
+            timerForVideoTime.Interval = 1000;
+            timerForVideoTime.Tick += timerForVideoTime_Tick;
             timerForMouseFormMovement.Interval = 1;
             timerForMouseFormMovement.Tick += timerForMouseFormMovementTick;
             timerForRF.Interval = 1000;
@@ -74,6 +89,51 @@
             this.VideoSlider.Enabled = false;
         }
 
+        /// <summary>
+        /// clears all timers except click timer, method for event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void clearTimers(object sender, EventArgs e)
+        {
+            timerForVideoProgress.Stop();
+            timerForRF.Stop();
+            timerForVideoTime.Stop();
+        }
+
+        /// <summary>
+        /// Calls the method that writes the video time; method for event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void timerForVideoTime_Tick(object sender, EventArgs e)
+        {
+            this.WriteVideoTime();
+        }
+
+
+        /// <summary>
+        /// Writes to a label where the video is
+        /// at the given moment
+        /// </summary>
+        private void WriteVideoTime()
+        {
+            this.label1.Text = "00:00:";
+            if(video.DirectVideo.CurrentPosition < 10)
+            {
+                this.label1.Text += "0";
+            }
+            this.label1.Text += String.Format("{0:0}", video.DirectVideo.CurrentPosition);
+            this.label1.Text = this.label1.Text.Replace('.', ':');
+            this.label1.Text += String.Format("/00:00:{0:0}", video.DirectVideo.Duration);
+        }
+
+        /// <summary>
+        /// On left mouse hold and movement in the form
+        /// moves the form with the mouse
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timerForMouseFormMovementTick(object sender, EventArgs e)
         {
             xPosition = formStartLocation.X + Cursor.Position.X - startMouseLocation.X;
@@ -81,14 +141,21 @@
             this.Location = new Point(xPosition, yPosition);
         }
 
-
-        private void SetTopMost()
+        /// <summary>
+        /// Sets the main and audio form to top most
+        /// </summary>
+        private void SetTopMost(object sender, EventArgs e)
         {
-            this.audioControl.TopMost = true;
-            this.TopMost = true;
-            //HolderForm.TopMost = false;
+            audioControl.BringToFront();
         }
 
+        /// <summary>
+        /// Fixes the slider and the video
+        /// so they go correctly together;
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timerForVideoProgress_Tick(object sender, EventArgs e)
         {
             if (CheckException.CheckNull(video))
@@ -109,6 +176,12 @@
             
         }
 
+        /// <summary>
+        /// rewind and fast forward fix up;
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Tick(object sender, EventArgs e)
         {
             if (fastForwardFired)
@@ -136,6 +209,13 @@
             }
         }
         
+        /// <summary>
+        /// Opens a dialog and starts the chosen video
+        /// DIRECT VIDEO ENDING DELEGATE IS GIVEN THE CLEAR TIMERS HERE
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoName = ChooseVideoDialog.TakePathToVideo();
@@ -143,20 +223,44 @@
             {
                 try
                 {
-                    video = new Video(videoName, false, 800, 600);
-                    video.StartVideo();
-                    timerForVideoProgress.Start();
-                    this.VideoSlider.Enabled = true;
+                    if (video == null)
+                    {
+                        video = new Video(videoName, false, 800, 600);
+                        video.StartVideo();
+                        timerForVideoTime.Start();
+                        timerForVideoProgress.Start();
+                        this.VideoSlider.Enabled = true;
+                        AudioForVideos.VolumeInit(video, this.audioControl.VolumeProgress);
+                        video.DirectVideo.Ending += clearTimers; 
+                    }
+                    else
+                    {
+                        HolderForm.NullVideoAndForm(video.DirectVideo);
+                        video = null;
+                        video = new Video(videoName, false, 800, 600);
+                        video.StartVideo();
+                        timerForVideoTime.Start();
+                        timerForVideoProgress.Start();
+                        this.VideoSlider.Enabled = true;
+                        AudioForVideos.VolumeInit(video, this.audioControl.VolumeProgress);
+                        video.DirectVideo.Ending += clearTimers; 
+                    }
                 }
-                catch (TypeLoadException)
+                catch (Microsoft.DirectX.DirectXException)
                 {
                     MessageBox.Show(typeExpecption,"Warning");
                 }
+
             }
 
         }
 
-
+        /// <summary>
+        /// Closes the video, stopping the needed timers;
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
                 this.Close();
@@ -188,11 +292,60 @@
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+            this.audioControl.Hide();
+            lastWindowState = this.WindowState;
+        }
+
+        /// <summary>
+        /// Shows or hides the audio controls; event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowHideAudioButton_Click(object sender, EventArgs e)
+        {
+
+            if (!audioHidden)
+            {
+                this.audioControl.Hide();
+                this.ShowHideAudioButton.Text = "Show";
+                audioHidden = true;
+                return;
+            }
+            this.audioControl.Show();
+            this.ShowHideAudioButton.Text = "Hide";
+            audioHidden = false;
+        }
+
+        /// <summary>
+        /// Sets the forms to top most and starts 
+        /// dragging the form with the mouse;
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainScreen_MouseDown(object sender, MouseEventArgs e)
+        {
+            formStartLocation = this.Location;
+            startMouseLocation = Cursor.Position;
+            Console.WriteLine(Cursor.Position - new Size(this.Location));
+            timerForMouseFormMovement.Start();
+        }
+
+        private void MainScreen_MouseUp(object sender, MouseEventArgs e)
+        {
+            timerForMouseFormMovement.Stop();
         }
 
         #endregion 
 
         #region ButtonOnClickStyles
+        /// <summary>
+        /// Pauses the video and stops the
+        /// ff/rw timers and the video time timer;
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PauseButton_MouseDown(object sender, MouseEventArgs e)
         {
             this.PauseButton.FlatStyle = FlatStyle.Popup;
@@ -205,8 +358,19 @@
                 timerForRF.Stop();
                 video.Speed = 0;
             }
+            if (timerForVideoTime.Enabled)
+            {
+                timerForVideoTime.Stop();
+            }
         }
 
+        /// <summary>
+        /// stops the video and stops the
+        /// rw/ff timer and the video time timer;
+        /// event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StopButton_MouseDown(object sender, MouseEventArgs e)
         {
             this.StopButton.FlatStyle = FlatStyle.Popup;
@@ -215,8 +379,17 @@
                 timerForRF.Stop();
                 video.StopVideo();
             }
+            if(timerForVideoTime.Enabled)
+            {
+                timerForVideoTime.Stop();
+                this.WriteVideoTime();
+            }
         }
-
+        /// <summary>
+        /// starts rewinding; event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RewindButton_MouseDown(object sender, MouseEventArgs e)
         {
             this.RewindButton.FlatStyle = FlatStyle.Popup;
@@ -228,6 +401,13 @@
             }
         }
 
+        /// <summary>
+        /// if the video is paused, plays the video
+        /// and vice versa, STOPS the rw/ff timers
+        /// starts the video time timer; event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlayButton_MouseDown(object sender, MouseEventArgs e)
         {
             this.PlayButton.FlatStyle = FlatStyle.Popup;
@@ -240,8 +420,17 @@
                 timerForRF.Stop();
                 video.Speed = 0;
             }
+            if (!timerForVideoTime.Enabled)
+            {
+                timerForVideoTime.Start();
+            }
         }
 
+        /// <summary>
+        /// starts the ff/rw timer with a new value; delegate method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FFButton_MouseDown(object sender, MouseEventArgs e)
         {
             this.FFButton.FlatStyle = FlatStyle.Popup;
@@ -278,7 +467,11 @@
             this.PlayButton.FlatStyle = FlatStyle.Flat;
         }
 
-
+        /// <summary>
+        /// starts the rw/ff timer with a modified value; event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Repeat_MouseDown(object sender, MouseEventArgs e)
         {
             this.Repeat.FlatStyle = FlatStyle.Popup;
@@ -295,19 +488,36 @@
             if (CheckException.CheckNull(video))
             {
                 video.OpenVideoInFullScreen();
+                video.isFullScreen = true;
+            }
+            if(video.isFullScreen)
+            {
+                MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
+                menuBar.Show();
+                menuBar.BringToFront();
+                menuBar.TopMost = true;
+                menuBar.Location = new Point(HolderForm.holderForm.Location.X - 20, HolderForm.holderForm.Location.Y - 20);
             }
         }
 
+        /// <summary>
+        /// closes the video and its form
+        /// stops all timers but the click timer
+        /// fixes the label text; event method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void closeVideo_MouseDown(object sender, MouseEventArgs e)
         {
             this.closeVideo.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
-                video.CloseVideo();
-                video = null;
+                HolderForm.NullVideoAndForm(video.DirectVideo);
             }
             this.VideoSlider.Value = 0;
             this.VideoSlider.Enabled = false;
+            timerForVideoTime.Stop();
+            this.label1.Text = "";
         }
 
         private void Repeat_MouseUp(object sender, MouseEventArgs e)
@@ -334,32 +544,11 @@
         #region Protected Methods
 
         /// <summary>
-        /// Disable maximize
+        /// Disable double click maximize
         /// </summary>
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.Style |= WS_MINIMIZEBOX;
-                cp.ClassStyle |= CS_DBLCLKS;
-                return cp;
-            }
-        }
-
-        /// <summary>
-        /// Make the main form draggable 
-        /// /// </summary>
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            //if (m.Msg == WM_LBUTTONDOWN)
-            //{
-              //  base.WndProc(ref m);
-               // this.SetTopMost();
-                //this.Location = Cursor.Position - new Size(250, -10);
-                //return;
-            //}
             if (m.Msg == WM_NCLBUTTONDBLCLK)
             {
                 m.Result = IntPtr.Zero;
@@ -367,38 +556,24 @@
             }
             audioControl.Location = this.Location - new Size(301, -70);
             base.WndProc(ref m);
-            //this.MinimumSize = this.MaximumSize;
+        }
+
+        protected override void OnClientSizeChanged(EventArgs e)
+        {
+            if(this.WindowState != lastWindowState)
+            {
+                lastWindowState = this.WindowState;
+             //   this.audioControl.Focus();
+                this.audioControl.BringToFront();
+                this.audioControl.Show();
+            }
+            Console.WriteLine(this.TopLevel);
+            base.OnClientSizeChanged(e);
         }
         #endregion
 
-        private void ShowHideAudioButton_Click(object sender, EventArgs e)
-        {
-            
-            if(!audioHidden)
-            {
-                this.audioControl.Hide();
-                this.ShowHideAudioButton.Text = "Show";
-                audioHidden = true;
-                return;
-            }
-            this.audioControl.Show();
-            this.ShowHideAudioButton.Text = "Hide";
-            audioHidden = false;
-        }
 
-        private void MainScreen_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.SetTopMost();
-            formStartLocation = this.Location;
-            startMouseLocation = Cursor.Position;
-            Console.WriteLine(Cursor.Position - new Size(this.Location));
-            timerForMouseFormMovement.Start();
-        }
 
-        private void MainScreen_MouseUp(object sender, MouseEventArgs e)
-        {
-            timerForMouseFormMovement.Stop();
-        }
 
     }
 }

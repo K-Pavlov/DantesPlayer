@@ -9,6 +9,11 @@ namespace MainScreen
     internal static class ApplicationSetUp
     {
         internal static MainScreen mainScreen;
+        /// <summary>
+        /// Starts the application
+        /// creating the singleton instance
+        /// of the mainscreen
+        /// </summary>
         internal static void Start()
         {
             Application.EnableVisualStyles();

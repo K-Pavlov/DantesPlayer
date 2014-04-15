@@ -36,12 +36,17 @@
             return null;
         }
 
+
+        /// <summary>
+        /// Chooses initial directory, sets filters
+        /// </summary>
+        /// <param name="formats"></param>
         private static void configureOpenFileDialog(string formats)
         {
             openFileDialog.InitialDirectory = "c:\\";
             openFileDialog.Filter = formats;
             openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
+            openFileDialog.RestoreDirectory = true ;
         }
     }
 }

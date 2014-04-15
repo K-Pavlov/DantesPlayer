@@ -65,6 +65,7 @@
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.VideoSlider = new CustomControls.CustomSlider();
             this.ShowHideAudioButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -299,7 +300,7 @@
             this.VideoSlider.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VideoSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
             this.VideoSlider.IndentHeight = 10;
-            this.VideoSlider.Location = new System.Drawing.Point(14, 201);
+            this.VideoSlider.Location = new System.Drawing.Point(19, 201);
             this.VideoSlider.Maximum = 20;
             this.VideoSlider.Minimum = 0;
             this.VideoSlider.Name = "VideoSlider";
@@ -327,6 +328,15 @@
             this.ShowHideAudioButton.UseVisualStyleBackColor = true;
             this.ShowHideAudioButton.Click += new System.EventHandler(this.ShowHideAudioButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(125, 234);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 20;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,6 +345,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.ShowHideAudioButton);
             this.Controls.Add(this.FFButton);
@@ -389,6 +400,7 @@
         private System.Windows.Forms.Button FullScreen;
         private System.Windows.Forms.Button closeVideo;
         private CustomControls.CustomSlider VideoSlider;
+        private Label label1;
 
         
     }

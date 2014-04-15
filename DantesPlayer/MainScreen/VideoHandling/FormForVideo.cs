@@ -12,17 +12,12 @@
     {
         private DirectXAllias::Video video;
         private Timer timer = new Timer();
-        //private static bool eventFired = false;
 
         public FormForVideo()
         {
-            this.InitializeComponent();
-            //timer.Tick += new EventHandler(timer_Tick); 
-            //timer.Interval = 1;              
-            //timer.Enabled = true;                       
-            //timer.Start();                              
-
+            this.InitializeComponent();                         
         }
+
 
         public DirectXAllias::Video Video
         {
@@ -54,7 +49,6 @@
             // 
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.ControlBox = false;
-            this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "FormForVideo";
             this.Load += new System.EventHandler(this.SetTopMost);
@@ -65,8 +59,7 @@
 
         private void SetTopMost(object sender, EventArgs e)
         {
-            this.TopMost = true;
-            //ApplicationSetUp.mainScreen.TopMost = false;
+            this.BringToFront();
         }
 
         private void PlayPauseVideo()
@@ -84,32 +77,5 @@
             }
         }
 
-
-        //private void FormForVideo_MouseEnter(object sender, EventArgs e)
-        //{
-        //    eventFired = false;
-        //}
-
-        //private void FormForVideo_MouseLeave(object sender, EventArgs e)
-        //{
-        //}
-
-        //private void timer_Tick(object sender, EventArgs e)
-        //{
-        //    //if (eventFired == false && MouseButtons == MouseButtons.Left)
-        //    if(MouseButtons == MouseButtons.Left)
-        //    {
-        //        if (checkIfCursorIsInBounds())
-        //        {
-        //            this.PlayPauseVideo();
-        //        }
-        //    }
-        //}
-
-        //private bool checkIfCursorIsInBounds()
-        //{
-        //    return Cursor.Position.X > this.Bounds.Top && Cursor.Position.X < this.Bounds.Bottom && Cursor.Position.Y > this.Bounds.Left && Cursor.Position.Y < this.Bounds.Right;
-           
-        //}
     }
 }

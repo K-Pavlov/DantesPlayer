@@ -25,7 +25,10 @@
         /// <param name="slider"></param>
         public static void VolumeInit(VideoHandling.Video video, CustomSlider slider)
         {
-            video.DirectVideo.Audio.Volume = Convert.ToInt32(slider.Value * (valueNormalizer) + minVolumeValue);
+            if (video.DirectVideo.Audio != null)
+            {
+                video.DirectVideo.Audio.Volume = Convert.ToInt32(slider.Value * (valueNormalizer) + minVolumeValue);
+            }
         }
         
         /// <summary>

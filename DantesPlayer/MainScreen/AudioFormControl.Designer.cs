@@ -108,7 +108,7 @@
 
         #endregion
 
-        private CustomControls.CustomSlider VolumeProgress;
+        internal CustomControls.CustomSlider VolumeProgress;
         private System.Windows.Forms.Button VolumeDown;
         private System.Windows.Forms.Button VolumeUp;
     }

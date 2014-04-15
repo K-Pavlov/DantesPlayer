@@ -37,12 +37,14 @@
             this.Height = height;
             this.Width = width;
             this.Speed = 0;
+            this.isFullScreen = false;
         }
 
         /// <summary>
         /// Return the video, readonly 
         /// </summary>
 
+        public bool isFullScreen { get; set; }
         public int Speed { get; set; }
         public DirectAllias::Video DirectVideo { get; private set; }
 
@@ -131,9 +133,9 @@
                 this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
                 holderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
             }
-            catch
+            catch (Microsoft.DirectX.DirectXException)
             {
-                throw new TypeLoadException();
+                throw new Microsoft.DirectX.DirectXException();
             }
         }
     
@@ -226,7 +228,7 @@
         // TODO: Open in fullscr
         public void OpenVideoInFullScreen()
         {
-
+            HolderForm.OpenInFullScreen();
         }
 
         /// <summary>
