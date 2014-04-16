@@ -26,7 +26,6 @@
         private static int yPosition;
         private static Point formStartLocation;
         private static Point startMouseLocation;
-        private Button ShowHideAudioButton;
         internal static Timer timerForVideoTime = new Timer();
         internal static Timer timerForRF = new Timer();
         internal static Timer timerForVideoProgress = new Timer();
@@ -324,17 +323,6 @@
         /// <param name="e"></param>
         private void ShowHideAudioButton_Click(object sender, EventArgs e)
         {
-
-            if (!audioHidden)
-            {
-                this.audioControl.Hide();
-                this.ShowHideAudioButton.Text = "Show";
-                audioHidden = true;
-                return;
-            }
-            this.audioControl.Show();
-            this.ShowHideAudioButton.Text = "Hide";
-            audioHidden = false;
         }
 
         /// <summary>
@@ -636,6 +624,18 @@
             this.VideoSlider.Enabled = false;
             timerForVideoTime.Stop();
             this.label1.Text = "";
+        }
+
+        private void customButton1_Click(object sender, EventArgs e)
+        {
+            if (!audioHidden)
+            {
+                this.audioControl.Hide();
+                audioHidden = true;
+                return;
+            }
+            this.audioControl.Show();
+            audioHidden = false;
         }
 
     }

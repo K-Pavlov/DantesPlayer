@@ -40,7 +40,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ShowHideAudioButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.OpenVideoButton = new CustomControls.CustomButton();
             this.MinimizeButton = new CustomControls.CustomButton();
@@ -53,17 +52,8 @@
             this.VideoSlider = new CustomControls.CustomSlider();
             this.CloseVideoButton = new CustomControls.CustomButton();
             this.FullScreenButton = new CustomControls.CustomButton();
+            this.HideShowAudioFormButton = new CustomControls.CustomButton();
             this.SuspendLayout();
-            // 
-            // ShowHideAudioButton
-            // 
-            this.ShowHideAudioButton.Location = new System.Drawing.Point(48, 74);
-            this.ShowHideAudioButton.Name = "ShowHideAudioButton";
-            this.ShowHideAudioButton.Size = new System.Drawing.Size(49, 23);
-            this.ShowHideAudioButton.TabIndex = 19;
-            this.ShowHideAudioButton.Text = "button1";
-            this.ShowHideAudioButton.UseVisualStyleBackColor = true;
-            this.ShowHideAudioButton.Click += new System.EventHandler(this.ShowHideAudioButton_Click);
             // 
             // label1
             // 
@@ -201,6 +191,16 @@
             this.FullScreenButton.UseVisualStyleBackColor = true;
             this.FullScreenButton.Click += new System.EventHandler(this.FullScreenButton_Click);
             // 
+            // HideShowAudioFormButton
+            // 
+            this.HideShowAudioFormButton.Image = global::MainScreen.Properties.Resources.HideShowForm;
+            this.HideShowAudioFormButton.Location = new System.Drawing.Point(63, 81);
+            this.HideShowAudioFormButton.Name = "HideShowAudioFormButton";
+            this.HideShowAudioFormButton.Size = new System.Drawing.Size(25, 23);
+            this.HideShowAudioFormButton.TabIndex = 32;
+            this.HideShowAudioFormButton.UseVisualStyleBackColor = true;
+            this.HideShowAudioFormButton.Click += new System.EventHandler(this.customButton1_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,6 +210,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
+            this.Controls.Add(this.HideShowAudioFormButton);
             this.Controls.Add(this.FullScreenButton);
             this.Controls.Add(this.CloseVideoButton);
             this.Controls.Add(this.OpenVideoButton);
@@ -221,7 +222,6 @@
             this.Controls.Add(this.RewindButton);
             this.Controls.Add(this.PlayButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ShowHideAudioButton);
             this.Controls.Add(this.VideoSlider);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
@@ -253,6 +253,7 @@
         private CustomButton OpenVideoButton;
         private CustomButton CloseVideoButton;
         private CustomButton FullScreenButton;
+        private CustomButton HideShowAudioFormButton;
 
 
     }
