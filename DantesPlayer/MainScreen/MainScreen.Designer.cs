@@ -63,22 +63,23 @@
             this.FullScreen = new System.Windows.Forms.Button();
             this.closeVideo = new System.Windows.Forms.Button();
             this.MinimizeButton = new System.Windows.Forms.Button();
-            this.VideoSlider = new CustomControls.CustomSlider();
             this.ShowHideAudioButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.VideoSlider = new CustomControls.CustomSlider();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlayButton
             // 
             this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PlayButton.BackColor = System.Drawing.Color.Transparent;
             this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PlayButton.Image = global::MainScreen.Properties.Resources.playButtonUpdate;
-            this.PlayButton.Location = new System.Drawing.Point(22, 105);
+            this.PlayButton.Image = global::MainScreen.Properties.Resources.buttonPlay1;
+            this.PlayButton.Location = new System.Drawing.Point(37, 105);
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(91, 37);
+            this.PlayButton.Size = new System.Drawing.Size(73, 63);
             this.PlayButton.TabIndex = 0;
-            this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.UseVisualStyleBackColor = false;
             this.PlayButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseDown);
             this.PlayButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseUp);
             // 
@@ -292,6 +293,25 @@
             this.MinimizeButton.UseVisualStyleBackColor = true;
             this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
+            // ShowHideAudioButton
+            // 
+            this.ShowHideAudioButton.Location = new System.Drawing.Point(15, 28);
+            this.ShowHideAudioButton.Name = "ShowHideAudioButton";
+            this.ShowHideAudioButton.Size = new System.Drawing.Size(49, 23);
+            this.ShowHideAudioButton.TabIndex = 19;
+            this.ShowHideAudioButton.Text = "button1";
+            this.ShowHideAudioButton.UseVisualStyleBackColor = true;
+            this.ShowHideAudioButton.Click += new System.EventHandler(this.ShowHideAudioButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(125, 234);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 20;
+            // 
             // VideoSlider
             // 
             this.VideoSlider.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -318,30 +338,12 @@
             this.VideoSlider.Value = 0;
             this.VideoSlider.MouseClick += new System.Windows.Forms.MouseEventHandler(this.customSlider1_MouseClick);
             // 
-            // ShowHideAudioButton
-            // 
-            this.ShowHideAudioButton.Location = new System.Drawing.Point(15, 28);
-            this.ShowHideAudioButton.Name = "ShowHideAudioButton";
-            this.ShowHideAudioButton.Size = new System.Drawing.Size(49, 23);
-            this.ShowHideAudioButton.TabIndex = 19;
-            this.ShowHideAudioButton.Text = "button1";
-            this.ShowHideAudioButton.UseVisualStyleBackColor = true;
-            this.ShowHideAudioButton.Click += new System.EventHandler(this.ShowHideAudioButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(125, 234);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
-            this.label1.TabIndex = 20;
-            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::MainScreen.Properties.Resources.bg3;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = global::MainScreen.Properties.Resources.background_000;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
@@ -366,6 +368,7 @@
             this.Name = "MainScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DantesPlayer";
+            this.TransparencyKey = System.Drawing.Color.White;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseUp);

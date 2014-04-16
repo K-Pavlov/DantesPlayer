@@ -66,6 +66,9 @@
     <Compile Include="AudioHandling\AudioForVideos.cs" />
     <Compile Include="CheckException.cs" />
     <Compile Include="CustomControls\BorderStyle.cs" />
+    <Compile Include="CustomControls\CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomControls\ColorHelper.cs" />
     <Compile Include="CustomControls\CustomSlider.cs">
       <SubType>Component</SubType>
@@ -176,6 +179,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bg3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background.000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonPlay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonPlay1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,6 +2,7 @@
 {
     #region Namespaces
     using System;
+    using System.Runtime.InteropServices;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
@@ -19,6 +20,11 @@
         #endregion
 
         #region Private Variables
+        private static MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
+        private static bool shouldSHowMenuBar = false;
+        private static bool hasActivatedTwice = true;
+        private static bool doneOnce = false;
+        private static bool hasActivated = true;
         private static FormWindowState lastWindowState;
         private static int xPosition;
         private static int yPosition;
@@ -26,10 +32,11 @@
         private static Point startMouseLocation;
         private Button MinimizeButton;
         private Button ShowHideAudioButton;
-        private static Timer timerForVideoTime = new Timer();
-        private static Timer timerForRF = new Timer();
-        private static Timer timerForVideoProgress = new Timer();
-        private static Timer timerForMouseFormMovement = new Timer();
+        internal static Timer timerForVideoTime = new Timer();
+        internal static Timer timerForRF = new Timer();
+        internal static Timer timerForVideoProgress = new Timer();
+        internal static Timer timerForMouseFormMovement = new Timer();
+        internal static Timer timerForMenuBar = new Timer();
         private static bool fastForwardFired = false;
         private static bool rewindFired = false;
         private static bool audioHidden = false;
@@ -58,11 +65,25 @@
         /// </summary>
         private MainScreen()
         {
+         //   this.Activated += MainScreen_Activated;
+          //  this.Deactivate += MainScreen_Deactivate;
+            this.Enter += MainScreen_Enter;
             this.Click += new System.EventHandler(this.SetTopMost);
             audioControl = AudioFormControl.Instance;
             this.audioControl.VolumeProgress.Value = 50;
             audioControl.Show();
+            this.audioControl.Owner = this;
+            this.GotFocus += MainScreen_GotFocus;
             InitializeComponent();
+        }
+
+        void MainScreen_Enter(object sender, EventArgs e)
+        {
+        }
+
+        void MainScreen_GotFocus(object sender, EventArgs e)
+        {
+            this.audioControl.BringToFront();
         }
         #endregion
 
@@ -86,7 +107,50 @@
             timerForRF.Tick += timer_Tick;
             timerForVideoProgress.Interval = 1000;
             timerForVideoProgress.Tick += timerForVideoProgress_Tick;
+            //timerForVideoProgress.Tick += MenuBarFullScreenForm.timerForVideoProgress_Tick;
+            timerForMenuBar.Interval = 500;
+            timerForMenuBar.Tick += timerForMenuBar_Tick;
             this.VideoSlider.Enabled = false;
+        }
+
+        void timerForMenuBar_Tick(object sender, EventArgs e)
+        {
+            if (CheckException.CheckNull(video.DirectVideo) && !HolderForm.holderForm.IsDisposed)
+            {
+                if (Cursor.Position.Y > Screen.PrimaryScreen.WorkingArea.Height - 100)
+                {
+                    if (!menuBar.IsDisposed)
+                    {
+                        if (this.IsActive(HolderForm.holderForm.Handle))
+                        {
+                            menuBar.Show();
+                            menuBar.BringToFront();
+                            menuBar.TopMost = true;
+                            Console.WriteLine(HolderForm.holderForm.TopLevel);
+                            menuBar.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 3, Screen.PrimaryScreen.WorkingArea.Height - 40);
+                        }
+                    }
+                    else
+                    {
+                        timerForMenuBar.Stop();
+                        menuBar = null;
+                    }
+                }
+                else
+                {
+                    menuBar.Hide();
+                }
+            }
+            else
+            {
+                if(HolderForm.holderForm.IsDisposed)
+                {
+                    timerForVideoProgress.Stop();
+                }
+                timerForMenuBar.Stop();
+                menuBar.Dispose();
+                menuBar = null;
+            }
         }
 
         /// <summary>
@@ -229,6 +293,7 @@
                         video.StartVideo();
                         timerForVideoTime.Start();
                         timerForVideoProgress.Start();
+                        video.DirectVideo.Ending += DirectVideo_Ending;
                         this.VideoSlider.Enabled = true;
                         AudioForVideos.VolumeInit(video, this.audioControl.VolumeProgress);
                         video.DirectVideo.Ending += clearTimers; 
@@ -253,6 +318,13 @@
 
             }
 
+        }
+
+        void DirectVideo_Ending(object sender, EventArgs e)
+        {
+            timerForVideoTime.Stop();
+            timerForVideoProgress.Stop();
+            timerForMenuBar.Stop();
         }
 
         /// <summary>
@@ -413,16 +485,16 @@
             this.PlayButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(video))
             {
+                if (!timerForVideoTime.Enabled)
+                {
+                    timerForVideoTime.Start();
+                }
                 video.PlayVideo();
             }
             if (timerForRF.Enabled)
             {
                 timerForRF.Stop();
                 video.Speed = 0;
-            }
-            if (!timerForVideoTime.Enabled)
-            {
-                timerForVideoTime.Start();
             }
         }
 
@@ -492,11 +564,8 @@
             }
             if(video.isFullScreen)
             {
-                MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
-                menuBar.Show();
-                menuBar.BringToFront();
-                menuBar.TopMost = true;
-                menuBar.Location = new Point(HolderForm.holderForm.Location.X - 20, HolderForm.holderForm.Location.Y - 20);
+                menuBar = new MenuBarFullScreenForm();
+                timerForMenuBar.Start();
             }
         }
 
@@ -562,18 +631,24 @@
         {
             if(this.WindowState != lastWindowState)
             {
+                if(lastWindowState == FormWindowState.Minimized)
+                {
+                    this.audioControl.BringToFront();
+                    this.audioControl.Show();
+                }
                 lastWindowState = this.WindowState;
-             //   this.audioControl.Focus();
-                this.audioControl.BringToFront();
-                this.audioControl.Show();
             }
-            Console.WriteLine(this.TopLevel);
             base.OnClientSizeChanged(e);
         }
         #endregion
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
 
-
-
+        public bool IsActive(IntPtr handle)
+        {
+            IntPtr activeHandle = GetForegroundWindow();
+            return (activeHandle == handle);
+        }
 
     }
 }
