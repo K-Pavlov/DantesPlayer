@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioFormControl));
             this.VolumeProgress = new CustomControls.CustomSlider();
             this.VolumeDown = new System.Windows.Forms.Button();
             this.VolumeUp = new System.Windows.Forms.Button();
@@ -42,7 +43,7 @@
             this.VolumeProgress.ForeColor = System.Drawing.Color.Black;
             this.VolumeProgress.IndentHeight = 6;
             this.VolumeProgress.IndentWidth = 7;
-            this.VolumeProgress.Location = new System.Drawing.Point(78, 75);
+            this.VolumeProgress.Location = new System.Drawing.Point(78, 24);
             this.VolumeProgress.Maximum = 100;
             this.VolumeProgress.Minimum = 0;
             this.VolumeProgress.Name = "VolumeProgress";
@@ -64,7 +65,7 @@
             this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
             this.VolumeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VolumeDown.Image = global::MainScreen.Properties.Resources.buttonminus;
-            this.VolumeDown.Location = new System.Drawing.Point(41, 78);
+            this.VolumeDown.Location = new System.Drawing.Point(41, 34);
             this.VolumeDown.Name = "VolumeDown";
             this.VolumeDown.Size = new System.Drawing.Size(31, 23);
             this.VolumeDown.TabIndex = 21;
@@ -77,7 +78,7 @@
             this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.VolumeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.VolumeUp.Image = global::MainScreen.Properties.Resources.buttonplus;
-            this.VolumeUp.Location = new System.Drawing.Point(211, 78);
+            this.VolumeUp.Location = new System.Drawing.Point(211, 34);
             this.VolumeUp.Name = "VolumeUp";
             this.VolumeUp.Size = new System.Drawing.Size(31, 23);
             this.VolumeUp.TabIndex = 22;
@@ -89,7 +90,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(301, 127);
+            this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(286, 88);
             this.ControlBox = false;
             this.Controls.Add(this.VolumeUp);
             this.Controls.Add(this.VolumeDown);

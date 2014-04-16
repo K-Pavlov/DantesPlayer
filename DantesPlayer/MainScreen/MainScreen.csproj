@@ -192,6 +192,48 @@
   <ItemGroup>
     <None Include="Resources\buttonPlay1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonPlay2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonPause2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RewindButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonFF2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonStop2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonExit2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonMinimize2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonPause21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonStop21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayButtonLast.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonExit21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FullScreenButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CloseVideoButton.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,11 +9,12 @@ namespace MainScreen.VideoHandling
 {
     public class MenuBarFullScreenForm : Form
     {
-        private Button PlayButton;
-        private Button StopButton;
         private static Timer timerForVideoProgress = new Timer();
         private static CustomControls.CustomSlider VideoSlider;
-        private Button CloseButton;
+        private CustomControls.CustomButton PauseButton;
+        private CustomControls.CustomButton StopButton;
+        private CustomControls.CustomButton CloseButton;
+        private CustomControls.CustomButton PlayButton;
 
         public MenuBarFullScreenForm()
         {
@@ -45,41 +46,12 @@ namespace MainScreen.VideoHandling
 
         private void InitializeComponent()
         {
-            this.PlayButton = new System.Windows.Forms.Button();
-            this.StopButton = new System.Windows.Forms.Button();
-            this.CloseButton = new System.Windows.Forms.Button();
             VideoSlider = new CustomControls.CustomSlider();
+            this.CloseButton = new CustomControls.CustomButton();
+            this.PlayButton = new CustomControls.CustomButton();
+            this.StopButton = new CustomControls.CustomButton();
+            this.PauseButton = new CustomControls.CustomButton();
             this.SuspendLayout();
-            // 
-            // PlayButton
-            // 
-            this.PlayButton.Location = new System.Drawing.Point(12, 31);
-            this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(80, 20);
-            this.PlayButton.TabIndex = 0;
-            this.PlayButton.Text = "Play";
-            this.PlayButton.UseVisualStyleBackColor = true;
-            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
-            // 
-            // StopButton
-            // 
-            this.StopButton.Location = new System.Drawing.Point(114, 31);
-            this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(80, 20);
-            this.StopButton.TabIndex = 1;
-            this.StopButton.Text = "Stop";
-            this.StopButton.UseVisualStyleBackColor = true;
-            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.Location = new System.Drawing.Point(322, 0);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(20, 20);
-            this.CloseButton.TabIndex = 2;
-            this.CloseButton.Text = "x";
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // VideoSlider
             // 
@@ -89,7 +61,7 @@ namespace MainScreen.VideoHandling
             VideoSlider.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             VideoSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
             VideoSlider.IndentHeight = 10;
-            VideoSlider.Location = new System.Drawing.Point(-1, 0);
+            VideoSlider.Location = new System.Drawing.Point(174, -5);
             VideoSlider.Maximum = 20;
             VideoSlider.Minimum = 0;
             VideoSlider.Name = "VideoSlider";
@@ -107,14 +79,56 @@ namespace MainScreen.VideoHandling
             VideoSlider.Value = 0;
             VideoSlider.ValueChanged += new CustomControls.CustomSlider.ValueChangedHandler(VideoSlider_ValueChanged);
             // 
+            // CloseButton
+            // 
+            this.CloseButton.Image = global::MainScreen.Properties.Resources.buttonExit21;
+            this.CloseButton.Location = new System.Drawing.Point(548, 0);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(29, 23);
+            this.CloseButton.TabIndex = 22;
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click_1);
+            // 
+            // PlayButton
+            // 
+            this.PlayButton.Image = global::MainScreen.Properties.Resources.PlayButtonLast;
+            this.PlayButton.Location = new System.Drawing.Point(23, -1);
+            this.PlayButton.Name = "PlayButton";
+            this.PlayButton.Size = new System.Drawing.Size(27, 23);
+            this.PlayButton.TabIndex = 21;
+            this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click_1);
+            // 
+            // StopButton
+            // 
+            this.StopButton.Image = global::MainScreen.Properties.Resources.buttonStop21;
+            this.StopButton.Location = new System.Drawing.Point(125, -1);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(27, 23);
+            this.StopButton.TabIndex = 20;
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click_1);
+            // 
+            // PauseButton
+            // 
+            this.PauseButton.BackColor = System.Drawing.Color.Transparent;
+            this.PauseButton.Image = global::MainScreen.Properties.Resources.buttonPause21;
+            this.PauseButton.Location = new System.Drawing.Point(74, 0);
+            this.PauseButton.Name = "PauseButton";
+            this.PauseButton.Size = new System.Drawing.Size(28, 23);
+            this.PauseButton.TabIndex = 19;
+            this.PauseButton.UseVisualStyleBackColor = false;
+            this.PauseButton.Click += new System.EventHandler(this.customButton1_Click);
+            // 
             // MenuBarFullScreenForm
             // 
-            this.ClientSize = new System.Drawing.Size(354, 63);
+            this.ClientSize = new System.Drawing.Size(589, 23);
             this.ControlBox = false;
-            this.Controls.Add(VideoSlider);
             this.Controls.Add(this.CloseButton);
-            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.PlayButton);
+            this.Controls.Add(this.StopButton);
+            this.Controls.Add(this.PauseButton);
+            this.Controls.Add(VideoSlider);
             this.Name = "MenuBarFullScreenForm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -122,6 +136,57 @@ namespace MainScreen.VideoHandling
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void VideoSlider_ValueChanged(object sender, decimal value)
+        {
+            if (CheckException.CheckNull(MainScreen.video))
+            {
+                HolderForm.HandleBarMovemenet(VideoSlider, MainScreen.video.DirectVideo);
+            }
+        }
+
+        private void customButton1_Click(object sender, EventArgs e)
+        {
+            if (CheckException.CheckNull(MainScreen.video))
+            {
+                MainScreen.video.PauseVideo();
+            }
+            if (MainScreen.timerForRF.Enabled)
+            {
+                MainScreen.timerForRF.Stop();
+                MainScreen.video.Speed = 0;
+            }
+            if (MainScreen.timerForVideoTime.Enabled)
+            {
+                MainScreen.timerForVideoTime.Stop();
+            }
+        }
+
+        private void StopButton_Click_1(object sender, EventArgs e)
+        {
+            this.StopButton.FlatStyle = FlatStyle.Popup;
+            if (CheckException.CheckNull(MainScreen.video))
+            {
+                MainScreen.timerForRF.Stop();
+                MainScreen.video.StopVideo();
+            }
+            if (MainScreen.timerForVideoTime.Enabled)
+            {
+                MainScreen.timerForVideoTime.Stop();
+            }
+        }
+
+        private void PlayButton_Click_1(object sender, EventArgs e)
         {
             this.PlayButton.FlatStyle = FlatStyle.Popup;
             if (CheckException.CheckNull(MainScreen.video))
@@ -139,32 +204,10 @@ namespace MainScreen.VideoHandling
             }
         }
 
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            this.StopButton.FlatStyle = FlatStyle.Popup;
-            if (CheckException.CheckNull(MainScreen.video))
-            {
-                MainScreen.timerForRF.Stop();
-                MainScreen.video.StopVideo();
-            }
-            if (MainScreen.timerForVideoTime.Enabled)
-            {
-                MainScreen.timerForVideoTime.Stop();
-            }
-        }
-
-        private void CloseButton_Click(object sender, EventArgs e)
+        private void CloseButton_Click_1(object sender, EventArgs e)
         {
             HolderForm.holderForm.WindowState = FormWindowState.Normal;
             this.Dispose();
-        }
-
-        private void VideoSlider_ValueChanged(object sender, decimal value)
-        {
-            if (CheckException.CheckNull(MainScreen.video))
-            {
-                HolderForm.HandleBarMovemenet(VideoSlider, MainScreen.video.DirectVideo);
-            }
         }
 
 

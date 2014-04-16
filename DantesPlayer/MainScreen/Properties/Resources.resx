@@ -118,67 +118,109 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="fullScreenButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fullScreenButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rewindButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rewindButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fastForwardButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fastForwardButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="buttonplus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\buttonplus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rsz_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="repeatButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\repeatButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MainControlBackground1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainControlBackground.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="playListButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\playListButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="MainControlBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>MainControlBackground.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bg3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="playButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\playButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rsz_button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="closeVideoButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\closeVideoButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stopButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stopButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="buttonPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\buttonPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="buttonPlay1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonPlay1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="buttonminus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonminus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="stopButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stopButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonMinimize2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonMinimize2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fullScreenButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fullScreenButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonPlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonPlay.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayButtonLast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlayButtonLast.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonStop2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonStop2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pauseButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pauseButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="playButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fastForwardButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fastForwardButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonPlay2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonPlay2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonExit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonExit2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RewindButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RewindButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rewindButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rewindButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonPause21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonPause21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rsz_button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="playListButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playListButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="repeatButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repeatButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="closeVideoButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\closeVideoButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonStop21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonStop21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="background.000" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\background.000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="buttonPlay1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\buttonPlay1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MainControlBackground1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainControlBackground.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonExit21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonExit21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OpenFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rsz_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonFF2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonFF2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonplus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonplus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="buttonPause2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonPause2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FullScreenButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FullScreenButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseVideoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseVideoButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

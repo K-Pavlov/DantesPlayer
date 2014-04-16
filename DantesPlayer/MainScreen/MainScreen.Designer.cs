@@ -40,262 +40,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PlayButton = new System.Windows.Forms.Button();
-            this.PauseButton = new System.Windows.Forms.Button();
-            this.FFButton = new System.Windows.Forms.Button();
-            this.RewindButton = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutThePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.StopButton = new System.Windows.Forms.Button();
-            this.Playlist = new System.Windows.Forms.Button();
-            this.Repeat = new System.Windows.Forms.Button();
-            this.FullScreen = new System.Windows.Forms.Button();
-            this.closeVideo = new System.Windows.Forms.Button();
-            this.MinimizeButton = new System.Windows.Forms.Button();
             this.ShowHideAudioButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.OpenVideoButton = new CustomControls.CustomButton();
+            this.MinimizeButton = new CustomControls.CustomButton();
+            this.ExitButton = new CustomControls.CustomButton();
+            this.StopButton = new CustomControls.CustomButton();
+            this.PauseButton = new CustomControls.CustomButton();
+            this.FFButton = new CustomControls.CustomButton();
+            this.RewindButton = new CustomControls.CustomButton();
+            this.PlayButton = new CustomControls.CustomButton();
             this.VideoSlider = new CustomControls.CustomSlider();
-            this.menuStrip1.SuspendLayout();
+            this.CloseVideoButton = new CustomControls.CustomButton();
+            this.FullScreenButton = new CustomControls.CustomButton();
             this.SuspendLayout();
-            // 
-            // PlayButton
-            // 
-            this.PlayButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PlayButton.BackColor = System.Drawing.Color.Transparent;
-            this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PlayButton.Image = global::MainScreen.Properties.Resources.buttonPlay1;
-            this.PlayButton.Location = new System.Drawing.Point(37, 105);
-            this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(73, 63);
-            this.PlayButton.TabIndex = 0;
-            this.PlayButton.UseVisualStyleBackColor = false;
-            this.PlayButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseDown);
-            this.PlayButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseUp);
-            // 
-            // PauseButton
-            // 
-            this.PauseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PauseButton.Image = global::MainScreen.Properties.Resources.pauseButtonUpdate;
-            this.PauseButton.Location = new System.Drawing.Point(231, 105);
-            this.PauseButton.Name = "PauseButton";
-            this.PauseButton.Size = new System.Drawing.Size(91, 37);
-            this.PauseButton.TabIndex = 1;
-            this.PauseButton.UseVisualStyleBackColor = true;
-            this.PauseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PauseButton_MouseDown);
-            this.PauseButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PauseButton_MouseUp);
-            // 
-            // FFButton
-            // 
-            this.FFButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.FFButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FFButton.Image = global::MainScreen.Properties.Resources.fastForwardButton;
-            this.FFButton.Location = new System.Drawing.Point(130, 60);
-            this.FFButton.Name = "FFButton";
-            this.FFButton.Size = new System.Drawing.Size(91, 37);
-            this.FFButton.TabIndex = 2;
-            this.FFButton.UseVisualStyleBackColor = true;
-            this.FFButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FFButton_MouseDown);
-            this.FFButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FFButton_MouseUp);
-            // 
-            // RewindButton
-            // 
-            this.RewindButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RewindButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RewindButton.Image = global::MainScreen.Properties.Resources.rewindButtonUpdate;
-            this.RewindButton.Location = new System.Drawing.Point(130, 148);
-            this.RewindButton.Name = "RewindButton";
-            this.RewindButton.Size = new System.Drawing.Size(91, 37);
-            this.RewindButton.TabIndex = 3;
-            this.RewindButton.UseVisualStyleBackColor = true;
-            this.RewindButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RewindButton_MouseDown);
-            this.RewindButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RewindButton_MouseUp);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.aboutToolStripMenuItem,
-            this.toolsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(571, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.preferencesToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // preferencesToolStripMenuItem
-            // 
-            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.preferencesToolStripMenuItem.Text = "Preferences";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutUsToolStripMenuItem,
-            this.aboutThePlayerToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // aboutUsToolStripMenuItem
-            // 
-            this.aboutUsToolStripMenuItem.Name = "aboutUsToolStripMenuItem";
-            this.aboutUsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.aboutUsToolStripMenuItem.Text = "About us";
-            // 
-            // aboutThePlayerToolStripMenuItem
-            // 
-            this.aboutThePlayerToolStripMenuItem.Name = "aboutThePlayerToolStripMenuItem";
-            this.aboutThePlayerToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.aboutThePlayerToolStripMenuItem.Text = "About the player";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customizeToolStripMenuItem,
-            this.optionsToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.toolsToolStripMenuItem.Text = "&Tools";
-            // 
-            // customizeToolStripMenuItem
-            // 
-            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.customizeToolStripMenuItem.Text = "&Customize";
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.optionsToolStripMenuItem.Text = "&Options";
-            // 
-            // StopButton
-            // 
-            this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StopButton.Image = global::MainScreen.Properties.Resources.stopButtonUpdate;
-            this.StopButton.Location = new System.Drawing.Point(130, 105);
-            this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(91, 37);
-            this.StopButton.TabIndex = 5;
-            this.StopButton.UseVisualStyleBackColor = true;
-            this.StopButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StopButton_MouseDown);
-            this.StopButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.StopButton_MouseUp);
-            // 
-            // Playlist
-            // 
-            this.Playlist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Playlist.Image = global::MainScreen.Properties.Resources.playListButtonUpdate;
-            this.Playlist.Location = new System.Drawing.Point(414, 80);
-            this.Playlist.Name = "Playlist";
-            this.Playlist.Size = new System.Drawing.Size(91, 37);
-            this.Playlist.TabIndex = 6;
-            this.Playlist.UseVisualStyleBackColor = true;
-            this.Playlist.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Playlist_MouseDown);
-            this.Playlist.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Playlist_MouseUp);
-            // 
-            // Repeat
-            // 
-            this.Repeat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Repeat.Image = global::MainScreen.Properties.Resources.repeatButtonUpdate;
-            this.Repeat.Location = new System.Drawing.Point(414, 22);
-            this.Repeat.Name = "Repeat";
-            this.Repeat.Size = new System.Drawing.Size(91, 37);
-            this.Repeat.TabIndex = 7;
-            this.Repeat.UseVisualStyleBackColor = true;
-            this.Repeat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Repeat_MouseDown);
-            this.Repeat.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Repeat_MouseUp);
-            // 
-            // FullScreen
-            // 
-            this.FullScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FullScreen.Image = global::MainScreen.Properties.Resources.fullScreenButtonUpdate;
-            this.FullScreen.Location = new System.Drawing.Point(414, 141);
-            this.FullScreen.Name = "FullScreen";
-            this.FullScreen.Size = new System.Drawing.Size(91, 37);
-            this.FullScreen.TabIndex = 8;
-            this.FullScreen.UseVisualStyleBackColor = true;
-            this.FullScreen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseDown);
-            this.FullScreen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FullScreen_MouseUp);
-            // 
-            // closeVideo
-            // 
-            this.closeVideo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeVideo.Image = global::MainScreen.Properties.Resources.closeVideoButtonUpdate;
-            this.closeVideo.Location = new System.Drawing.Point(414, 196);
-            this.closeVideo.Name = "closeVideo";
-            this.closeVideo.Size = new System.Drawing.Size(91, 37);
-            this.closeVideo.TabIndex = 13;
-            this.closeVideo.UseVisualStyleBackColor = true;
-            this.closeVideo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.closeVideo_MouseDown);
-            this.closeVideo.MouseUp += new System.Windows.Forms.MouseEventHandler(this.closeVideo_MouseUp);
-            // 
-            // MinimizeButton
-            // 
-            this.MinimizeButton.Location = new System.Drawing.Point(511, 12);
-            this.MinimizeButton.Name = "MinimizeButton";
-            this.MinimizeButton.Size = new System.Drawing.Size(27, 17);
-            this.MinimizeButton.TabIndex = 18;
-            this.MinimizeButton.Text = "-";
-            this.MinimizeButton.UseVisualStyleBackColor = true;
-            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
             // ShowHideAudioButton
             // 
-            this.ShowHideAudioButton.Location = new System.Drawing.Point(15, 28);
+            this.ShowHideAudioButton.Location = new System.Drawing.Point(48, 74);
             this.ShowHideAudioButton.Name = "ShowHideAudioButton";
             this.ShowHideAudioButton.Size = new System.Drawing.Size(49, 23);
             this.ShowHideAudioButton.TabIndex = 19;
@@ -307,10 +69,91 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(125, 234);
+            this.label1.Location = new System.Drawing.Point(157, 196);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 20;
+            // 
+            // OpenVideoButton
+            // 
+            this.OpenVideoButton.Image = global::MainScreen.Properties.Resources.OpenFile;
+            this.OpenVideoButton.Location = new System.Drawing.Point(103, 74);
+            this.OpenVideoButton.Name = "OpenVideoButton";
+            this.OpenVideoButton.Size = new System.Drawing.Size(29, 30);
+            this.OpenVideoButton.TabIndex = 29;
+            this.OpenVideoButton.UseVisualStyleBackColor = true;
+            this.OpenVideoButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OpenVideoButton_MouseDown);
+            // 
+            // MinimizeButton
+            // 
+            this.MinimizeButton.Image = global::MainScreen.Properties.Resources.buttonMinimize2;
+            this.MinimizeButton.Location = new System.Drawing.Point(481, 86);
+            this.MinimizeButton.Name = "MinimizeButton";
+            this.MinimizeButton.Size = new System.Drawing.Size(23, 23);
+            this.MinimizeButton.TabIndex = 28;
+            this.MinimizeButton.UseVisualStyleBackColor = true;
+            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click_1);
+            // 
+            // ExitButton
+            // 
+            this.ExitButton.Image = global::MainScreen.Properties.Resources.buttonExit2;
+            this.ExitButton.Location = new System.Drawing.Point(510, 86);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(23, 23);
+            this.ExitButton.TabIndex = 27;
+            this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
+            // StopButton
+            // 
+            this.StopButton.Image = global::MainScreen.Properties.Resources.buttonStop2;
+            this.StopButton.Location = new System.Drawing.Point(189, 148);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(28, 23);
+            this.StopButton.TabIndex = 26;
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StopButton_MouseDown);
+            // 
+            // PauseButton
+            // 
+            this.PauseButton.Image = global::MainScreen.Properties.Resources.buttonPause2;
+            this.PauseButton.Location = new System.Drawing.Point(152, 148);
+            this.PauseButton.Name = "PauseButton";
+            this.PauseButton.Size = new System.Drawing.Size(28, 23);
+            this.PauseButton.TabIndex = 25;
+            this.PauseButton.UseVisualStyleBackColor = true;
+            this.PauseButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PauseButton_MouseDown);
+            // 
+            // FFButton
+            // 
+            this.FFButton.Image = global::MainScreen.Properties.Resources.buttonFF2;
+            this.FFButton.Location = new System.Drawing.Point(223, 148);
+            this.FFButton.Name = "FFButton";
+            this.FFButton.Size = new System.Drawing.Size(28, 23);
+            this.FFButton.TabIndex = 23;
+            this.FFButton.UseVisualStyleBackColor = true;
+            this.FFButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FFButton_MouseDown);
+            // 
+            // RewindButton
+            // 
+            this.RewindButton.Image = global::MainScreen.Properties.Resources.RewindButton;
+            this.RewindButton.Location = new System.Drawing.Point(260, 148);
+            this.RewindButton.Name = "RewindButton";
+            this.RewindButton.Size = new System.Drawing.Size(28, 23);
+            this.RewindButton.TabIndex = 22;
+            this.RewindButton.UseVisualStyleBackColor = true;
+            this.RewindButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RewindButton1_MouseDown);
+            // 
+            // PlayButton
+            // 
+            this.PlayButton.BackColor = System.Drawing.Color.Transparent;
+            this.PlayButton.Image = global::MainScreen.Properties.Resources.PlayButtonLast;
+            this.PlayButton.Location = new System.Drawing.Point(113, 148);
+            this.PlayButton.Name = "PlayButton";
+            this.PlayButton.Size = new System.Drawing.Size(33, 23);
+            this.PlayButton.TabIndex = 21;
+            this.PlayButton.UseVisualStyleBackColor = false;
+            this.PlayButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayButton_MouseDown_1);
             // 
             // VideoSlider
             // 
@@ -320,7 +163,7 @@
             this.VideoSlider.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VideoSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(125)))), ((int)(((byte)(123)))));
             this.VideoSlider.IndentHeight = 10;
-            this.VideoSlider.Location = new System.Drawing.Point(19, 201);
+            this.VideoSlider.Location = new System.Drawing.Point(63, 169);
             this.VideoSlider.Maximum = 20;
             this.VideoSlider.Minimum = 0;
             this.VideoSlider.Name = "VideoSlider";
@@ -338,6 +181,26 @@
             this.VideoSlider.Value = 0;
             this.VideoSlider.MouseClick += new System.Windows.Forms.MouseEventHandler(this.customSlider1_MouseClick);
             // 
+            // CloseVideoButton
+            // 
+            this.CloseVideoButton.Image = global::MainScreen.Properties.Resources.CloseVideoButton;
+            this.CloseVideoButton.Location = new System.Drawing.Point(492, 149);
+            this.CloseVideoButton.Name = "CloseVideoButton";
+            this.CloseVideoButton.Size = new System.Drawing.Size(32, 23);
+            this.CloseVideoButton.TabIndex = 30;
+            this.CloseVideoButton.UseVisualStyleBackColor = true;
+            this.CloseVideoButton.Click += new System.EventHandler(this.CloseVideoButton_Click);
+            // 
+            // FullScreenButton
+            // 
+            this.FullScreenButton.Image = global::MainScreen.Properties.Resources.FullScreenButton;
+            this.FullScreenButton.Location = new System.Drawing.Point(492, 118);
+            this.FullScreenButton.Name = "FullScreenButton";
+            this.FullScreenButton.Size = new System.Drawing.Size(30, 25);
+            this.FullScreenButton.TabIndex = 31;
+            this.FullScreenButton.UseVisualStyleBackColor = true;
+            this.FullScreenButton.Click += new System.EventHandler(this.FullScreenButton_Click);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,20 +210,19 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.StopButton);
-            this.Controls.Add(this.ShowHideAudioButton);
-            this.Controls.Add(this.FFButton);
-            this.Controls.Add(this.PauseButton);
+            this.Controls.Add(this.FullScreenButton);
+            this.Controls.Add(this.CloseVideoButton);
+            this.Controls.Add(this.OpenVideoButton);
             this.Controls.Add(this.MinimizeButton);
+            this.Controls.Add(this.ExitButton);
+            this.Controls.Add(this.StopButton);
+            this.Controls.Add(this.PauseButton);
+            this.Controls.Add(this.FFButton);
             this.Controls.Add(this.RewindButton);
-            this.Controls.Add(this.VideoSlider);
             this.Controls.Add(this.PlayButton);
-            this.Controls.Add(this.closeVideo);
-            this.Controls.Add(this.FullScreen);
-            this.Controls.Add(this.Repeat);
-            this.Controls.Add(this.Playlist);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ShowHideAudioButton);
+            this.Controls.Add(this.VideoSlider);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -372,40 +234,27 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseUp);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button PlayButton;
-        private System.Windows.Forms.Button PauseButton;
-        private System.Windows.Forms.Button FFButton;
-        private System.Windows.Forms.Button RewindButton;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutUsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutThePlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.Button StopButton;
-        private System.Windows.Forms.Button Playlist;
-        private System.Windows.Forms.Button Repeat;
-        private System.Windows.Forms.Button FullScreen;
-        private System.Windows.Forms.Button closeVideo;
+
         private CustomControls.CustomSlider VideoSlider;
         private Label label1;
+        private CustomControls.CustomButton PlayButton;
+        private CustomButton RewindButton;
+        private CustomButton FFButton;
+        private CustomButton PauseButton;
+        private CustomButton StopButton;
+        private CustomButton ExitButton;
+        private CustomButton MinimizeButton;
+        private CustomButton OpenVideoButton;
+        private CustomButton CloseVideoButton;
+        private CustomButton FullScreenButton;
 
-        
+
     }
 }
 
