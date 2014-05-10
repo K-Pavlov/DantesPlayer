@@ -4,9 +4,9 @@
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
     using AudioHandling;
     using CustomControls;
+    using DirectAllias = Microsoft.DirectX.AudioVideoPlayback;
     #endregion 
 
     /// <summary>
@@ -15,45 +15,78 @@
     /// </summary>
     public sealed class Video
     {
-        private string loadedMovie;
-        private bool autoPlay;
-        private int height;
-        private int width;
-        private HolderForm holderForm = new HolderForm();
         /// <summary>
+        /// The video that is loaded
+        /// </summary>
+        private string loadedVideo;
+
+        /// <summary>
+        /// Should the video start automatically
+        /// </summary>
+        private bool autoPlay;
+
+        /// <summary>
+        /// The height of the video 
+        /// </summary>
+        private int height;
+
+        /// <summary>
+        /// The width of the video
+        /// </summary>
+        private int width;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Video"/> class.
         /// Constructor of the video class
         /// takes which movie to play as a string
         /// should the video play automatically 
         /// and it's width and height
         /// </summary>
-        /// <param name="loadedMovie"></param>
-        /// <param name="autoPlay"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        public Video(string loadedMovie, bool autoPlay, int width, int height)
+        /// <param name="loadedVideo">The video that is loaded</param>
+        /// <param name="autoPlay">The form that holds the video</param>
+        /// <param name="width">The width of the video</param>
+        /// <param name="height"> The height of the video</param>
+        public Video(string loadedVideo, bool autoPlay, int width, int height)
         {
-            this.LoadedMovie = loadedMovie;
+            this.LoadedVideo = loadedVideo;
             this.AutoPlay = autoPlay;
             this.Height = height;
             this.Width = width;
             this.Speed = 0;
-            this.isFullScreen = false;
+            this.IsFullScreen = false;
+            this.HolderForm = new HolderForm();
         }
 
         /// <summary>
-        /// Return the video, readonly 
+        /// Gets or sets a value indicating whether the video should be full screen 
         /// </summary>
+        public bool IsFullScreen { get; set; }
 
-        public bool isFullScreen { get; set; }
+        /// <summary>
+        /// Gets or sets the speed of rewind/fast forward
+        /// </summary>
         public int Speed { get; set; }
+
+        /// <summary>
+        /// Gets the DirectX video
+        /// </summary>
         public DirectAllias::Video DirectVideo { get; private set; }
 
-        private string LoadedMovie
+        /// <summary>
+        /// Gets or sets the form that holds the video
+        /// </summary>
+        private HolderForm HolderForm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the loaded video
+        /// </summary>
+        private string LoadedVideo
         {
             get
             {
-                return this.loadedMovie;
+                return this.loadedVideo;
             }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -61,54 +94,69 @@
                     throw new ArgumentException("Movie name is null or empty");
                 }
 
-                this.loadedMovie = value;
+                this.loadedVideo = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the auto play
+        /// </summary>
         private bool AutoPlay
         {
             get
             {
                 return this.autoPlay;
             }
+
             set
             {
                 if (value.Equals(null))
                 {
                     throw new ArgumentException("Autoplay must have a value");
                 }
+
                 this.autoPlay = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the height of the video
+        /// </summary>
         private int Height
         {
             get
             {
                 return this.height;
             }
+
             set
             {
                 if (value.Equals(null) || value <= 0)
                 {
                     throw new ArgumentException("Height must be more than 0 and not null");
                 }
+
                 this.height = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the width of the video
+        /// </summary>
         private int Width
         {
             get
             {
                 return this.width;
             }
+
             set
             {
                 if (value.Equals(null) || value <= 0)
                 {
                     throw new ArgumentException("Width must be more than 0 and not null");
                 }
+
                 this.width = value;
             }
         }
@@ -121,25 +169,7 @@
             this.ConfigureVideo();
             this.DirectVideo.Play();
         }
-
-        /// <summary>
-        /// Configure video creates and a new video and calls a static method
-        /// which attaches the video a panel and a form and shows it
-        /// </summary>
-        private void ConfigureVideo()
-        {
-            try
-            {
-                this.DirectVideo = new DirectAllias::Video(this.LoadedMovie, autoPlay);
-                holderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
-            }
-            catch (Microsoft.DirectX.DirectXException)
-            {
-                throw new Microsoft.DirectX.DirectXException();
-            }
-        }
     
-        
         /// <summary>
         /// Check if the video is playing and if it is pauses it
         /// </summary>
@@ -152,9 +182,8 @@
                     this.DirectVideo.Pause();
                 }
             }
-            catch(NullReferenceException)
-            {
-             
+            catch (NullReferenceException)
+            {             
             }
         }
 
@@ -170,11 +199,10 @@
                     this.DirectVideo.Play();
                 }
             }
-            catch(NullReferenceException)
+            catch
+                (NullReferenceException)
             {
-
             }
-        
         }
 
         /// <summary>
@@ -188,7 +216,6 @@
             }
             catch (NullReferenceException)
             {
-
             }
         }
 
@@ -199,18 +226,17 @@
         {
             try
             {
-                holderForm.DispatchVideoAndForm(this.DirectVideo);
+                this.HolderForm.DispatchVideoAndForm(this.DirectVideo);
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
-
             }
         }
 
         /// <summary>
         /// Increases volume by 10%
         /// </summary>
-        /// <param name="bar"></param>
+        /// <param name="slider">A custom slider object</param>
         public void VolumeUp(CustomSlider slider)
         {
             AudioForVideos.VolumeUp(this, slider);
@@ -219,13 +245,15 @@
         /// <summary>
         /// Decreases volume by 10%
         /// </summary>
-        /// <param name="bar"></param>
+        /// <param name="slider">A custom slider object</param>
         public void VolumeDown(CustomSlider slider)
         {
             AudioForVideos.VolumeDown(this, slider);
         }
 
-        // TODO: Open in fullscr
+        /// <summary>
+        /// Opens video in full screen
+        /// </summary>
         public void OpenVideoInFullScreen()
         {
             HolderForm.OpenInFullScreen();
@@ -236,7 +264,7 @@
         /// </summary>
         public void FastForward()
         {
-            if(CheckException.CheckNull(this.DirectVideo))
+            if (CheckException.CheckNull(this.DirectVideo))
             {
                 if (this.DirectVideo.CurrentPosition + this.Speed > 0)
                 {
@@ -259,5 +287,21 @@
             }
         }
 
+        /// <summary>
+        /// Configure video creates and a new video and calls a static method
+        /// which attaches the video a panel and a form and shows it
+        /// </summary>
+        private void ConfigureVideo()
+        {
+            try
+            {
+                this.DirectVideo = new DirectAllias::Video(this.LoadedVideo, this.autoPlay);
+                this.HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
+            }
+            catch (Microsoft.DirectX.DirectXException)
+            {
+                throw new Microsoft.DirectX.DirectXException();
+            }
+        }
     }
 }

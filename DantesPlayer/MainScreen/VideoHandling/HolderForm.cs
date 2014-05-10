@@ -13,60 +13,24 @@
     /// </summary>
     public class HolderForm
     {       
+        /// <summary>
+        /// Gets or sets a static form where the video will be attached to
+        /// </summary>
+        internal static FormForVideo FormForVideo { get; set; }
 
         /// <summary>
-        /// A static form where we will the video
-        /// </summary>
-        internal static FormForVideo holderForm;
-        public static bool TopMost
-        {
-            get { return holderForm.TopMost; }
-            set { holderForm.TopMost = value; }
-        }
-        
-        /// <summary>
-        /// Attach the video to the form and panel 
-        /// and show it to the world
+        /// Kills the video and everything
+        /// associated with it
         /// </summary>
         /// <param name="video">DirectX video</param>
-        /// <param name="height">The height of the video</param>
-        /// <param name="width">The width of the video</param>
-        public void AttachVideoToForm(DirectXAllias::Video video, Size size)
-        {
-            holderForm = new FormForVideo();
-            holderForm.MinimumSize = new Size(200, 200);
-            holderForm.MaximumSize = new Size(801, 601);
-            holderForm.Video = video;
-            holderForm.ControlBox = false;
-            holderForm.Size = new Size(800, 600);
-           // Display the form in the center of the screen.
-            holderForm.StartPosition = FormStartPosition.CenterScreen;
-            video.Owner = holderForm;
-            holderForm.Show();
-            holderForm.Activate();
-            video.Size = new Size(800,600);
-        }
-        
-        /// <summary>
-        /// Dispatches the video and form meaning
-        /// it cleans all resources behind
-        /// after and the video is stopped 
-        /// AND the form is closed
-        /// </summary>
-        /// <param name="video">The DirectX video</param>
-        public void DispatchVideoAndForm(DirectXAllias::Video video)
-        {
-            holderForm.Dispose();
-            video.Dispose();
-        }
-
         public static void NullVideoAndForm(DirectXAllias::Video video)
         {
-            if (CheckException.CheckNull(holderForm))
+            if (CheckException.CheckNull(FormForVideo))
             {
-                holderForm.Dispose();
-                holderForm = null;
+                FormForVideo.Dispose();
+                FormForVideo = null;
             }
+
             if (CheckException.CheckNull(video))
             {
                 video.Dispose();
@@ -74,6 +38,12 @@
             }
         }
 
+        /// <summary>
+        /// Makes the slider go correctly with
+        /// the video
+        /// </summary>
+        /// <param name="slider">A custom slider object</param>
+        /// <param name="video">DirectX video</param>
         public static void HandleVideoProgress(CustomControls.CustomSlider slider, DirectXAllias::Video video)
         {
             if (video.Disposed == false)
@@ -88,18 +58,62 @@
             }
         }
 
+        /// <summary>
+        /// Handles slider movement 
+        /// </summary>
+        /// <param name="slider">A custom slider object</param>
+        /// <param name="video">A DirectX video</param>
         public static void HandleBarMovemenet(CustomControls.CustomSlider slider, DirectXAllias::Video video)
         {
-            if(CheckException.CheckNull(video))
+            if (CheckException.CheckNull(video))
             {
                 video.CurrentPosition = slider.Value;
             }
         }
 
+        /// <summary>
+        /// Opens the video in full screen removing the 
+        /// maximum size limitation of the video
+        /// </summary>
         public static void OpenInFullScreen()
         {
-            holderForm.MaximumSize = new Size(5000, 5000);
-            holderForm.WindowState = FormWindowState.Maximized;
+            FormForVideo.MaximumSize = new Size(5000, 5000);
+            FormForVideo.WindowState = FormWindowState.Maximized;
+        }
+
+        /// <summary>
+        /// Attach the video to the form and panel 
+        /// and show it to the world
+        /// </summary>
+        /// <param name="video">DirectX video</param>
+        /// <param name="size">Size of the video</param>
+        public void AttachVideoToForm(DirectXAllias::Video video, Size size)
+        {
+            FormForVideo = new FormForVideo();
+            FormForVideo.MinimumSize = new Size(200, 200);
+            FormForVideo.MaximumSize = new Size(801, 601);
+            FormForVideo.Video = video;
+            FormForVideo.ControlBox = false;
+            FormForVideo.Size = new Size(800, 600);
+            //// Display the form in the center of the screen.
+            FormForVideo.StartPosition = FormStartPosition.CenterScreen;
+            video.Owner = FormForVideo;
+            FormForVideo.Show();
+            FormForVideo.Activate();
+            video.Size = new Size(800, 600);
+        }
+        
+        /// <summary>
+        /// Dispatches the video and form meaning
+        /// it cleans all resources behind
+        /// after and the video is stopped 
+        /// AND the form is closed
+        /// </summary>
+        /// <param name="video">The DirectX video</param>
+        public void DispatchVideoAndForm(DirectXAllias::Video video)
+        {
+            FormForVideo.Dispose();
+            video.Dispose();
         }
     }
 }

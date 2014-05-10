@@ -2,42 +2,46 @@
 {
     #region Namespaces
     using System;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
     using System.Windows.Input;
     using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
-    using System.Runtime.InteropServices;
     #endregion
 
     public class FormForVideo : Form
     {
         private DirectXAllias::Video video;
-        private Timer timer = new Timer();
+        private Timer timer;
 
         public FormForVideo()
         {
-            this.InitializeComponent();                         
+            this.InitializeComponent();
+            this.timer = new Timer();        
         }
 
-
+        /// <summary>
+        /// Gets or sets the DirectX video
+        /// </summary>
         public DirectXAllias::Video Video
         {
             get
             {
                 return this.video;
             }
+
             set
             {
                 this.video = value;
             }
-                
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (Video != null)
+            if (this.Video != null)
             {
-                Video.Dispose();
+                this.Video.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -54,7 +58,6 @@
             this.Load += new System.EventHandler(this.SetTopMost);
             this.Click += new System.EventHandler(this.SetTopMost);
             this.ResumeLayout(false);
-
         }
 
         private void SetTopMost(object sender, EventArgs e)
@@ -76,6 +79,5 @@
                 }
             }
         }
-
     }
 }

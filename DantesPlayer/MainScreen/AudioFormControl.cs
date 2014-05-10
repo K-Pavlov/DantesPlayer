@@ -32,6 +32,8 @@ namespace MainScreen
         /// <summary>
         /// Remove from task manager, property override
         /// </summary>
+        /// 
+        public MainScreen MainScreenInstance { get; set; }
         protected override CreateParams CreateParams
         {
             get
@@ -45,16 +47,14 @@ namespace MainScreen
         private void SetTopMost(object sender, EventArgs e)
         {
             this.BringToFront();
-            ApplicationSetUp.mainScreen.BringToFront();
             //this.TopMost = true;
             //ApplicationSetUp.mainScreen.TopMost = true;
         }
         private void VolumeDown_MouseDown(object sender, MouseEventArgs e)
         {
-            this.VolumeDown.FlatStyle = FlatStyle.Popup;
-            if (CheckException.CheckNull(MainScreen.video))
+            if (CheckException.CheckNull(MainScreenInstance.video))
             {
-                MainScreen.video.VolumeDown(this.VolumeProgress);
+                MainScreenInstance.video.VolumeDown(this.VolumeProgress);
             }
             else
             {
@@ -67,15 +67,13 @@ namespace MainScreen
 
         private void VolumeDown_MouseUp(object sender, MouseEventArgs e)
         {
-            this.VolumeDown.FlatStyle = FlatStyle.Flat;
         }
 
         private void VolumeUp_MouseDown(object sender, MouseEventArgs e)
         {
-            this.VolumeUp.FlatStyle = FlatStyle.Popup;
-            if (CheckException.CheckNull(MainScreen.video))
+            if (CheckException.CheckNull(MainScreenInstance.video))
             {
-                MainScreen.video.VolumeUp(this.VolumeProgress);
+                MainScreenInstance.video.VolumeUp(this.VolumeProgress);
             }
             else
             {
@@ -88,20 +86,20 @@ namespace MainScreen
 
         private void VolumeUp_MouseUp(object sender, MouseEventArgs e)
         {
-            this.VolumeUp.FlatStyle = FlatStyle.Flat;
+            this.VolumeUpButton.FlatStyle = FlatStyle.Flat;
         }
 
         private void VolumeProgress_ValueChanged(object sender, decimal value)
         {
-            if (CheckException.CheckNull(MainScreen.video))
+            if (CheckException.CheckNull(MainScreenInstance.video))
             {
-                AudioForVideos.VolumeInit(MainScreen.video, this.VolumeProgress);
+                AudioForVideos.VolumeInit(MainScreenInstance.video, this.VolumeProgress);
             }
         }
         
         private void VolumeInit()
         {
-            AudioForVideos.VolumeInit(MainScreen.video, this.VolumeProgress);
+            AudioForVideos.VolumeInit(MainScreenInstance.video, this.VolumeProgress);
         }
     }
 }

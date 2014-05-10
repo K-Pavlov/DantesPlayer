@@ -1,51 +1,64 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
-
-namespace MainScreen.CustomControls
+﻿namespace MainScreen.CustomControls
 {
+    #region Namespaces
+    using System;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.Windows.Forms;
+    #endregion 
+
+    /// <summary>
+    /// Static class which is for color creation
+    /// </summary>
     internal static class ColorHelper
     {
-        private static void checkColor(ref int color)
+        /// <summary>
+        /// Does the overlay math
+        /// </summary>
+        /// <param name="ibase">integer base</param>
+        /// <param name="blend">integer blend</param>
+        /// <returns>Integer overlay math</returns>
+        public static int OverlayMath(int ibase, int blend)
         {
-            if(color > 255)
+            double dbase;
+            double dblend;
+            dbase = (double)ibase / 255;
+            dblend = (double)blend / 255;
+            if (dbase < 0.5)
             {
-                color = 255;
+                return (int)((2 * dbase * dblend) * 255);
             }
-            else if(color < 0)
+            else
             {
-                color = 0;
+                return (int)((1 - (2 * (1 - dbase) * (1 - dblend))) * 255);
             }
         }
 
         /// <summary>
-        /// 
+        /// Creates a rgb color
         /// </summary>
-        /// <param name="redC"></param>
-        /// <param name="greenC"></param>
-        /// <param name="blueC"></param>
-        /// <returns></returns>
+        /// <param name="redC">Integer value</param>
+        /// <param name="greenC">Integer value</param>
+        /// <param name="blueC">Integer value</param>
+        /// <returns>Returns a Color</returns>
         public static Color CreateColor(int redC, int greenC, int blueC)
         {
             int red = redC;
             int green = greenC;
             int blue = blueC;
-            checkColor(ref red);
-            checkColor(ref green);
-            checkColor(ref blue);
-            
-
+            CheckColor(ref red);
+            CheckColor(ref green);
+            CheckColor(ref blue);
             return Color.FromArgb(red, green, blue);
         }
 
         /// <summary>
-        /// 
+        /// Creates an opacity mix, ugly
         /// </summary>
-        /// <param name="blendColor"></param>
-        /// <param name="baseColor"></param>
-        /// <param name="opacity"></param>
-        /// <returns></returns>
+        /// <param name="blendColor">Color, The blend Color</param>
+        /// <param name="baseColor">Color, The base Color</param>
+        /// <param name="opacity">Integer opacity</param>
+        /// <returns>A color</returns>
         public static Color OpacityMix(Color blendColor, Color baseColor, int opacity)
         {
             int red1, red2, red3;
@@ -64,12 +77,12 @@ namespace MainScreen.CustomControls
         }
 
         /// <summary>
-        /// 
+        /// Creates a soft light mix
         /// </summary>
-        /// <param name="baseColor"></param>
-        /// <param name="blendColor"></param>
-        /// <param name="opacity"></param>
-        /// <returns></returns>
+        /// <param name="baseColor">Color, The blend Color</param>
+        /// <param name="blendColor">Color, The base Color</param>
+        /// <param name="opacity">Integer opacity</param>
+        /// <returns>A Color</returns>
         public static Color SoftLightMix(Color baseColor, Color blendColor, int opacity)
         {
             int red1;
@@ -94,12 +107,12 @@ namespace MainScreen.CustomControls
         }
 
         /// <summary>
-        /// 
+        /// Creates a overlay mix
         /// </summary>
-        /// <param name="baseColor"></param>
-        /// <param name="blendColor"></param>
-        /// <param name="opacity"></param>
-        /// <returns></returns>
+        /// <param name="baseColor">Color, The blend Color</param>
+        /// <param name="blendColor">Color, The base Color</param>
+        /// <param name="opacity">Integer opacity</param>
+        /// <returns>A Color</returns>
         public static Color OverlayMix(Color baseColor, Color blendColor, int opacity)
         {
             int red1;
@@ -123,13 +136,12 @@ namespace MainScreen.CustomControls
             return OpacityMix(CreateColor(red3, green3, blue3), baseColor, opacity);
         }
 
-
         /// <summary>
-        /// 
+        /// Does the soft light math
         /// </summary>
-        /// <param name="ibase"></param>
-        /// <param name="blend"></param>
-        /// <returns></returns>
+        /// <param name="ibase">Integer value</param>
+        /// <param name="blend">Integer value</param>
+        /// <returns>Integer value</returns>
         private static int SoftLightMath(int ibase, int blend)
         {
             float dbase;
@@ -147,24 +159,18 @@ namespace MainScreen.CustomControls
         }
 
         /// <summary>
-        /// 
+        /// Checks if color is in 0 .. 255 bounds
         /// </summary>
-        /// <param name="ibase"></param>
-        /// <param name="blend"></param>
-        /// <returns></returns>
-        public static int OverlayMath(int ibase, int blend)
+        /// <param name="color">A integer value</param>
+        private static void CheckColor(ref int color)
         {
-            double dbase;
-            double dblend;
-            dbase = (double)ibase / 255;
-            dblend = (double)blend / 255;
-            if (dbase < 0.5)
+            if (color > 255)
             {
-                return (int)((2 * dbase * dblend) * 255);
+                color = 255;
             }
-            else
+            else if (color < 0)
             {
-                return (int)((1 - (2 * (1 - dbase) * (1 - dblend))) * 255);
+                color = 0;
             }
         }
     }

@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-namespace MainScreen
+﻿namespace MainScreen
 {
+    #region Namespaces
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    #endregion 
+
+    /// <summary>
+    /// Starts the application 
+    /// </summary>
     internal static class ApplicationSetUp
     {
-        internal static MainScreen mainScreen;
         /// <summary>
         /// Starts the application
-        /// creating the singleton instance
-        /// of the mainscreen
         /// </summary>
         internal static void Start()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            mainScreen = MainScreen.Instance;
-            Application.Run(mainScreen);
+            Application.Run(MainScreen.Instance);
             Application.Exit();
         }
     }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MainScreen.CustomControls
+﻿namespace MainScreen.CustomControls
 {
+    /// <summary>
+    /// Border styles
+    /// </summary>
     public enum BorderStyle
     {
         None,

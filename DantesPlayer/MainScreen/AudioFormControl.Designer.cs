@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioFormControl));
             this.VolumeProgress = new CustomControls.CustomSlider();
-            this.VolumeDown = new System.Windows.Forms.Button();
-            this.VolumeUp = new System.Windows.Forms.Button();
+            this.volumeDownButton = new CustomControls.CustomButton();
+            this.VolumeUpButton = new CustomControls.CustomButton();
             this.SuspendLayout();
             // 
             // VolumeProgress
@@ -49,6 +49,7 @@
             this.VolumeProgress.Name = "VolumeProgress";
             this.VolumeProgress.Size = new System.Drawing.Size(127, 42);
             this.VolumeProgress.TabIndex = 20;
+            this.VolumeProgress.TabStop = false;
             this.VolumeProgress.TickColor = System.Drawing.SystemColors.MenuHighlight;
             this.VolumeProgress.TickFrequency = 50;
             this.VolumeProgress.TickHeight = 7;
@@ -59,32 +60,29 @@
             this.VolumeProgress.Value = 0;
             this.VolumeProgress.ValueChanged += new CustomControls.CustomSlider.ValueChangedHandler(this.VolumeProgress_ValueChanged);
             // 
-            // VolumeDown
+            // volumeDownButton
             // 
-            this.VolumeDown.AccessibleRole = System.Windows.Forms.AccessibleRole.Sound;
-            this.VolumeDown.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VolumeDown.Image = global::MainScreen.Properties.Resources.buttonminus;
-            this.VolumeDown.Location = new System.Drawing.Point(41, 34);
-            this.VolumeDown.Name = "VolumeDown";
-            this.VolumeDown.Size = new System.Drawing.Size(31, 23);
-            this.VolumeDown.TabIndex = 21;
-            this.VolumeDown.UseVisualStyleBackColor = true;
-            this.VolumeDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseDown);
-            this.VolumeDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeDown_MouseUp);
+            this.volumeDownButton.BackColor = System.Drawing.Color.Transparent;
+            this.volumeDownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.volumeDownButton.Image = global::MainScreen.Properties.Resources.volumeDownButton;
+            this.volumeDownButton.Location = new System.Drawing.Point(49, 24);
+            this.volumeDownButton.Name = "volumeDownButton";
+            this.volumeDownButton.Size = new System.Drawing.Size(23, 23);
+            this.volumeDownButton.TabIndex = 21;
+            this.volumeDownButton.TabStop = false;
+            this.volumeDownButton.UseVisualStyleBackColor = false;
             // 
-            // VolumeUp
+            // VolumeUpButton
             // 
-            this.VolumeUp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VolumeUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VolumeUp.Image = global::MainScreen.Properties.Resources.buttonplus;
-            this.VolumeUp.Location = new System.Drawing.Point(211, 34);
-            this.VolumeUp.Name = "VolumeUp";
-            this.VolumeUp.Size = new System.Drawing.Size(31, 23);
-            this.VolumeUp.TabIndex = 22;
-            this.VolumeUp.UseVisualStyleBackColor = true;
-            this.VolumeUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseDown);
-            this.VolumeUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.VolumeUp_MouseUp);
+            this.VolumeUpButton.BackColor = System.Drawing.Color.Transparent;
+            this.VolumeUpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VolumeUpButton.Image = global::MainScreen.Properties.Resources.volumeUpButton;
+            this.VolumeUpButton.Location = new System.Drawing.Point(212, 23);
+            this.VolumeUpButton.Name = "VolumeUpButton";
+            this.VolumeUpButton.Size = new System.Drawing.Size(19, 23);
+            this.VolumeUpButton.TabIndex = 22;
+            this.VolumeUpButton.TabStop = false;
+            this.VolumeUpButton.UseVisualStyleBackColor = false;
             // 
             // AudioFormControl
             // 
@@ -94,8 +92,8 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(286, 88);
             this.ControlBox = false;
-            this.Controls.Add(this.VolumeUp);
-            this.Controls.Add(this.VolumeDown);
+            this.Controls.Add(this.VolumeUpButton);
+            this.Controls.Add(this.volumeDownButton);
             this.Controls.Add(this.VolumeProgress);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -112,7 +110,7 @@
         #endregion
 
         internal CustomControls.CustomSlider VolumeProgress;
-        private System.Windows.Forms.Button VolumeDown;
-        private System.Windows.Forms.Button VolumeUp;
+        private CustomControls.CustomButton volumeDownButton;
+        private CustomControls.CustomButton VolumeUpButton;
     }
 }
