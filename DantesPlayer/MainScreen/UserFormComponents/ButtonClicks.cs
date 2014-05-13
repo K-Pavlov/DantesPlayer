@@ -10,6 +10,8 @@
     using AudioHandling;
     using UserInterfaceDialogs;
     using VideoHandling;
+    using System.Text.RegularExpressions;
+    using System.IO;
     #endregion
 
     /// <summary>
@@ -34,6 +36,8 @@
         /// </summary>
         private string VideoName { get; set; }
 
+        private string SubsName { get; set; }
+
         /// <summary>
         /// Plays the video
         /// </summary>
@@ -56,6 +60,49 @@
                 this.MainScreenInstance.timerForRF.Stop();
                 this.MainScreenInstance.video.Speed = 0;
             }
+        }
+
+        public void LoadSubs(Button button) 
+        {
+            if (CheckException.CheckNull(this.VideoName))
+            {
+                try
+                {                   
+                        OpenFileDialog Dialog1 = new OpenFileDialog();
+                        Dialog1.InitialDirectory = "c:\\";
+                        string Formats = "Subs |*.SRT";
+                        Dialog1.Filter = Formats;
+                        Dialog1.FilterIndex = 2;
+                        Dialog1.RestoreDirectory = true;
+                        if (Dialog1.ShowDialog() == DialogResult.OK)
+                        {
+                            if (Dialog1.OpenFile() != null)
+                            {
+                                this.SubsName = Dialog1.FileName;
+
+                                TimeSpan CurrentTime = new TimeSpan();
+                                Regex unit = new Regex(@"(?<sequence>\d+)\r\n(?<start>\d{2}\:\d{2}\:\d{2},\d{3}) --\> " +
+                                 @"(?<end>\d{2}\:\d{2}\:\d{2},\d{3})\r\n(?<text>[\s\S]*?\r\n\r\n)");
+                                StreamReader reader = new StreamReader(SubsName);
+                                
+
+
+
+                            }   
+                            
+                        }
+                    
+                }
+                catch (Microsoft.DirectX.DirectXException)
+                {
+                    MessageBox.Show(TypeExpecption, "Warning");
+                }
+
+
+            }
+                
+            
+            
         }
 
         /// <summary>

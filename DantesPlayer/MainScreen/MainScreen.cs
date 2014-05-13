@@ -381,6 +381,10 @@
             this.buttonClicks.PlayVideo(this.PlayButton);
             //this.Focus();
         }
+        private void Subs_Button_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.buttonClicks.LoadSubs(this.Subs_Button);
+        }
 
         private void PauseButton_MouseUp(object sender, MouseEventArgs e)
         {
@@ -470,5 +474,7 @@
             IntPtr activeHandle = GetForegroundWindow();
             return (activeHandle == handle);
         }
+
+       
     }
 }

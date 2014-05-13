@@ -53,6 +53,7 @@
             this.RewindButton = new CustomControls.CustomButton();
             this.PlayButton = new CustomControls.CustomButton();
             this.VideoSlider = new CustomControls.CustomSlider();
+            this.Subs_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -244,6 +245,16 @@
             this.VideoSlider.Value = 0;
             this.VideoSlider.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CustomSlider1_MouseClick);
             // 
+            // Subs_Button
+            // 
+            this.Subs_Button.Location = new System.Drawing.Point(379, 120);
+            this.Subs_Button.Name = "Subs_Button";
+            this.Subs_Button.Size = new System.Drawing.Size(75, 23);
+            this.Subs_Button.TabIndex = 33;
+            this.Subs_Button.Text = "Subs";
+            this.Subs_Button.UseVisualStyleBackColor = true;
+            this.Subs_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Subs_Button_MouseUp);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -253,6 +264,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
+            this.Controls.Add(this.Subs_Button);
             this.Controls.Add(this.HideShowAudioFormButton);
             this.Controls.Add(this.FullScreenButton);
             this.Controls.Add(this.CloseVideoButton);
@@ -297,6 +309,7 @@
         private CustomButton CloseVideoButton;
         private CustomButton FullScreenButton;
         private CustomButton HideShowAudioFormButton;
+        private Button Subs_Button;
 
 
     }
