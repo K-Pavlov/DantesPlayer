@@ -96,6 +96,10 @@
     <Compile Include="VideoHandling\MenuBarFullScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="VideoHandling\SubtitleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoHandling\Subtitles.cs" />
     <Compile Include="VideoHandling\Video.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VideoHandling\MenuBarFullScreenForm.resx">
       <DependentUpon>MenuBarFullScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoHandling\SubtitleForm.resx">
+      <DependentUpon>SubtitleForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

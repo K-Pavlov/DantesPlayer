@@ -3,6 +3,7 @@
     #region Namespaces
     using System;
     using System.Runtime.InteropServices;
+    using System.Drawing;
     using System.Windows.Forms;
     using System.Windows.Input;
     using DirectXAllias = Microsoft.DirectX.AudioVideoPlayback;
@@ -16,8 +17,9 @@
         public FormForVideo()
         {
             this.InitializeComponent();
-            this.timer = new Timer();        
+            this.timer = new Timer();
         }
+        
 
         /// <summary>
         /// Gets or sets the DirectX video
@@ -58,6 +60,7 @@
             this.Load += new System.EventHandler(this.SetTopMost);
             this.Click += new System.EventHandler(this.SetTopMost);
             this.ResumeLayout(false);
+
         }
 
         private void SetTopMost(object sender, EventArgs e)

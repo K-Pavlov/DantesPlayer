@@ -77,6 +77,8 @@
         /// </summary>
         private HolderForm HolderForm { get; set; }
 
+        public string PathToVideo { get; set; }
+
         /// <summary>
         /// Gets or sets the loaded video
         /// </summary>

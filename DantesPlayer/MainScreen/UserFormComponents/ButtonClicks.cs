@@ -20,6 +20,7 @@
     public class ButtonClicks
     {
         private const string TypeExpecption = "I can't play the video :(.";
+        private const string Formats = "Subs |*.SRT";
 
         /// <summary>
         /// Gets or sets the main screen instance 
@@ -62,47 +63,24 @@
             }
         }
 
-        public void LoadSubs(Button button) 
+        public void LoadSubs(Button button, Subtitles subtitles)
         {
             if (CheckException.CheckNull(this.VideoName))
             {
-                try
-                {                   
-                        OpenFileDialog Dialog1 = new OpenFileDialog();
-                        Dialog1.InitialDirectory = "c:\\";
-                        string Formats = "Subs |*.SRT";
-                        Dialog1.Filter = Formats;
-                        Dialog1.FilterIndex = 2;
-                        Dialog1.RestoreDirectory = true;
-                        if (Dialog1.ShowDialog() == DialogResult.OK)
-                        {
-                            if (Dialog1.OpenFile() != null)
-                            {
-                                this.SubsName = Dialog1.FileName;
-
-                                TimeSpan CurrentTime = new TimeSpan();
-                                Regex unit = new Regex(@"(?<sequence>\d+)\r\n(?<start>\d{2}\:\d{2}\:\d{2},\d{3}) --\> " +
-                                 @"(?<end>\d{2}\:\d{2}\:\d{2},\d{3})\r\n(?<text>[\s\S]*?\r\n\r\n)");
-                                StreamReader reader = new StreamReader(SubsName);
-                                
-
-
-
-                            }   
-                            
-                        }
-                    
-                }
-                catch (Microsoft.DirectX.DirectXException)
+                OpenFileDialog Dialog1 = new OpenFileDialog();
+                Dialog1.InitialDirectory = "c:\\";
+                Dialog1.Filter = Formats;
+                Dialog1.FilterIndex = 2;
+                Dialog1.RestoreDirectory = true;
+                if (Dialog1.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show(TypeExpecption, "Warning");
+                    if (Dialog1.OpenFile() != null)
+                    {
+                        this.SubsName = Dialog1.FileName;
+                    }
                 }
-
-
+                subtitles.Load(this.SubsName);
             }
-                
-            
-            
         }
 
         /// <summary>
@@ -218,6 +196,7 @@
                         this.MainScreenInstance.GetSlider().Enabled = true;
                         AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
                         this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
+                        this.MainScreenInstance.video.PathToVideo = this.VideoName;
                     }
                     else
                     {
@@ -230,12 +209,17 @@
                         this.MainScreenInstance.GetSlider().Enabled = true;
                         AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
                         this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
+                        this.MainScreenInstance.video.PathToVideo = this.VideoName;
                     }
                 }
                 catch (Microsoft.DirectX.DirectXException)
                 {
                     MessageBox.Show(TypeExpecption, "Warning");
                 }
+            }
+            else if(CheckException.CheckNull(this.MainScreenInstance.video))
+            {
+                this.VideoName = this.MainScreenInstance.video.PathToVideo;
             }
         }
 
@@ -315,6 +299,17 @@
                 return;
             }
             button.FlatStyle = FlatStyle.Standard;
+        }
+
+        private void extractSubtitleTime(ref int destination, string source, int startPos, int endPos)
+        {
+            //Time factor for hours then for minutes 3600 -> 60 -> 1
+            int timeFactor = 3600;
+            for(int i = startPos; i < endPos; i++)
+            {
+                destination += int.Parse(source.Split(':')[i]) * timeFactor;
+                timeFactor /= 60;
+            }
         }
     }
 }

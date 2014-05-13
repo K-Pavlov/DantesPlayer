@@ -20,7 +20,6 @@
         private const int volumeStep = 10;
         #endregion
 
-        #region Private Variables
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
         public MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
@@ -34,8 +33,10 @@
         internal Timer timerForVideoProgress = new Timer();
         internal Timer timerForMouseFormMovement = new Timer();
         internal Timer timerForMenuBar = new Timer();
-        #endregion
 
+        private Subtitles subtitles = new Subtitles();
+        private SubtitleForm subForm = new SubtitleForm();
+        private bool subWritten = false;
         private ButtonClicks buttonClicks { get; set; }
 
         public AudioFormControl AudioControl { get; private set; }
@@ -43,6 +44,8 @@
         public bool fastForwardFired { get; set; }
 
         public bool rewindFired { get; set; }
+
+        private int subLine = 0;
 
         public Label GetLabel()
         {
@@ -88,6 +91,8 @@
             this.SetStyle(System.Windows.Forms.ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.White;
             this.TransparencyKey = Color.White;
+            this.subForm.Show();
+            this.subForm.BringToFront();
             //this.TransparencyKey = Color.WhiteSmoke;
             //this.BackColor = System.Drawing.Color.Transparent;
         }
@@ -233,6 +238,74 @@
                 if (CheckException.CheckNull(video.DirectVideo))
                 {
                     HolderForm.HandleVideoProgress(this.VideoSlider, video.DirectVideo);
+                    if(subtitles.SubsLoaded && !video.DirectVideo.Disposed)
+                    {
+                        //while (subtitles.EndSubTime[this.subLine] < Convert.ToInt32(this.video.DirectVideo.CurrentPosition))
+                        //{
+                        //    if (this.subLine != this.subtitles.EndSubTime.Count - 1)
+                        //    {
+                        //        this.subLine++;
+                        //    }
+                        //    else
+                        //    {
+                        //        break;
+                        //    }
+                        //}
+
+                        //if(subLine == 14)
+                        //{
+                        //    subForm.BringToFront();
+                        //}
+
+                        //if(this.subLine > this.subtitles.StartSubTime.Count)
+                        //{
+                        //    this.subLine -= 14;
+                        //}
+
+                        //while (subtitles.StartSubTime[this.subLine] > Convert.ToInt32(video.DirectVideo.CurrentPosition))
+                        //{
+                        //    this.subLine--;
+                        //}
+                        while (true)
+                        {
+                            if (subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.EndSubTime[subLine]) && subWritten)
+                            {
+                                subForm.SubLabel.Text = String.Empty;
+                                ///HolderForm.FormForVideo.SubLabel.Text = String.Empty;
+                                subWritten = false;
+                                if (subLine != subtitles.EndSubTime.Count - 1)
+                                {
+                                    subLine++;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if (subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.StartSubTime[subLine]) && !subWritten)
+                        {
+                            if(this.subLine == this.subtitles.EndSubTime.Count - 1)
+                            {
+                                while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.EndSubTime[subLine]))
+                                {
+                                    if(subLine == 0)
+                                    {
+                                        break;
+                                    }
+                                    subLine--;
+                                }
+                            }
+                            subWritten = true;
+                            subForm.SubLabel.Text = subtitles.Subtitle[subLine];
+                            /// HolderForm.FormForVideo.SubLabel.Text = subtitles.Subtitle[subLine];
+                        }
+                    }
                 }
                 else
                 {
@@ -383,7 +456,7 @@
         }
         private void Subs_Button_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.LoadSubs(this.Subs_Button);
+            this.buttonClicks.LoadSubs(this.Subs_Button, this.subtitles);
         }
 
         private void PauseButton_MouseUp(object sender, MouseEventArgs e)
