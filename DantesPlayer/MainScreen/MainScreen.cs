@@ -193,14 +193,19 @@
         /// </summary>
         public void WriteVideoTime()
         {
-            this.label1.Text = "00:00:";
-            if (video.DirectVideo.CurrentPosition < 10)
-            {
-                this.label1.Text += "0";
-            }
-            this.label1.Text += String.Format("{0:0}", video.DirectVideo.CurrentPosition);
-            this.label1.Text = this.label1.Text.Replace('.', ':');
-            this.label1.Text += String.Format("/00:00:{0:0}", video.DirectVideo.Duration);
+            this.label1.Text = String.Empty;
+            double fullTime = this.video.DirectVideo.CurrentPosition;
+            //this.label1.Text = "00:00:";
+            //if (video.DirectVideo.CurrentPosition < 10)
+            //{
+            //    this.label1.Text += "0";
+            //}
+            //this.label1.Text += String.Format("{0:0}", video.DirectVideo.CurrentPosition);
+            //this.label1.Text = this.label1.Text.Replace('.', ':');
+            //this.label1.Text += String.Format("/00:00:{0:0}", video.DirectVideo.Duration);
+            fixTime(fullTime, ref this.label1);
+            this.label1.Text += "/";
+            fixTime(this.video.DirectVideo.Duration, ref this.label1);
         }
 
         /// <summary>
@@ -214,6 +219,35 @@
             xPosition = formStartLocation.X + Cursor.Position.X - startMouseLocation.X;
             yPosition = formStartLocation.Y + Cursor.Position.Y - startMouseLocation.Y;
             this.Location = new Point(xPosition, yPosition);
+        }
+
+        private static void fixTime(double fullTime, ref Label label1)
+        {
+            int hourParse = 3600;
+            int minuteParse = 60;
+            int hours = (int)Math.Floor(fullTime / hourParse);
+            fullTime -= hours * hourParse;
+            int minutes = (int)Math.Floor(fullTime / minuteParse);
+            fullTime -= minutes * minuteParse;
+            int seconds = (int)Math.Floor(fullTime);
+
+            if (hours < 10)
+            {
+                label1.Text += "0";
+            }
+
+            label1.Text += hours.ToString() + ':';
+            if (minutes < 10)
+            {
+                label1.Text += '0';
+            }
+
+            label1.Text += minutes.ToString() + ':';
+            if (seconds < 10)
+            {
+                label1.Text += '0';
+            }
+            label1.Text += seconds.ToString();
         }
 
         /// <summary>
@@ -238,7 +272,7 @@
                 if (CheckException.CheckNull(video.DirectVideo))
                 {
                     HolderForm.HandleVideoProgress(this.VideoSlider, video.DirectVideo);
-                    if(subtitles.SubsLoaded && !video.DirectVideo.Disposed)
+                    if (subtitles.SubsLoaded && !video.DirectVideo.Disposed)
                     {
                         //while (subtitles.EndSubTime[this.subLine] < Convert.ToInt32(this.video.DirectVideo.CurrentPosition))
                         //{
@@ -290,11 +324,11 @@
                         }
                         if (subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.StartSubTime[subLine]) && !subWritten)
                         {
-                            if(this.subLine == this.subtitles.EndSubTime.Count - 1)
+                            if (this.subLine == this.subtitles.EndSubTime.Count - 1)
                             {
                                 while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.EndSubTime[subLine]))
                                 {
-                                    if(subLine == 0)
+                                    if (subLine == 0)
                                     {
                                         break;
                                     }
@@ -547,7 +581,5 @@
             IntPtr activeHandle = GetForegroundWindow();
             return (activeHandle == handle);
         }
-
-       
     }
 }
