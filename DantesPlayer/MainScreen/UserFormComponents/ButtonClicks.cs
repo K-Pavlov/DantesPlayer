@@ -39,6 +39,10 @@
 
         private string SubsName { get; set; }
 
+        Playlist PL = new Playlist();
+
+        private bool PlHidden = true;
+
         /// <summary>
         /// Plays the video
         /// </summary>
@@ -125,6 +129,18 @@
                 this.MainScreenInstance.timerForVideoTime.Stop();
                 this.MainScreenInstance.WriteVideoTime();
             }
+        }
+        public void OpenPlaylist(Button button)
+        {
+            if (!PlHidden)
+            {
+                this.PL.Hide();
+                PlHidden = true;
+                return;
+            }
+            this.PL.Show();
+            PlHidden = false;
+
         }
 
         /// <summary>

@@ -492,6 +492,10 @@
         {
             this.buttonClicks.LoadSubs(this.Subs_Button, this.subtitles);
         }
+        private void PlaylistButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.buttonClicks.OpenPlaylist(this.PlaylistButton);
+        }
 
         private void PauseButton_MouseUp(object sender, MouseEventArgs e)
         {
@@ -581,5 +585,7 @@
             IntPtr activeHandle = GetForegroundWindow();
             return (activeHandle == handle);
         }
+
+        
     }
 }

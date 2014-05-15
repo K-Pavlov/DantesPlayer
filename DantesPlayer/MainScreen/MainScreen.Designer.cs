@@ -54,6 +54,7 @@
             this.PlayButton = new CustomControls.CustomButton();
             this.VideoSlider = new CustomControls.CustomSlider();
             this.Subs_Button = new System.Windows.Forms.Button();
+            this.PlaylistButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -255,6 +256,16 @@
             this.Subs_Button.UseVisualStyleBackColor = true;
             this.Subs_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Subs_Button_MouseUp);
             // 
+            // PlaylistButton
+            // 
+            this.PlaylistButton.Location = new System.Drawing.Point(291, 120);
+            this.PlaylistButton.Name = "PlaylistButton";
+            this.PlaylistButton.Size = new System.Drawing.Size(75, 23);
+            this.PlaylistButton.TabIndex = 34;
+            this.PlaylistButton.Text = "Playlist";
+            this.PlaylistButton.UseVisualStyleBackColor = true;
+            this.PlaylistButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlaylistButton_MouseUp);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,6 +275,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
+            this.Controls.Add(this.PlaylistButton);
             this.Controls.Add(this.Subs_Button);
             this.Controls.Add(this.HideShowAudioFormButton);
             this.Controls.Add(this.FullScreenButton);
@@ -310,6 +322,7 @@
         private CustomButton FullScreenButton;
         private CustomButton HideShowAudioFormButton;
         private Button Subs_Button;
+        private Button PlaylistButton;
 
 
     }
