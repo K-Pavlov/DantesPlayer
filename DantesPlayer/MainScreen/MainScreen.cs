@@ -34,6 +34,8 @@
         internal Timer timerForMouseFormMovement = new Timer();
         internal Timer timerForMenuBar = new Timer();
 
+        public Playlist playList = new Playlist();
+
         private Subtitles subtitles = new Subtitles();
         private SubtitleForm subForm = new SubtitleForm();
         private bool subWritten = false;
@@ -71,6 +73,11 @@
         /// </summary>
         public static MainScreen Instance { get { return lazy.Value; } }
 
+        public static MainScreen GetInstance()
+        {
+            return lazy.Value;
+        }
+
         /// <summary>
         /// Constructor - gets:
         /// -audio control instance and shows it
@@ -78,16 +85,17 @@
         /// </summary>
         private MainScreen()
         {
-            buttonClicks = new ButtonClicks();
-            buttonClicks.MainScreenInstance = this;
-            buttonClicks.MainScreenInstance = this;
+            this.buttonClicks = new ButtonClicks();
+            this.buttonClicks.MainScreenInstance = this;
+            this.buttonClicks.MainScreenInstance = this;
+            this.playList.MainScreenInstance = this;
             this.Click += new System.EventHandler(this.SetTopMost);
-            AudioControl = AudioFormControl.Instance;
-            AudioControl.MainScreenInstance = this;
+            this.AudioControl = AudioFormControl.Instance;
+            this.AudioControl.MainScreenInstance = this;
             this.AudioControl.VolumeProgress.Value = 50;
-            AudioControl.Show();
+            this.AudioControl.Show();
             this.AudioControl.Owner = this;
-            InitializeComponent();
+            this.InitializeComponent();
             this.SetStyle(System.Windows.Forms.ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.White;
             this.TransparencyKey = Color.White;

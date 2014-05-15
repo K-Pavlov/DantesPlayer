@@ -39,8 +39,6 @@
 
         private string SubsName { get; set; }
 
-        Playlist PL = new Playlist();
-
         private bool PlHidden = true;
 
         /// <summary>
@@ -132,14 +130,14 @@
         }
         public void OpenPlaylist(Button button)
         {
-            if (!PlHidden)
+            if (!this.PlHidden)
             {
-                this.PL.Hide();
-                PlHidden = true;
+                this.MainScreenInstance.playList.Hide();
+                this.PlHidden = true;
                 return;
             }
-            this.PL.Show();
-            PlHidden = false;
+            this.MainScreenInstance.playList.Show();
+            this.PlHidden = false;
 
         }
 
@@ -202,31 +200,7 @@
             {
                 try
                 {
-                    if (this.MainScreenInstance.video == null)
-                    {
-                        this.MainScreenInstance.video = new Video(this.VideoName, false, 800, 600);
-                        this.MainScreenInstance.video.StartVideo();
-                        this.MainScreenInstance.timerForVideoTime.Start();
-                        this.MainScreenInstance.timerForVideoProgress.Start();
-                        this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.DirectVideo_Ending;
-                        this.MainScreenInstance.GetSlider().Enabled = true;
-                        AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
-                        this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
-                        this.MainScreenInstance.video.PathToVideo = this.VideoName;
-                    }
-                    else
-                    {
-                        HolderForm.NullVideoAndForm(this.MainScreenInstance.video.DirectVideo);
-                        this.MainScreenInstance.video = null;
-                        this.MainScreenInstance.video = new Video(this.VideoName, false, 800, 600);
-                        this.MainScreenInstance.video.StartVideo();
-                        this.MainScreenInstance.timerForVideoTime.Start();
-                        this.MainScreenInstance.timerForVideoProgress.Start();
-                        this.MainScreenInstance.GetSlider().Enabled = true;
-                        AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
-                        this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
-                        this.MainScreenInstance.video.PathToVideo = this.VideoName;
-                    }
+                    this.OpenVideo(this.VideoName);
                 }
                 catch (Microsoft.DirectX.DirectXException)
                 {
@@ -236,6 +210,42 @@
             else if(CheckException.CheckNull(this.MainScreenInstance.video))
             {
                 this.VideoName = this.MainScreenInstance.video.PathToVideo;
+            }
+        }
+
+        public void OpenVideo(string VideoName)
+        {
+            try
+            {
+                if (this.MainScreenInstance.video == null)
+                {
+                    this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
+                    this.MainScreenInstance.video.StartVideo();
+                    this.MainScreenInstance.timerForVideoTime.Start();
+                    this.MainScreenInstance.timerForVideoProgress.Start();
+                    this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.DirectVideo_Ending;
+                    this.MainScreenInstance.GetSlider().Enabled = true;
+                    AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
+                    this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
+                    this.MainScreenInstance.video.PathToVideo = VideoName;
+                }
+                else
+                {
+                    HolderForm.NullVideoAndForm(this.MainScreenInstance.video.DirectVideo);
+                    this.MainScreenInstance.video = null;
+                    this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
+                    this.MainScreenInstance.video.StartVideo();
+                    this.MainScreenInstance.timerForVideoTime.Start();
+                    this.MainScreenInstance.timerForVideoProgress.Start();
+                    this.MainScreenInstance.GetSlider().Enabled = true;
+                    AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
+                    this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
+                    this.MainScreenInstance.video.PathToVideo = VideoName;
+                }
+            }
+            catch (Microsoft.DirectX.DirectXException)
+            {
+                MessageBox.Show(TypeExpecption, "Warning");
             }
         }
 

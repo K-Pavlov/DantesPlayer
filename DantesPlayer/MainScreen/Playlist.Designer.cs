@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.playListContainer = new System.Windows.Forms.ListBox();
             this.AddPlaylist = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // playListContainer
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 27);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(352, 238);
-            this.listBox1.TabIndex = 0;
+            this.playListContainer.FormattingEnabled = true;
+            this.playListContainer.Location = new System.Drawing.Point(0, 27);
+            this.playListContainer.Name = "playListContainer";
+            this.playListContainer.Size = new System.Drawing.Size(352, 238);
+            this.playListContainer.TabIndex = 0;
+            this.playListContainer.DoubleClick += new System.EventHandler(this.PlayListContainer_DoubleClick);
             // 
             // AddPlaylist
             // 
@@ -57,7 +58,7 @@
             this.ClientSize = new System.Drawing.Size(351, 263);
             this.ControlBox = false;
             this.Controls.Add(this.AddPlaylist);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.playListContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Playlist";
             this.Text = "Playlist";
@@ -67,7 +68,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox playListContainer;
         private System.Windows.Forms.Button AddPlaylist;
     }
 }
