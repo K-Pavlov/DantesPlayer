@@ -20,25 +20,24 @@
         private const int volumeStep = 10;
         #endregion
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
+        public Playlist playList = new Playlist();
         public MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
         public FormWindowState lastWindowState;
+        internal readonly Timer timerForRF = new Timer();
+        internal readonly Timer timerForVideoProgress = new Timer();
+        internal readonly Timer timerForMouseFormMovement = new Timer();
+        internal readonly Timer timerForMenuBar = new Timer();
+        internal readonly Timer timerForSubs = new Timer();
         private static int xPosition;
         private static int yPosition;
         private static Point formStartLocation;
         private static Point startMouseLocation;
-        internal Timer timerForVideoTime = new Timer();
-        internal Timer timerForRF = new Timer();
-        internal Timer timerForVideoProgress = new Timer();
-        internal Timer timerForMouseFormMovement = new Timer();
-        internal Timer timerForMenuBar = new Timer();
-
-        public Playlist playList = new Playlist();
-
         private Subtitles subtitles = new Subtitles();
         private SubtitleForm subForm = new SubtitleForm();
         private bool subWritten = false;
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
         private ButtonClicks buttonClicks { get; set; }
 
         public AudioFormControl AudioControl { get; private set; }
@@ -101,6 +100,8 @@
             this.TransparencyKey = Color.White;
             this.subForm.Show();
             this.subForm.BringToFront();
+            this.timerForSubs.Interval = 500;
+            this.timerForSubs.Tick += this.CheckSubs;
             //this.TransparencyKey = Color.WhiteSmoke;
             //this.BackColor = System.Drawing.Color.Transparent;
         }
@@ -118,20 +119,21 @@
         {
             this.Left = Screen.PrimaryScreen.WorkingArea.Left + Screen.PrimaryScreen.WorkingArea.Right / 4;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height / 2;
-            timerForVideoTime.Interval = 1000;
-            timerForVideoTime.Tick += timerForVideoTime_Tick;
-            timerForMouseFormMovement.Interval = 1;
-            timerForMouseFormMovement.Tick += timerForMouseFormMovementTick;
-            timerForRF.Interval = 1000;
-            timerForRF.Tick += TimerForRF_Tick;
-            timerForVideoProgress.Interval = 1000;
-            timerForVideoProgress.Tick += TimerForVideoProgress_Tick;
-            timerForMenuBar.Interval = 500;
-            timerForMenuBar.Tick += timerForMenuBar_Tick;
+            this.timerForMouseFormMovement.Interval = 1;
+            this.timerForMouseFormMovement.Tick += this.TimerForMouseFormMovementTick;
+            this.timerForRF.Interval = 1000;
+            this.timerForRF.Tick += this.TimerForRF_Tick;
+            this.timerForVideoProgress.Interval = 1000;
+            this.timerForVideoProgress.Tick += this.TimerForVideoProgress_Tick;
+            this.timerForVideoProgress.Tick += this.TimerForVideoTime_Tick;
+            this.timerForMenuBar.Interval = 500;
+            this.timerForMenuBar.Tick += this.TimerForMenuBar_Tick;
+            this.timerForSubs.Interval = 500;
+            this.timerForSubs.Tick += this.CheckSubs;
             this.VideoSlider.Enabled = false;
         }
 
-        void timerForMenuBar_Tick(object sender, EventArgs e)
+        void TimerForMenuBar_Tick(object sender, EventArgs e)
         {
             Console.WriteLine(this.IsActive(HolderForm.FormForVideo.Handle));
             if (CheckException.CheckNull(video.DirectVideo) && !HolderForm.FormForVideo.IsDisposed)
@@ -181,7 +183,6 @@
         {
             timerForVideoProgress.Stop();
             timerForRF.Stop();
-            timerForVideoTime.Stop();
         }
 
         /// <summary>
@@ -189,7 +190,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timerForVideoTime_Tick(object sender, EventArgs e)
+        private void TimerForVideoTime_Tick(object sender, EventArgs e)
         {
             this.WriteVideoTime();
         }
@@ -203,17 +204,9 @@
         {
             this.label1.Text = String.Empty;
             double fullTime = this.video.DirectVideo.CurrentPosition;
-            //this.label1.Text = "00:00:";
-            //if (video.DirectVideo.CurrentPosition < 10)
-            //{
-            //    this.label1.Text += "0";
-            //}
-            //this.label1.Text += String.Format("{0:0}", video.DirectVideo.CurrentPosition);
-            //this.label1.Text = this.label1.Text.Replace('.', ':');
-            //this.label1.Text += String.Format("/00:00:{0:0}", video.DirectVideo.Duration);
-            fixTime(fullTime, ref this.label1);
+            FixTime(fullTime, ref this.label1);
             this.label1.Text += "/";
-            fixTime(this.video.DirectVideo.Duration, ref this.label1);
+            FixTime(this.video.DirectVideo.Duration, ref this.label1);
         }
 
         /// <summary>
@@ -222,14 +215,14 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timerForMouseFormMovementTick(object sender, EventArgs e)
+        private void TimerForMouseFormMovementTick(object sender, EventArgs e)
         {
             xPosition = formStartLocation.X + Cursor.Position.X - startMouseLocation.X;
             yPosition = formStartLocation.Y + Cursor.Position.Y - startMouseLocation.Y;
             this.Location = new Point(xPosition, yPosition);
         }
 
-        private static void fixTime(double fullTime, ref Label label1)
+        private static void FixTime(double fullTime, ref Label label1)
         {
             int hourParse = 3600;
             int minuteParse = 60;
@@ -266,99 +259,71 @@
             AudioControl.BringToFront();
         }
 
-        /// <summary>
-        /// Fixes the slider and the video
-        /// so they go correctly together;
-        /// event method
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void TimerForVideoProgress_Tick(object sender, EventArgs e)
         {
             if (CheckException.CheckNull(video))
             {
                 if (CheckException.CheckNull(video.DirectVideo))
                 {
-                    HolderForm.HandleVideoProgress(this.VideoSlider, video.DirectVideo);
-                    if (subtitles.SubsLoaded && !video.DirectVideo.Disposed)
-                    {
-                        //while (subtitles.EndSubTime[this.subLine] < Convert.ToInt32(this.video.DirectVideo.CurrentPosition))
-                        //{
-                        //    if (this.subLine != this.subtitles.EndSubTime.Count - 1)
-                        //    {
-                        //        this.subLine++;
-                        //    }
-                        //    else
-                        //    {
-                        //        break;
-                        //    }
-                        //}
-
-                        //if(subLine == 14)
-                        //{
-                        //    subForm.BringToFront();
-                        //}
-
-                        //if(this.subLine > this.subtitles.StartSubTime.Count)
-                        //{
-                        //    this.subLine -= 14;
-                        //}
-
-                        //while (subtitles.StartSubTime[this.subLine] > Convert.ToInt32(video.DirectVideo.CurrentPosition))
-                        //{
-                        //    this.subLine--;
-                        //}
-                        while (true)
-                        {
-                            if (subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.EndSubTime[subLine]) && subWritten)
-                            {
-                                subForm.SubLabel.Text = String.Empty;
-                                ///HolderForm.FormForVideo.SubLabel.Text = String.Empty;
-                                subWritten = false;
-                                if (subLine != subtitles.EndSubTime.Count - 1)
-                                {
-                                    subLine++;
-                                }
-                                else
-                                {
-                                    break;
-                                }
-
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        if (subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.StartSubTime[subLine]) && !subWritten)
-                        {
-                            if (this.subLine == this.subtitles.EndSubTime.Count - 1)
-                            {
-                                while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), subtitles.EndSubTime[subLine]))
-                                {
-                                    if (subLine == 0)
-                                    {
-                                        break;
-                                    }
-                                    subLine--;
-                                }
-                            }
-                            subWritten = true;
-                            subForm.SubLabel.Text = subtitles.Subtitle[subLine];
-                            /// HolderForm.FormForVideo.SubLabel.Text = subtitles.Subtitle[subLine];
-                        }
-                    }
+                    HolderForm.HandleVideoProgress(this.VideoSlider, this.video.DirectVideo);
                 }
                 else
                 {
-                    timerForVideoProgress.Stop();
+                    this.timerForSubs.Stop();
+                    this.timerForVideoProgress.Stop();
                 }
             }
             else
             {
-                timerForVideoProgress.Stop();
+                this.timerForSubs.Stop();
+                this.timerForVideoProgress.Stop();
             }
+        }
 
+        private void CheckSubs(object sender, EventArgs e)
+        {
+            if (subtitles.SubsLoaded && !video.DirectVideo.Disposed)
+            {
+                while (true)
+                {
+                    if (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]) && this.subWritten)
+                    {
+                        this.subForm.SubLabel.Text = String.Empty;
+                        this.subWritten = false;
+                        if (this.subLine != this.subtitles.EndSubTime.Count - 1)
+                        {
+                            this.subLine++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (this.subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.StartSubTime[subLine]) && !this.subWritten)
+                {
+                    if (this.subLine == this.subtitles.EndSubTime.Count - 1)
+                    {
+                        while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]))
+                        {
+                            if (this.subLine == 0)
+                            {
+                                break;
+                            }
+
+                            this.subLine--;
+                        }
+                    }
+
+                    this.subWritten = true;
+                    this.subForm.SubLabel.Text = subtitles.Subtitle[subLine];
+                }
+            }
         }
 
         /// <summary>
@@ -396,7 +361,6 @@
 
         public void DirectVideo_Ending(object sender, EventArgs e)
         {
-            timerForVideoTime.Stop();
             timerForVideoProgress.Stop();
             timerForMenuBar.Stop();
         }

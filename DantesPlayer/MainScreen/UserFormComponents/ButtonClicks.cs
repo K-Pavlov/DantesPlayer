@@ -50,9 +50,9 @@
             this.SwitchButtonStyle(button);
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
-                if (!this.MainScreenInstance.timerForVideoTime.Enabled)
+                if (!this.MainScreenInstance.timerForVideoProgress.Enabled)
                 {
-                    this.MainScreenInstance.timerForVideoTime.Start();
+                    this.MainScreenInstance.timerForVideoProgress.Start();
                 }
 
                 this.MainScreenInstance.video.PlayVideo();
@@ -103,9 +103,9 @@
                 this.MainScreenInstance.video.Speed = 0;
             }
 
-            if (this.MainScreenInstance.timerForVideoTime.Enabled)
+            if (this.MainScreenInstance.timerForVideoProgress.Enabled)
             {
-                this.MainScreenInstance.timerForVideoTime.Stop();
+                this.MainScreenInstance.timerForVideoProgress.Stop();
             }
         }
 
@@ -122,9 +122,9 @@
                 this.MainScreenInstance.video.StopVideo();
             }
 
-            if (this.MainScreenInstance.timerForVideoTime.Enabled)
+            if (this.MainScreenInstance.timerForVideoProgress.Enabled)
             {
-                this.MainScreenInstance.timerForVideoTime.Stop();
+                this.MainScreenInstance.timerForVideoProgress.Stop();
                 this.MainScreenInstance.WriteVideoTime();
             }
         }
@@ -185,7 +185,7 @@
 
             this.MainScreenInstance.GetSlider().Value = 0;
             this.MainScreenInstance.GetSlider().Enabled = false;
-            this.MainScreenInstance.timerForVideoTime.Stop();
+            this.MainScreenInstance.timerForVideoProgress.Stop();
             this.MainScreenInstance.GetLabel().Text = string.Empty;
         }
 
@@ -221,7 +221,7 @@
                 {
                     this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
                     this.MainScreenInstance.video.StartVideo();
-                    this.MainScreenInstance.timerForVideoTime.Start();
+                    this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.DirectVideo_Ending;
                     this.MainScreenInstance.GetSlider().Enabled = true;
@@ -235,7 +235,7 @@
                     this.MainScreenInstance.video = null;
                     this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
                     this.MainScreenInstance.video.StartVideo();
-                    this.MainScreenInstance.timerForVideoTime.Start();
+                    this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.GetSlider().Enabled = true;
                     AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
