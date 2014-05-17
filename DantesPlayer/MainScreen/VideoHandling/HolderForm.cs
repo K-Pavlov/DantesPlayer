@@ -44,7 +44,8 @@
         /// </summary>
         /// <param name="slider">A custom slider object</param>
         /// <param name="video">DirectX video</param>
-        public static void HandleVideoProgress(CustomControls.CustomSlider slider, DirectXAllias::Video video)
+        public static void HandleVideoProgress(
+            CustomControls.CustomSlider slider, DirectXAllias::Video video)
         {
             if (video.Disposed == false)
             {
@@ -58,16 +59,42 @@
             }
         }
 
+
+        public static void HandleAudioProgress(
+            CustomControls.CustomSlider slider, DirectXAllias::Audio audio)
+        {
+            if(audio.Disposed == false)
+            {
+                slider.Maximum = Convert.ToInt32(audio.Duration);
+                slider.Value = Convert.ToInt32(audio.CurrentPosition);
+                if (Convert.ToInt32(audio.CurrentPosition) > slider.Maximum)
+                {
+                    slider.Value = slider.Maximum;
+                    return;
+                }
+            }
+        }
+
         /// <summary>
         /// Handles slider movement 
         /// </summary>
         /// <param name="slider">A custom slider object</param>
         /// <param name="video">A DirectX video</param>
-        public static void HandleBarMovemenet(CustomControls.CustomSlider slider, DirectXAllias::Video video)
+        public static void HandleBarMovemenetVideo(
+            CustomControls.CustomSlider slider, DirectXAllias::Video video)
         {
             if (CheckException.CheckNull(video))
             {
                 video.CurrentPosition = slider.Value;
+            }
+        }
+
+        public static void HandleBarMovementAudio(
+            CustomControls.CustomSlider slider, DirectXAllias::Audio audio)
+        {
+            if (CheckException.CheckNull(audio))
+            {
+                audio.CurrentPosition = slider.Value;
             }
         }
 
@@ -95,7 +122,6 @@
             FormForVideo.Video = video;
             FormForVideo.ControlBox = false;
             FormForVideo.Size = new Size(800, 600);
-            //// Display the form in the center of the screen.
             FormForVideo.StartPosition = FormStartPosition.CenterScreen;
             video.Owner = FormForVideo;
             FormForVideo.Show();

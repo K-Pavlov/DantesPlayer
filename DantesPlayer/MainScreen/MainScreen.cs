@@ -24,30 +24,30 @@
         public Playlist playList = new Playlist();
         public MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
         public FormWindowState lastWindowState;
+
         internal readonly Timer timerForRF = new Timer();
-        internal readonly Timer timerForVideoProgress = new Timer();
+        internal readonly Timer timerForProgress = new Timer();
         internal readonly Timer timerForMouseFormMovement = new Timer();
         internal readonly Timer timerForMenuBar = new Timer();
         internal readonly Timer timerForSubs = new Timer();
         internal readonly Timer timerForSubsSync = new Timer();
+        internal Subtitles subtitles = new Subtitles();
+
         private static int xPosition;
         private static int yPosition;
         private static Point formStartLocation;
         private static Point startMouseLocation;
-        private Subtitles subtitles = new Subtitles();
         private SubtitleForm subForm = new SubtitleForm();
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
-        private ButtonClicks buttonClicks { get; set; }
-
+        #region Public Properties
         public AudioFormControl AudioControl { get; private set; }
 
         public bool fastForwardFired { get; set; }
 
         public bool rewindFired { get; set; }
-
-        private int subLine = 0;
 
         public Label GetLabel()
         {
@@ -60,6 +60,11 @@
         }
 
         public Video video { get; set; }
+
+        public Audio audio { get; set; }
+        #endregion
+
+        private ButtonClicks buttonClicks { get; set; }
 
         #region SingletonImpelemntation
         /// <summary>
@@ -85,26 +90,81 @@
         /// </summary>
         private MainScreen()
         {
-            this.buttonClicks = new ButtonClicks();
-            this.buttonClicks.MainScreenInstance = this;
-            this.buttonClicks.MainScreenInstance = this;
-            this.playList.MainScreenInstance = this;
-            this.Click += new System.EventHandler(this.SetTopMost);
             this.AudioControl = AudioFormControl.Instance;
             this.AudioControl.MainScreenInstance = this;
             this.AudioControl.VolumeProgress.Value = 50;
             this.AudioControl.Show();
             this.AudioControl.Owner = this;
+
+            this.buttonClicks = new ButtonClicks();
+            this.buttonClicks.MainScreenInstance = this;
+
+            this.playList.MainScreenInstance = this;
+            this.menuBar.mainScreenInstance = this;
+
+            this.subForm.Show();
+            this.subForm.BringToFront();
+            this.subForm.Owner = HolderForm.FormForVideo;
+
+            this.Click += new System.EventHandler(this.SetTopMost);
             this.InitializeComponent();
             this.SetStyle(System.Windows.Forms.ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.White;
             this.TransparencyKey = Color.White;
-            this.subForm.Show();
-            this.menuBar.mainScreenInstance = this;
-            this.subForm.BringToFront();
-            this.subForm.Owner = HolderForm.FormForVideo;
             //this.TransparencyKey = Color.WhiteSmoke;
             //this.BackColor = System.Drawing.Color.Transparent;
+        }
+        #endregion
+
+        #region Public Methods
+        public bool IsActive(IntPtr handle)
+        {
+            IntPtr activeHandle = GetForegroundWindow();
+            return (activeHandle == handle);
+        }
+
+        public IPlayable GetCorrectSource()
+        {
+            if (this.video == null || this.video.DirectVideo == null)
+            {
+                return this.audio;
+            }
+
+            return this.video;
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Disable double click maximize
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_NCLBUTTONDBLCLK)
+            {
+                m.Result = IntPtr.Zero;
+                return;
+            }
+            AudioControl.Location = this.Location - new Size(250, -100);
+            base.WndProc(ref m);
+        }
+
+        protected override void OnClientSizeChanged(EventArgs e)
+        {
+            if (this.WindowState != lastWindowState)
+            {
+                if (lastWindowState == FormWindowState.Minimized)
+                {
+                    this.AudioControl.BringToFront();
+                    this.AudioControl.Show();
+                }
+
+                lastWindowState = this.WindowState;
+            }
+            base.OnClientSizeChanged(e);
         }
         #endregion
 
@@ -118,21 +178,24 @@
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Left = Screen.PrimaryScreen.WorkingArea.Left + Screen.PrimaryScreen.WorkingArea.Right / 4;
+            this.Left = Screen.PrimaryScreen.WorkingArea.Left +
+                Screen.PrimaryScreen.WorkingArea.Right / 4;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height / 2;
+
             this.timerForMouseFormMovement.Interval = 1;
             this.timerForMouseFormMovement.Tick += this.TimerForMouseFormMovementTick;
             this.timerForRF.Interval = 1000;
             this.timerForRF.Tick += this.TimerForRF_Tick;
-            this.timerForVideoProgress.Interval = 1000;
-            this.timerForVideoProgress.Tick += this.TimerForVideoProgress_Tick;
-            this.timerForVideoProgress.Tick += this.TimerForVideoTime_Tick;
+            this.timerForProgress.Interval = 1000;
+            this.timerForProgress.Tick += this.TimerForVideoProgress_Tick;
+            this.timerForProgress.Tick += this.TimerForVideoTime_Tick;
             this.timerForMenuBar.Interval = 500;
             this.timerForMenuBar.Tick += this.TimerForMenuBar_Tick;
             this.timerForSubs.Interval = 500;
             this.timerForSubs.Tick += this.CheckSubs;
             this.timerForSubsSync.Interval = 1;
             this.timerForSubsSync.Tick += this.SyncSubtitles;
+
             this.VideoSlider.Enabled = false;
         }
 
@@ -143,16 +206,21 @@
             int xSize = HolderForm.FormForVideo.Size.Width;
             int ySize = HolderForm.FormForVideo.Size.Height;
             int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;
-            int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.WorkingArea.Height / 1.2);
+            int screenHeight = Convert.ToInt32(
+                Screen.PrimaryScreen.WorkingArea.Height / 1.2);
             const double ScreenToSubRatio = 3.7;
+
             if (this.video.DirectVideo != null)
             {
                 if (video.IsFullScreen)
                 {
-                    subForm.Location = new Point(Convert.ToInt32(screenWidth / ScreenToSubRatio), screenHeight);
+                    subForm.Location = new Point(Convert.ToInt32(
+                        screenWidth / ScreenToSubRatio), screenHeight);
                     return;
                 }
-                this.subForm.Location = new Point(Convert.ToInt32(xSize - xLocation), ySize - yLocation);
+
+                this.subForm.Location = new Point(
+                    Convert.ToInt32(xSize - xLocation), ySize - yLocation);
                 this.subForm.Size = HolderForm.FormForVideo.Size;
             }
             else
@@ -167,20 +235,23 @@
             int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
             const int MenuBarPadding = 100;
             const double ScreenToMenuBarRatio = 3.7;
-            //Console.WriteLine(this.IsActive(HolderForm.FormForVideo.Handle));
-            if (CheckException.CheckNull(video.DirectVideo) && !HolderForm.FormForVideo.IsDisposed)
+            if (CheckException.CheckNull(video.DirectVideo) &&
+                !HolderForm.FormForVideo.IsDisposed)
             {
                 if (Cursor.Position.Y > screenHeight - MenuBarPadding)
                 {
                     if (!menuBar.IsDisposed)
                     {
-                        if (this.IsActive(HolderForm.FormForVideo.Handle) || this.IsActive(menuBar.Handle) || this.IsActive(this.subForm.Handle))
+                        if (this.IsActive(HolderForm.FormForVideo.Handle) ||
+                            this.IsActive(menuBar.Handle) ||
+                            this.IsActive(this.subForm.Handle))
                         {
                             menuBar.Show();
                             menuBar.BringToFront();
                             menuBar.TopMost = true;
-                            //Console.WriteLine(HolderForm.FormForVideo.TopLevel);
-                            menuBar.Location = new Point(Convert.ToInt32(screenWidth / ScreenToMenuBarRatio), screenHeight-10);
+                            menuBar.Location = new Point(Convert.ToInt32(
+                                screenWidth / ScreenToMenuBarRatio),
+                                screenHeight - 10);
                         }
                     }
                     else
@@ -198,7 +269,7 @@
             {
                 if (HolderForm.FormForVideo.IsDisposed)
                 {
-                    timerForVideoProgress.Stop();
+                    timerForProgress.Stop();
                 }
 
                 timerForMenuBar.Stop();
@@ -214,7 +285,7 @@
         /// <param name="e"></param>
         public void ClearTimers(object sender, EventArgs e)
         {
-            timerForVideoProgress.Stop();
+            timerForProgress.Stop();
             timerForRF.Stop();
         }
 
@@ -225,8 +296,6 @@
         /// <param name="e"></param>
         private void TimerForVideoTime_Tick(object sender, EventArgs e)
         {
-            this.timerForSubs.Start();
-            this.timerForSubsSync.Start();
             this.WriteVideoTime();
         }
 
@@ -238,10 +307,31 @@
         public void WriteVideoTime()
         {
             this.label1.Text = String.Empty;
-            double fullTime = this.video.DirectVideo.CurrentPosition;
+            double fullTime = 0;
+
+            if (this.video == null || this.video.DirectVideo == null)
+            {
+                if (this.audio != null)
+                {
+                    fullTime = this.audio.DirectAudio.CurrentPosition;
+                }
+            }
+            else
+            {
+                fullTime = this.video.DirectVideo.CurrentPosition;
+            }
+
             FixTime(fullTime, ref this.label1);
             this.label1.Text += "/";
-            FixTime(this.video.DirectVideo.Duration, ref this.label1);
+
+            if (this.video == null || this.video.DirectVideo == null)
+            {
+                FixTime(this.audio.DirectAudio.Duration, ref this.label1);
+            }
+            else
+            {
+                FixTime(this.video.DirectVideo.Duration, ref this.label1);
+            }
         }
 
         /// <summary>
@@ -261,9 +351,12 @@
         {
             int hourParse = 3600;
             int minuteParse = 60;
+
             int hours = (int)Math.Floor(fullTime / hourParse);
+
             fullTime -= hours * hourParse;
             int minutes = (int)Math.Floor(fullTime / minuteParse);
+
             fullTime -= minutes * minuteParse;
             int seconds = (int)Math.Floor(fullTime);
 
@@ -296,24 +389,31 @@
 
         private void TimerForVideoProgress_Tick(object sender, EventArgs e)
         {
-            if (CheckException.CheckNull(video))
+            if (CheckException.CheckNull(this.video) ||
+                CheckException.CheckNull(this.audio))
             {
-                if (CheckException.CheckNull(video.DirectVideo))
+                if (CheckException.CheckNull(this.video) &&
+                    CheckException.CheckNull(this.video.DirectVideo))
                 {
                     HolderForm.HandleVideoProgress(this.VideoSlider, this.video.DirectVideo);
+                }
+                else if (CheckException.CheckNull(this.audio) &&
+                    CheckException.CheckNull(this.audio.DirectAudio))
+                {
+                    HolderForm.HandleAudioProgress(this.VideoSlider, this.audio.DirectAudio);
                 }
                 else
                 {
                     this.timerForSubs.Stop();
                     this.timerForSubsSync.Stop();
-                    this.timerForVideoProgress.Stop();
+                    this.timerForProgress.Stop();
                 }
             }
             else
             {
                 this.timerForSubs.Stop();
                 this.timerForSubsSync.Stop();
-                this.timerForVideoProgress.Stop();
+                this.timerForProgress.Stop();
             }
         }
 
@@ -321,55 +421,18 @@
         {
             if (subtitles.SubsLoaded && !video.DirectVideo.Disposed)
             {
-                //while (true)
-                //{
-                //    if (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]) && this.subWritten)
-                //    {
-                //        this.subForm.SubLabel.Text = String.Empty;
-                //        this.subWritten = false;
-                //        if (this.subLine != this.subtitles.EndSubTime.Count - 1)
-                //        {
-                //            this.subLine++;
-                //        }
-                //        else
-                //        {
-                //            break;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        break;
-                //    }
-                //}
-
-                //if (this.subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.StartSubTime[subLine]) && !this.subWritten)
-                //{
-                //    if (this.subLine == this.subtitles.EndSubTime.Count - 1)
-                //    {
-                //        while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]))
-                //        {
-                //            if (this.subLine == 0)
-                //            {
-                //                break;
-                //            }
-
-                //            this.subLine--;
-                //        }
-                //    }
-
-                //    this.subWritten = true;
-                //    this.subForm.SubLabel.Text = subtitles.Subtitle[subLine];
-                //}
-                this.subForm.SubLabel.Text = pickSub(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles);
+                this.subForm.SubLabel.Text = PickSub(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles);
             }
         }
 
-        private static string pickSub(int currentVideoTime, Subtitles subtitles)
+        private static string PickSub(int currentVideoTime, Subtitles subtitles)
         {
             string correctSubtitle = "";
+
             for (int i = 0; i < subtitles.SubtitleLinesTotal; i++)
             {
-                if(currentVideoTime >= subtitles.StartSubTime[i] && currentVideoTime <= subtitles.EndSubTime[i])
+                if (currentVideoTime >= subtitles.StartSubTime[i] &&
+                    currentVideoTime <= subtitles.EndSubTime[i])
                 {
                     correctSubtitle = subtitles.Subtitle[i];
                 }
@@ -386,26 +449,48 @@
         /// <param name="e"></param>
         private void TimerForRF_Tick(object sender, EventArgs e)
         {
-            if (fastForwardFired)
+            if (this.fastForwardFired)
             {
-                if (CheckException.CheckNull(video))
+                if (CheckException.CheckNull(this.video) && 
+                    CheckException.CheckNull(this.video.DirectVideo))
                 {
-                    video.FastForward();
+                    this.video.FastForward();
                     if (video.PlayBackSpeed == 0)
                     {
-                        timerForRF.Stop();
+                        this.timerForRF.Stop();
+                    }
+                }
+
+                if (CheckException.CheckNull(this.audio) &&
+                    CheckException.CheckNull(this.audio.DirectAudio))
+                {
+                    this.audio.FastForward();
+                    if (this.audio.PlayBackSpeed == 0)
+                    {
+                        this.timerForRF.Stop();
                     }
                 }
             }
 
-            if (rewindFired)
+            if (this.rewindFired)
             {
-                if (CheckException.CheckNull(video))
+                if (CheckException.CheckNull(this.video) && 
+                    CheckException.CheckNull(this.video.DirectVideo))
                 {
-                    video.Rewind();
-                    if (video.PlayBackSpeed == 0)
+                    this.video.Rewind();
+                    if (this.video.PlayBackSpeed == 0)
                     {
-                        timerForRF.Stop();
+                        this.timerForRF.Stop();
+                    }
+                }
+
+                if (CheckException.CheckNull(this.audio) &&
+                    CheckException.CheckNull(this.audio.DirectAudio))
+                {
+                    this.audio.Rewind();
+                    if (this.audio.PlayBackSpeed == 0)
+                    {
+                        this.timerForRF.Stop();
                     }
                 }
             }
@@ -413,7 +498,7 @@
 
         public void DirectVideo_Ending(object sender, EventArgs e)
         {
-            timerForVideoProgress.Stop();
+            timerForProgress.Stop();
             timerForMenuBar.Stop();
         }
 
@@ -424,9 +509,16 @@
         /// <param name="e"></param>
         private void CustomSlider1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (CheckException.CheckNull(video))
+            if (CheckException.CheckNull(this.video))
             {
-                HolderForm.HandleBarMovemenet(this.VideoSlider, video.DirectVideo);
+                HolderForm.HandleBarMovemenetVideo(
+                    this.VideoSlider, this.video.DirectVideo);
+            }
+
+            if(CheckException.CheckNull(this.audio))
+            {
+                HolderForm.HandleBarMovementAudio(
+                    this.VideoSlider, this.audio.DirectAudio);
             }
         }
 
@@ -449,6 +541,16 @@
             timerForMouseFormMovement.Stop();
         }
 
+        private void MainScreen_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.audio == null || this.audio.DirectAudio == null)
+            {
+                return;
+            }
+
+            this.audio.DirectAudio.Dispose();
+            this.audio = null;
+        }
         #endregion
 
         #region ButtonOnClickStyles
@@ -507,15 +609,33 @@
             this.buttonClicks.SwitchButtonStyle(this.HideShowAudioFormButton);
         }
 
+        private void StopSubs_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.subtitles.UnLoad();
+        }
+
         private void PlayButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.PlayVideo(this.PlayButton);
+            this.buttonClicks.Play(this.PlayButton, this.GetCorrectSource());
             //this.Focus();
         }
+        
         private void Subs_Button_MouseUp(object sender, MouseEventArgs e)
         {
+            if (this.video == null || this.video.DirectVideo == null)
+            {
+                return;
+            }
+
             this.buttonClicks.LoadSubs(this.Subs_Button, this.subtitles);
+
+            if (this.subtitles.SubsLoaded)
+            {
+                this.timerForSubs.Start();
+                this.timerForSubsSync.Start();
+            }
         }
+       
         private void PlaylistButton_MouseUp(object sender, MouseEventArgs e)
         {
             this.buttonClicks.OpenPlaylist(this.PlaylistButton);
@@ -523,28 +643,32 @@
 
         private void PauseButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.PauseVideo(this.PauseButton);
+            this.buttonClicks.Pause(this.PauseButton, this.GetCorrectSource());
         }
 
         private void StopButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.StopVideo(this.StopButton);
+            this.buttonClicks.Stop(this.StopButton, this.GetCorrectSource());
         }
 
         private void FFButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.FFVideo(this.FFButton);
+            this.buttonClicks.FastForward(this.FFButton, this.GetCorrectSource());
         }
 
         private void RewindButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.RewindVideo(this.RewindButton);
+            this.buttonClicks.Rewind(this.RewindButton, this.GetCorrectSource());
         }
 
         private void OpenVideoButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.OpenVideo(this.OpenVideoButton);
-            if(this.video != null)
+            this.buttonClicks.Open(this.OpenVideoButton);
+            if (this.video != null && this.video.DirectVideo == null)
+            {
+                this.video = null;
+            }
+            if (this.video != null)
             {
                 this.subForm.Location = HolderForm.FormForVideo.Location;
                 this.subForm.Size = HolderForm.FormForVideo.Size;
@@ -553,12 +677,13 @@
 
         private void FullScreenButton_MouseUp(object sender, MouseEventArgs e)
         {
+            // this.menuBar.MainScreenInstance = this;
             this.buttonClicks.FullScreenVideo(this.FullScreenButton);
         }
 
         private void CloseVideoButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.buttonClicks.CloseVideo(this.CloseVideoButton);
+            this.buttonClicks.Close(this.CloseVideoButton);
         }
 
         private void HideShowAudioFormButton_MouseUp(object sender, MouseEventArgs e)
@@ -575,46 +700,11 @@
         {
             this.buttonClicks.ExitVideoPlayer(this.ExitButton);
         }
-        #endregion
 
-        #region Protected Methods
-
-        /// <summary>
-        /// Disable double click maximize
-        /// </summary>
-        /// <param name="m"></param>
-        protected override void WndProc(ref Message m)
+        private void StopSubs_MouseUp(object sender, MouseEventArgs e)
         {
-            if (m.Msg == WM_NCLBUTTONDBLCLK)
-            {
-                m.Result = IntPtr.Zero;
-                return;
-            }
-            AudioControl.Location = this.Location - new Size(250, -100);
-            base.WndProc(ref m);
-        }
-
-        protected override void OnClientSizeChanged(EventArgs e)
-        {
-            if (this.WindowState != lastWindowState)
-            {
-                if (lastWindowState == FormWindowState.Minimized)
-                {
-                    this.AudioControl.BringToFront();
-                    this.AudioControl.Show();
-                }
-                lastWindowState = this.WindowState;
-            }
-            base.OnClientSizeChanged(e);
+            this.subtitles.UnLoad();
         }
         #endregion
-
-        public bool IsActive(IntPtr handle)
-        {
-            IntPtr activeHandle = GetForegroundWindow();
-            return (activeHandle == handle);
-        }
-
-        
     }
 }

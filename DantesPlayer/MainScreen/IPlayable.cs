@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MainScreen
 {
-    interface IPlayable
+    public interface IPlayable
     {
         string PathToSource { get; set; }
 

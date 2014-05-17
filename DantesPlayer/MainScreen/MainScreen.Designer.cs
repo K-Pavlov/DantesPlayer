@@ -41,6 +41,9 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
+            this.Subs_Button = new System.Windows.Forms.Button();
+            this.PlaylistButton = new System.Windows.Forms.Button();
+            this.StopSubs = new System.Windows.Forms.Button();
             this.HideShowAudioFormButton = new CustomControls.CustomButton();
             this.FullScreenButton = new CustomControls.CustomButton();
             this.CloseVideoButton = new CustomControls.CustomButton();
@@ -53,8 +56,6 @@
             this.RewindButton = new CustomControls.CustomButton();
             this.PlayButton = new CustomControls.CustomButton();
             this.VideoSlider = new CustomControls.CustomSlider();
-            this.Subs_Button = new System.Windows.Forms.Button();
-            this.PlaylistButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -65,6 +66,37 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 20;
+            // 
+            // Subs_Button
+            // 
+            this.Subs_Button.BackgroundImage = global::MainScreen.Properties.Resources.SubtitlesButton1;
+            this.Subs_Button.Location = new System.Drawing.Point(446, 140);
+            this.Subs_Button.Name = "Subs_Button";
+            this.Subs_Button.Size = new System.Drawing.Size(26, 23);
+            this.Subs_Button.TabIndex = 33;
+            this.Subs_Button.UseVisualStyleBackColor = true;
+            this.Subs_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Subs_Button_MouseUp);
+            // 
+            // PlaylistButton
+            // 
+            this.PlaylistButton.BackgroundImage = global::MainScreen.Properties.Resources.playListButton2;
+            this.PlaylistButton.Location = new System.Drawing.Point(417, 164);
+            this.PlaylistButton.Name = "PlaylistButton";
+            this.PlaylistButton.Size = new System.Drawing.Size(50, 35);
+            this.PlaylistButton.TabIndex = 34;
+            this.PlaylistButton.UseVisualStyleBackColor = true;
+            this.PlaylistButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlaylistButton_MouseUp);
+            // 
+            // StopSubs
+            // 
+            this.StopSubs.BackgroundImage = global::MainScreen.Properties.Resources.SubtitlesButtonClose;
+            this.StopSubs.Location = new System.Drawing.Point(412, 140);
+            this.StopSubs.Name = "StopSubs";
+            this.StopSubs.Size = new System.Drawing.Size(28, 23);
+            this.StopSubs.TabIndex = 35;
+            this.StopSubs.UseVisualStyleBackColor = true;
+            this.StopSubs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StopSubs_MouseDown);
+            this.StopSubs.MouseUp += new System.Windows.Forms.MouseEventHandler(this.StopSubs_MouseUp);
             // 
             // HideShowAudioFormButton
             // 
@@ -246,26 +278,6 @@
             this.VideoSlider.Value = 0;
             this.VideoSlider.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CustomSlider1_MouseClick);
             // 
-            // Subs_Button
-            // 
-            this.Subs_Button.Location = new System.Drawing.Point(379, 120);
-            this.Subs_Button.Name = "Subs_Button";
-            this.Subs_Button.Size = new System.Drawing.Size(75, 23);
-            this.Subs_Button.TabIndex = 33;
-            this.Subs_Button.Text = "Subs";
-            this.Subs_Button.UseVisualStyleBackColor = true;
-            this.Subs_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Subs_Button_MouseUp);
-            // 
-            // PlaylistButton
-            // 
-            this.PlaylistButton.Location = new System.Drawing.Point(291, 120);
-            this.PlaylistButton.Name = "PlaylistButton";
-            this.PlaylistButton.Size = new System.Drawing.Size(75, 23);
-            this.PlaylistButton.TabIndex = 34;
-            this.PlaylistButton.Text = "Playlist";
-            this.PlaylistButton.UseVisualStyleBackColor = true;
-            this.PlaylistButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlaylistButton_MouseUp);
-            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,6 +287,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(571, 263);
             this.ControlBox = false;
+            this.Controls.Add(this.StopSubs);
             this.Controls.Add(this.PlaylistButton);
             this.Controls.Add(this.Subs_Button);
             this.Controls.Add(this.HideShowAudioFormButton);
@@ -298,6 +311,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DantesPlayer";
             this.TransparencyKey = System.Drawing.Color.White;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainScreen_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseDown);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainScreen_MouseUp);
@@ -323,6 +337,7 @@
         private CustomButton HideShowAudioFormButton;
         private Button Subs_Button;
         private Button PlaylistButton;
+        private Button StopSubs;
 
 
     }

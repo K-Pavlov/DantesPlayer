@@ -55,6 +55,10 @@
             if (audio != null)
             {
                 audio.Volume = Convert.ToInt32(slider.Value * (ValueNormalizer)+MinVolumeValue);
+                if(audio.Volume == MinVolumeValue)
+                {
+                    audio.Volume = NoSound;
+                }
             }
         }
         

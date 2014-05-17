@@ -33,8 +33,8 @@
         /// <summary>
         /// Gets or sets the Main screen singleton instance 
         /// </summary>
-        public MainScreen MainScreenInstance 
-        { 
+        public MainScreen MainScreenInstance
+        {
             get
             {
                 return this.mainScreenInstance;
@@ -43,10 +43,11 @@
             set
             {
                 this.mainScreenInstance = value;
+                this.ButtonClicks.MainScreenInstance = value;
                 this.timerForVideoProgress.Start();
-            } 
+            }
         }
-        
+
 
         /// <summary>
         /// Gets or sets the Buttons clicks instance
@@ -190,7 +191,7 @@
         private void PauseButton_Click(object sender, EventArgs e)
         {
             this.ButtonClicks.MainScreenInstance = this.MainScreenInstance;
-            this.ButtonClicks.PauseVideo(this.pauseButton);
+            this.ButtonClicks.Pause(this.pauseButton, this.MainScreenInstance.video);
         }
 
         /// <summary>
@@ -200,7 +201,7 @@
         /// <param name="e">delegate </param>
         private void StopButton_Click_1(object sender, EventArgs e)
         {
-            this.ButtonClicks.StopVideo(this.stopButton);
+            this.ButtonClicks.Stop(this.stopButton, this.MainScreenInstance.video);
         }
 
         /// <summary>
@@ -210,7 +211,7 @@
         /// <param name="e">delegate </param>
         private void PlayButton_Click_1(object sender, EventArgs e)
         {
-            this.ButtonClicks.PlayVideo(this.playButton);
+            this.ButtonClicks.Play(this.playButton, this.MainScreenInstance.video);
         }
 
         /// <summary>
@@ -234,7 +235,7 @@
         {
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
-                HolderForm.HandleBarMovemenet(this.videoSlider, this.MainScreenInstance.video.DirectVideo);
+                HolderForm.HandleBarMovemenetVideo(this.videoSlider, this.MainScreenInstance.video.DirectVideo);
             }
         }
     }

@@ -63,6 +63,46 @@ namespace MainScreen.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddButtonPlayList {
+            get {
+                object obj = ResourceManager.GetObject("AddButtonPlayList", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AudioBackGround {
+            get {
+                object obj = ResourceManager.GetObject("AudioBackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AudioBackGround1 {
+            get {
+                object obj = ResourceManager.GetObject("AudioBackGround1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AudioBackGround2 {
+            get {
+                object obj = ResourceManager.GetObject("AudioBackGround2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap background {
             get {
                 object obj = ResourceManager.GetObject("background", resourceCulture);
@@ -293,6 +333,26 @@ namespace MainScreen.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap letstry {
+            get {
+                object obj = ResourceManager.GetObject("letstry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap letstry1 {
+            get {
+                object obj = ResourceManager.GetObject("letstry1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MainControlBackground {
             get {
                 object obj = ResourceManager.GetObject("MainControlBackground", resourceCulture);
@@ -346,6 +406,36 @@ namespace MainScreen.Properties {
         internal static System.Drawing.Bitmap playButtonUpdate {
             get {
                 object obj = ResourceManager.GetObject("playButtonUpdate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap playListButton {
+            get {
+                object obj = ResourceManager.GetObject("playListButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap playListButton1 {
+            get {
+                object obj = ResourceManager.GetObject("playListButton1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap playListButton2 {
+            get {
+                object obj = ResourceManager.GetObject("playListButton2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -416,6 +506,36 @@ namespace MainScreen.Properties {
         internal static System.Drawing.Bitmap stopButtonUpdate {
             get {
                 object obj = ResourceManager.GetObject("stopButtonUpdate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SubtitlesButton {
+            get {
+                object obj = ResourceManager.GetObject("SubtitlesButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SubtitlesButton1 {
+            get {
+                object obj = ResourceManager.GetObject("SubtitlesButton1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SubtitlesButtonClose {
+            get {
+                object obj = ResourceManager.GetObject("SubtitlesButtonClose", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

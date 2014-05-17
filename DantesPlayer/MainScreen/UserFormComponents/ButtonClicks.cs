@@ -39,29 +39,29 @@
 
         private string SubsName { get; set; }
 
-        private bool PlHidden = true;
+        private bool playListHidden = true;
 
         /// <summary>
         /// Plays the video
         /// </summary>
         /// <param name="button">Button to set styles to</param>
-        public void PlayVideo(Button button)
+        public void Play(Button button, IPlayable playable)
         {
             this.SwitchButtonStyle(button);
-            if (CheckException.CheckNull(this.MainScreenInstance.video))
+            if (CheckException.CheckNull(playable))
             {
-                if (!this.MainScreenInstance.timerForVideoProgress.Enabled)
+                if (!this.MainScreenInstance.timerForProgress.Enabled)
                 {
-                    this.MainScreenInstance.timerForVideoProgress.Start();
+                    this.MainScreenInstance.timerForProgress.Start();
                 }
 
-                this.MainScreenInstance.video.Play();
+                playable.Play();
             }
 
             if (this.MainScreenInstance.timerForRF.Enabled)
             {
                 this.MainScreenInstance.timerForRF.Stop();
-                this.MainScreenInstance.video.PlayBackSpeed = 0;
+                playable.PlayBackSpeed = 0;
             }
         }
 
@@ -92,23 +92,23 @@
         /// Pauses the video
         /// </summary>
         /// <param name="button">Button to set styles to</param>
-        public void PauseVideo(Button button)
+        public void Pause(Button button, IPlayable playable)
         {
             this.SwitchButtonStyle(button);
-            if (CheckException.CheckNull(this.MainScreenInstance.video))
+            if (CheckException.CheckNull(playable))
             {
-                this.MainScreenInstance.video.Pause();
+                playable.Pause();
             }
 
             if (this.MainScreenInstance.timerForRF.Enabled)
             {
                 this.MainScreenInstance.timerForRF.Stop();
-                this.MainScreenInstance.video.PlayBackSpeed = 0;
+                playable.PlayBackSpeed = 0;
             }
 
-            if (this.MainScreenInstance.timerForVideoProgress.Enabled)
+            if (this.MainScreenInstance.timerForProgress.Enabled)
             {
-                this.MainScreenInstance.timerForVideoProgress.Stop();
+                this.MainScreenInstance.timerForProgress.Stop();
             }
         }
 
@@ -116,31 +116,31 @@
         /// Stops the video
         /// </summary>
         /// <param name="button">Button to set styles to</param>
-        public void StopVideo(Button button)
+        public void Stop(Button button, IPlayable playable)
         {
             this.SwitchButtonStyle(button);
-            if (CheckException.CheckNull(this.MainScreenInstance.video))
+            if (CheckException.CheckNull(playable))
             {
                 this.MainScreenInstance.timerForRF.Stop();
-                this.MainScreenInstance.video.Stop();
+                playable.Stop();
             }
 
-            if (this.MainScreenInstance.timerForVideoProgress.Enabled)
+            if (this.MainScreenInstance.timerForProgress.Enabled)
             {
-                this.MainScreenInstance.timerForVideoProgress.Stop();
+                this.MainScreenInstance.timerForProgress.Stop();
                 this.MainScreenInstance.WriteVideoTime();
             }
         }
         public void OpenPlaylist(Button button)
         {
-            if (!this.PlHidden)
+            if (!this.playListHidden)
             {
                 this.MainScreenInstance.playList.Hide();
-                this.PlHidden = true;
+                this.playListHidden = true;
                 return;
             }
             this.MainScreenInstance.playList.Show();
-            this.PlHidden = false;
+            this.playListHidden = false;
 
         }
 
@@ -148,13 +148,13 @@
         /// Rewinds the video
         /// </summary>
         /// <param name="button">Button to set styles to</param>
-        public void RewindVideo(Button button)
+        public void Rewind(Button button, IPlayable playable)
         {
             this.SwitchButtonStyle(button);
-            if (CheckException.CheckNull(this.MainScreenInstance.video))
+            if (CheckException.CheckNull(playable))
             {
                 this.MainScreenInstance.timerForRF.Start();
-                this.MainScreenInstance.video.PlayBackSpeed -= 5;
+                playable.PlayBackSpeed -= 5;
                 this.MainScreenInstance.rewindFired = true;
             }
         }
@@ -163,13 +163,13 @@
         /// Fast forwards the video
         /// </summary>
         /// <param name="button">Button to set styles to</param>
-        public void FFVideo(Button button)
+        public void FastForward(Button button, IPlayable playable)
         {
             this.SwitchButtonStyle(button);
-            if (CheckException.CheckNull(this.MainScreenInstance.video))
+            if (CheckException.CheckNull(playable))
             {
                 this.MainScreenInstance.timerForRF.Start();
-                this.MainScreenInstance.video.PlayBackSpeed += 5;
+                playable.PlayBackSpeed += 5;
                 this.MainScreenInstance.fastForwardFired = true;
             }
         }
@@ -178,17 +178,24 @@
         /// Closes the video
         /// </summary>
         /// <param name="button">Button to set styles to</param>
-        public void CloseVideo(Button button)
+        public void Close(Button button)
         {
             this.SwitchButtonStyle(button);
+
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
                 HolderForm.NullVideoAndForm(this.MainScreenInstance.video.DirectVideo);
             }
 
+            if(CheckException.CheckNull(this.MainScreenInstance.audio))
+            {
+                this.MainScreenInstance.audio.DirectAudio.Dispose();
+                this.MainScreenInstance.audio = null;
+            }
+
             this.MainScreenInstance.GetSlider().Value = 0;
             this.MainScreenInstance.GetSlider().Enabled = false;
-            this.MainScreenInstance.timerForVideoProgress.Stop();
+            this.MainScreenInstance.timerForProgress.Stop();
             this.MainScreenInstance.timerForSubsSync.Stop();
             this.MainScreenInstance.GetLabel().Text = string.Empty;
         }
@@ -196,20 +203,13 @@
         /// <summary>
         /// Opens a video
         /// </summary>
-        public void OpenVideo(Button button)
+        public void Open(Button button)
         {
             this.SwitchButtonStyle(button);
             this.VideoName = ChooseVideoDialog.TakePathToVideo();
             if (CheckException.CheckNull(this.VideoName))
             {
-                try
-                {
-                    this.OpenVideo(this.VideoName);
-                }
-                catch (Microsoft.DirectX.DirectXException)
-                {
-                    MessageBox.Show(TypeExpecption, "Warning");
-                }
+                this.Open(this.VideoName);
             }
             else if(CheckException.CheckNull(this.MainScreenInstance.video))
             {
@@ -217,39 +217,69 @@
             }
         }
 
-        public void OpenVideo(string VideoName)
+        public void Open(string path)
         {
             try
             {
                 if (this.MainScreenInstance.video == null)
                 {
-                    this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
+                    this.MainScreenInstance.subtitles.UnLoad();
+                    this.MainScreenInstance.video = new Video(path, false, 800, 600);
                     this.MainScreenInstance.video.Start();
-                    this.MainScreenInstance.timerForVideoProgress.Start();
-                    this.MainScreenInstance.timerForVideoProgress.Start();
+                    this.MainScreenInstance.timerForProgress.Start();
+                    this.MainScreenInstance.timerForProgress.Start();
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.DirectVideo_Ending;
                     this.MainScreenInstance.GetSlider().Enabled = true;
                     AudioControl.VolumeInit(this.MainScreenInstance.video.DirectVideo.Audio, this.MainScreenInstance.AudioControl.VolumeProgress);
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
-                    this.MainScreenInstance.video.PathToSource = VideoName;
+                    this.MainScreenInstance.video.PathToSource = path;
                 }
                 else
                 {
+                    this.MainScreenInstance.subtitles.UnLoad();
                     HolderForm.NullVideoAndForm(this.MainScreenInstance.video.DirectVideo);
                     this.MainScreenInstance.video = null;
-                    this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
+                    this.MainScreenInstance.video = new Video(path, false, 800, 600);
                     this.MainScreenInstance.video.Start();
-                    this.MainScreenInstance.timerForVideoProgress.Start();
-                    this.MainScreenInstance.timerForVideoProgress.Start();
+                    this.MainScreenInstance.timerForProgress.Start();
+                    this.MainScreenInstance.timerForProgress.Start();
                     this.MainScreenInstance.GetSlider().Enabled = true;
                     AudioControl.VolumeInit(this.MainScreenInstance.video.DirectVideo.Audio, this.MainScreenInstance.AudioControl.VolumeProgress);
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
-                    this.MainScreenInstance.video.PathToSource = VideoName;
+                    this.MainScreenInstance.video.PathToSource = path;
                 }
             }
             catch (Microsoft.DirectX.DirectXException)
             {
-                MessageBox.Show(TypeExpecption, "Warning");
+                try
+                {
+                    if(this.MainScreenInstance.audio == null)
+                    {
+                        this.MainScreenInstance.subtitles.UnLoad();
+                        this.MainScreenInstance.audio = new Audio(path);
+                        this.MainScreenInstance.audio.Start();
+                        this.MainScreenInstance.timerForProgress.Start();
+                        this.MainScreenInstance.timerForProgress.Start();
+                        this.MainScreenInstance.GetSlider().Enabled = true;
+                        AudioControl.VolumeInit(this.MainScreenInstance.audio.DirectAudio, this.MainScreenInstance.AudioControl.VolumeProgress);
+                    }
+                    else
+                    {
+                        this.MainScreenInstance.subtitles.UnLoad();
+                        this.MainScreenInstance.audio = null;
+                        this.MainScreenInstance.audio = new Audio(path);
+                        this.MainScreenInstance.audio.Start();
+                        this.MainScreenInstance.timerForProgress.Start();
+                        this.MainScreenInstance.timerForProgress.Start();
+                        this.MainScreenInstance.GetSlider().Enabled = true;
+                        AudioControl.VolumeInit(this.MainScreenInstance.audio.DirectAudio, this.MainScreenInstance.AudioControl.VolumeProgress);
+
+                    }
+                }
+                catch (Microsoft.DirectX.DirectXException)
+                {
+                    MessageBox.Show(TypeExpecption, "Warning");
+                }              
             }
         }
 
@@ -277,6 +307,11 @@
                 this.MainScreenInstance.video.Close();
             }
 
+            if(CheckException.CheckNull(this.MainScreenInstance.audio))
+            {
+                this.MainScreenInstance.audio.Close();
+            }
+            
             this.MainScreenInstance.Dispose();
         }
 
@@ -297,7 +332,7 @@
                 if (this.MainScreenInstance.video.IsFullScreen)
                 {
                     this.MainScreenInstance.menuBar = new MenuBarFullScreenForm();
-                    this.MainScreenInstance.menuBar.MainScreenInstance = this.MainScreenInstance;
+                    this.MainScreenInstance.menuBar.MainScreenInstance = MainScreen.Instance;
                     this.MainScreenInstance.timerForMenuBar.Start();
                 }
             }

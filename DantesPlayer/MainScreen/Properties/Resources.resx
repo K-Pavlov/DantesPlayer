@@ -118,11 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AudioBackGround2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioBackGround.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MainControlBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>MainControlBackground.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="playListButton2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playListButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="buttonPlay1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonPlay1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddButtonPlayList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddButtonPlayList.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="buttonminus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonminus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,8 +157,14 @@
   <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AudioBackGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioBackGround.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="rsz_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubtitlesButtonClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubtitlesButtonClose.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CloseVideoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CloseVideoButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,11 +181,26 @@
   <data name="buttonPlay2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonPlay2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="buttonExit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\buttonExit2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="playListButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playListButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rsz_button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="letstry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\letstry.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AudioBackGround1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AudioBackGround.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="playListButton1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playListButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RewindButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RewindButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="letstry1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\letstry.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rewindButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rewindButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,14 +208,17 @@
   <data name="buttonPause21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonPause21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="rsz_button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\rsz_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="buttonExit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonExit2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="playListButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\playListButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="repeatButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\repeatButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="volumeDownButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\volumeDownButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="images" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -214,6 +247,9 @@
   <data name="buttonStop2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonStop2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SubtitlesButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubtitlesButton.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pauseButtonUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pauseButtonUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -229,7 +265,7 @@
   <data name="bg3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="volumeDownButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\volumeDownButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SubtitlesButton1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubtitlesButton.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -19,14 +19,11 @@
         {
             get 
             { 
-                return directAudio;
+                return this.directAudio;
             }
             set
             {
-                if (CheckException.CheckNull(value))
-                {
-                    directAudio = value;
-                }
+                this.directAudio = value;
             }
         }
         
@@ -46,10 +43,16 @@
             }
         }
 
+        public Audio(string path)
+        {
+            this.PathToSource = path;
+        }
+
         public int PlayBackSpeed { get; set; }
 
         public void Start()
         {
+            this.DirectAudio = new DirectXAllias.Audio(this.PathToSource, true);
             this.Play();
         }
 
@@ -79,17 +82,33 @@
 
         public void Rewind()
         {
-            throw new NotImplementedException();
+            if (CheckException.CheckNull(this.DirectAudio))
+            {
+                if (this.DirectAudio.CurrentPosition + this.PlayBackSpeed > 0)
+                {
+                    this.DirectAudio.CurrentPosition += this.PlayBackSpeed;
+                }
+            }
         }
 
         public void FastForward()
         {
-            throw new NotImplementedException();
+            if (CheckException.CheckNull(this.DirectAudio))
+            {
+                if (this.DirectAudio.CurrentPosition + this.PlayBackSpeed > 0)
+                {
+                    this.DirectAudio.CurrentPosition += this.PlayBackSpeed;
+                }
+            }
         }
 
         public void Close()
         {
-
+            if (CheckException.CheckNull(this.DirectAudio))
+            {
+                this.DirectAudio.Dispose();
+                this.DirectAudio = null;
+            }
         }
 
         public void VolumeUp(CustomControls.CustomSlider customSlider)

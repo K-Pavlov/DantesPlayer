@@ -70,7 +70,7 @@
         /// <summary>
         /// Gets the DirectX video
         /// </summary>
-        public DirectAllias::Video DirectVideo { get; private set; }
+        public DirectAllias::Video DirectVideo { get; set; }
 
         /// <summary>
         /// Gets or sets the form that holds the video

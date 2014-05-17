@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioFormControl));
             this.VolumeProgress = new CustomControls.CustomSlider();
             this.volumeDownButton = new CustomControls.CustomButton();
             this.VolumeUpButton = new CustomControls.CustomButton();
@@ -40,7 +39,7 @@
             this.VolumeProgress.BorderColor = System.Drawing.SystemColors.ActiveBorder;
             this.VolumeProgress.Cursor = System.Windows.Forms.Cursors.Hand;
             this.VolumeProgress.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VolumeProgress.ForeColor = System.Drawing.Color.Black;
+            this.VolumeProgress.ForeColor = System.Drawing.Color.White;
             this.VolumeProgress.IndentHeight = 6;
             this.VolumeProgress.IndentWidth = 7;
             this.VolumeProgress.Location = new System.Drawing.Point(78, 24);
@@ -89,7 +88,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::MainScreen.Properties.Resources.AudioBackGround2;
             this.ClientSize = new System.Drawing.Size(286, 88);
             this.ControlBox = false;
             this.Controls.Add(this.VolumeUpButton);
