@@ -93,13 +93,13 @@ namespace MainScreen
         {
             if (CheckException.CheckNull(MainScreenInstance.video))
             {
-                AudioForVideos.VolumeInit(MainScreenInstance.video, this.VolumeProgress);
+                AudioControl.VolumeInit(MainScreenInstance.video.DirectVideo.Audio, this.VolumeProgress);
             }
         }
         
         private void VolumeInit()
         {
-            AudioForVideos.VolumeInit(MainScreenInstance.video, this.VolumeProgress);
+            AudioControl.VolumeInit(MainScreenInstance.video.DirectVideo.Audio, this.VolumeProgress);
         }
     }
 }

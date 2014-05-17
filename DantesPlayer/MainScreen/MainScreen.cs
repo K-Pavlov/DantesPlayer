@@ -7,6 +7,7 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Linq;
+    using System.Text;
     using System.Windows.Forms;
     using UserInterfaceDialogs;
     using VideoHandling;
@@ -28,13 +29,13 @@
         internal readonly Timer timerForMouseFormMovement = new Timer();
         internal readonly Timer timerForMenuBar = new Timer();
         internal readonly Timer timerForSubs = new Timer();
+        internal readonly Timer timerForSubsSync = new Timer();
         private static int xPosition;
         private static int yPosition;
         private static Point formStartLocation;
         private static Point startMouseLocation;
         private Subtitles subtitles = new Subtitles();
         private SubtitleForm subForm = new SubtitleForm();
-        private bool subWritten = false;
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
@@ -99,9 +100,8 @@
             this.BackColor = Color.White;
             this.TransparencyKey = Color.White;
             this.subForm.Show();
+            this.menuBar.mainScreenInstance = this;
             this.subForm.BringToFront();
-            this.timerForSubs.Interval = 500;
-            this.timerForSubs.Tick += this.CheckSubs;
             //this.TransparencyKey = Color.WhiteSmoke;
             //this.BackColor = System.Drawing.Color.Transparent;
         }
@@ -130,25 +130,56 @@
             this.timerForMenuBar.Tick += this.TimerForMenuBar_Tick;
             this.timerForSubs.Interval = 500;
             this.timerForSubs.Tick += this.CheckSubs;
+            this.timerForSubsSync.Interval = 1;
+            this.timerForSubsSync.Tick += this.SyncSubtitles;
             this.VideoSlider.Enabled = false;
         }
 
-        void TimerForMenuBar_Tick(object sender, EventArgs e)
+        private void SyncSubtitles(object sender, EventArgs e)
         {
-            Console.WriteLine(this.IsActive(HolderForm.FormForVideo.Handle));
+            int xLocation = HolderForm.FormForVideo.Location.X;
+            int yLocation = HolderForm.FormForVideo.Location.Y;
+            int xSize = HolderForm.FormForVideo.Size.Width;
+            int ySize = HolderForm.FormForVideo.Size.Height;
+            int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            int screenHeight = Convert.ToInt32(Screen.PrimaryScreen.WorkingArea.Height / 1.2);
+            const double ScreenToSubRatio = 3.7;
+            if (this.video.DirectVideo != null)
+            {
+                if (video.IsFullScreen)
+                {
+                    subForm.Location = new Point(Convert.ToInt32(screenWidth / ScreenToSubRatio), screenHeight);
+                    return;
+                }
+                this.subForm.Location = new Point(Convert.ToInt32(xSize - xLocation), ySize - yLocation);
+                this.subForm.Size = HolderForm.FormForVideo.Size;
+            }
+            else
+            {
+                this.timerForSubsSync.Stop();
+            }
+        }
+
+        private void TimerForMenuBar_Tick(object sender, EventArgs e)
+        {
+            int screenWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
+            const int MenuBarPadding = 100;
+            const double ScreenToMenuBarRatio = 3.7;
+            //Console.WriteLine(this.IsActive(HolderForm.FormForVideo.Handle));
             if (CheckException.CheckNull(video.DirectVideo) && !HolderForm.FormForVideo.IsDisposed)
             {
-                if (Cursor.Position.Y > Screen.PrimaryScreen.WorkingArea.Height - 100)
+                if (Cursor.Position.Y > screenHeight - MenuBarPadding)
                 {
                     if (!menuBar.IsDisposed)
                     {
-                        if (this.IsActive(HolderForm.FormForVideo.Handle) || this.IsActive(menuBar.Handle))
+                        if (this.IsActive(HolderForm.FormForVideo.Handle) || this.IsActive(menuBar.Handle) || this.IsActive(this.subForm.Handle))
                         {
                             menuBar.Show();
                             menuBar.BringToFront();
                             menuBar.TopMost = true;
-                            Console.WriteLine(HolderForm.FormForVideo.TopLevel);
-                            menuBar.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width / 3, Screen.PrimaryScreen.WorkingArea.Height - 40);
+                            //Console.WriteLine(HolderForm.FormForVideo.TopLevel);
+                            menuBar.Location = new Point(Convert.ToInt32(screenWidth / ScreenToMenuBarRatio), screenHeight);
                         }
                     }
                     else
@@ -168,6 +199,7 @@
                 {
                     timerForVideoProgress.Stop();
                 }
+
                 timerForMenuBar.Stop();
                 menuBar.Dispose();
                 menuBar = null;
@@ -192,6 +224,8 @@
         /// <param name="e"></param>
         private void TimerForVideoTime_Tick(object sender, EventArgs e)
         {
+            this.timerForSubs.Start();
+            this.timerForSubsSync.Start();
             this.WriteVideoTime();
         }
 
@@ -270,12 +304,14 @@
                 else
                 {
                     this.timerForSubs.Stop();
+                    this.timerForSubsSync.Stop();
                     this.timerForVideoProgress.Stop();
                 }
             }
             else
             {
                 this.timerForSubs.Stop();
+                this.timerForSubsSync.Stop();
                 this.timerForVideoProgress.Stop();
             }
         }
@@ -284,46 +320,61 @@
         {
             if (subtitles.SubsLoaded && !video.DirectVideo.Disposed)
             {
-                while (true)
+                //while (true)
+                //{
+                //    if (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]) && this.subWritten)
+                //    {
+                //        this.subForm.SubLabel.Text = String.Empty;
+                //        this.subWritten = false;
+                //        if (this.subLine != this.subtitles.EndSubTime.Count - 1)
+                //        {
+                //            this.subLine++;
+                //        }
+                //        else
+                //        {
+                //            break;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        break;
+                //    }
+                //}
+
+                //if (this.subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.StartSubTime[subLine]) && !this.subWritten)
+                //{
+                //    if (this.subLine == this.subtitles.EndSubTime.Count - 1)
+                //    {
+                //        while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]))
+                //        {
+                //            if (this.subLine == 0)
+                //            {
+                //                break;
+                //            }
+
+                //            this.subLine--;
+                //        }
+                //    }
+
+                //    this.subWritten = true;
+                //    this.subForm.SubLabel.Text = subtitles.Subtitle[subLine];
+                //}
+                this.subForm.SubLabel.Text = pickSub(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles);
+            }
+        }
+
+        private static string pickSub(int currentVideoTime, Subtitles subtitles)
+        {
+            string correctSubtitle = "";
+            for (int i = 0; i < subtitles.SubtitleLinesTotal; i++)
+            {
+                if(currentVideoTime >= subtitles.StartSubTime[i] && currentVideoTime <= subtitles.EndSubTime[i])
                 {
-                    if (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]) && this.subWritten)
-                    {
-                        this.subForm.SubLabel.Text = String.Empty;
-                        this.subWritten = false;
-                        if (this.subLine != this.subtitles.EndSubTime.Count - 1)
-                        {
-                            this.subLine++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (this.subtitles.CheckPrint(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.StartSubTime[subLine]) && !this.subWritten)
-                {
-                    if (this.subLine == this.subtitles.EndSubTime.Count - 1)
-                    {
-                        while (this.subtitles.CheckSubEnded(Convert.ToInt32(this.video.DirectVideo.CurrentPosition), this.subtitles.EndSubTime[subLine]))
-                        {
-                            if (this.subLine == 0)
-                            {
-                                break;
-                            }
-
-                            this.subLine--;
-                        }
-                    }
-
-                    this.subWritten = true;
-                    this.subForm.SubLabel.Text = subtitles.Subtitle[subLine];
+                    correctSubtitle = subtitles.Subtitle[i];
                 }
             }
+
+            return correctSubtitle;
         }
 
         /// <summary>
@@ -339,7 +390,7 @@
                 if (CheckException.CheckNull(video))
                 {
                     video.FastForward();
-                    if (video.Speed == 0)
+                    if (video.PlayBackSpeed == 0)
                     {
                         timerForRF.Stop();
                     }
@@ -351,7 +402,7 @@
                 if (CheckException.CheckNull(video))
                 {
                     video.Rewind();
-                    if (video.Speed == 0)
+                    if (video.PlayBackSpeed == 0)
                     {
                         timerForRF.Stop();
                     }
@@ -492,6 +543,11 @@
         private void OpenVideoButton_MouseUp(object sender, MouseEventArgs e)
         {
             this.buttonClicks.OpenVideo(this.OpenVideoButton);
+            if(this.video != null)
+            {
+                this.subForm.Location = HolderForm.FormForVideo.Location;
+                this.subForm.Size = HolderForm.FormForVideo.Size;
+            }
         }
 
         private void FullScreenButton_MouseUp(object sender, MouseEventArgs e)

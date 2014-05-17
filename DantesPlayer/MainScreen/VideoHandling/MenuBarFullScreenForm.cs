@@ -27,6 +27,7 @@
             this.timerForVideoProgress.Tick += TimerForVideoProgress_Tick;
             this.InitializeComponent();
             this.ButtonClicks = new ButtonClicks();
+            this.ButtonClicks.MainScreenInstance = this.MainScreenInstance;
         }
 
         /// <summary>

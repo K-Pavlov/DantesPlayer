@@ -47,7 +47,7 @@
             this.VolumeProgress.Maximum = 100;
             this.VolumeProgress.Minimum = 0;
             this.VolumeProgress.Name = "VolumeProgress";
-            this.VolumeProgress.Size = new System.Drawing.Size(127, 42);
+            this.VolumeProgress.Size = new System.Drawing.Size(123, 42);
             this.VolumeProgress.TabIndex = 20;
             this.VolumeProgress.TabStop = false;
             this.VolumeProgress.TickColor = System.Drawing.SystemColors.MenuHighlight;
@@ -65,9 +65,9 @@
             this.volumeDownButton.BackColor = System.Drawing.Color.Transparent;
             this.volumeDownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.volumeDownButton.Image = global::MainScreen.Properties.Resources.volumeDownButton;
-            this.volumeDownButton.Location = new System.Drawing.Point(49, 24);
+            this.volumeDownButton.Location = new System.Drawing.Point(55, 24);
             this.volumeDownButton.Name = "volumeDownButton";
-            this.volumeDownButton.Size = new System.Drawing.Size(23, 23);
+            this.volumeDownButton.Size = new System.Drawing.Size(17, 22);
             this.volumeDownButton.TabIndex = 21;
             this.volumeDownButton.TabStop = false;
             this.volumeDownButton.UseVisualStyleBackColor = false;

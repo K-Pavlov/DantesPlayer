@@ -13,7 +13,7 @@
     /// The main video class where we configure which
     /// video to play the size of the video
     /// </summary>
-    public sealed class Video
+    public sealed class Video : IPlayable
     {
         /// <summary>
         /// The video that is loaded
@@ -48,11 +48,11 @@
         /// <param name="height"> The height of the video</param>
         public Video(string loadedVideo, bool autoPlay, int width, int height)
         {
-            this.LoadedVideo = loadedVideo;
+            this.LoadedSource = loadedVideo;
             this.AutoPlay = autoPlay;
             this.Height = height;
             this.Width = width;
-            this.Speed = 0;
+            this.PlayBackSpeed = 0;
             this.IsFullScreen = false;
             this.HolderForm = new HolderForm();
         }
@@ -65,7 +65,7 @@
         /// <summary>
         /// Gets or sets the speed of rewind/fast forward
         /// </summary>
-        public int Speed { get; set; }
+        public int PlayBackSpeed { get; set; }
 
         /// <summary>
         /// Gets the DirectX video
@@ -77,12 +77,12 @@
         /// </summary>
         private HolderForm HolderForm { get; set; }
 
-        public string PathToVideo { get; set; }
+        public string PathToSource { get; set; }
 
         /// <summary>
         /// Gets or sets the loaded video
         /// </summary>
-        private string LoadedVideo
+        private string LoadedSource
         {
             get
             {
@@ -166,16 +166,16 @@
         /// <summary>
         /// Starts the configured video
         /// </summary>
-        public void StartVideo()
+        public void Start()
         {
-            this.ConfigureVideo();
+            this.Configure();
             this.DirectVideo.Play();
         }
     
         /// <summary>
         /// Check if the video is playing and if it is pauses it
         /// </summary>
-        public void PauseVideo()
+        public void Pause()
         {
             try
             {
@@ -192,7 +192,7 @@
         /// <summary>
         /// Checks if video is paused and if it is plays it
         /// </summary>
-        public void PlayVideo()
+        public void Play()
         {
             try
             {
@@ -201,8 +201,7 @@
                     this.DirectVideo.Play();
                 }
             }
-            catch
-                (NullReferenceException)
+            catch(NullReferenceException)
             {
             }
         }
@@ -210,7 +209,7 @@
         /// <summary>
         /// Stops the video
         /// </summary>
-        public void StopVideo()
+        public void Stop()
         {
             try
             {
@@ -224,7 +223,7 @@
         /// <summary>
         /// Closes the video
         /// </summary>
-        public void CloseVideo()
+        public void Close()
         {
             try
             {
@@ -241,7 +240,7 @@
         /// <param name="slider">A custom slider object</param>
         public void VolumeUp(CustomSlider slider)
         {
-            AudioForVideos.VolumeUp(this, slider);
+            AudioControl.VolumeUp(this.DirectVideo.Audio, slider);
         }
 
         /// <summary>
@@ -250,7 +249,7 @@
         /// <param name="slider">A custom slider object</param>
         public void VolumeDown(CustomSlider slider)
         {
-            AudioForVideos.VolumeDown(this, slider);
+            AudioControl.VolumeDown(this.DirectVideo.Audio, slider);
         }
 
         /// <summary>
@@ -268,9 +267,9 @@
         {
             if (CheckException.CheckNull(this.DirectVideo))
             {
-                if (this.DirectVideo.CurrentPosition + this.Speed > 0)
+                if (this.DirectVideo.CurrentPosition + this.PlayBackSpeed > 0)
                 {
-                    this.DirectVideo.CurrentPosition += this.Speed;
+                    this.DirectVideo.CurrentPosition += this.PlayBackSpeed;
                 }
             }    
         }
@@ -282,9 +281,9 @@
         {
             if (CheckException.CheckNull(this.DirectVideo))
             {
-                if (this.DirectVideo.CurrentPosition + this.Speed > 0)
+                if (this.DirectVideo.CurrentPosition + this.PlayBackSpeed > 0)
                 {
-                    this.DirectVideo.CurrentPosition += this.Speed;
+                    this.DirectVideo.CurrentPosition += this.PlayBackSpeed;
                 }
             }
         }
@@ -293,11 +292,11 @@
         /// Configure video creates and a new video and calls a static method
         /// which attaches the video a panel and a form and shows it
         /// </summary>
-        private void ConfigureVideo()
+        private void Configure()
         {
             try
             {
-                this.DirectVideo = new DirectAllias::Video(this.LoadedVideo, this.autoPlay);
+                this.DirectVideo = new DirectAllias::Video(this.LoadedSource, this.autoPlay);
                 this.HolderForm.AttachVideoToForm(this.DirectVideo, new Size(this.Height, this.Width));
             }
             catch (Microsoft.DirectX.DirectXException)

@@ -63,8 +63,8 @@
     <Compile Include="AudioFormControl.Designer.cs">
       <DependentUpon>AudioFormControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="AudioHandling\AudioForVideos.cs" />
-    <Compile Include="AudioHandling\AudioPlayback.cs" />
+    <Compile Include="AudioHandling\AudioControl.cs" />
+    <Compile Include="AudioHandling\Audio.cs" />
     <Compile Include="CheckException.cs" />
     <Compile Include="CustomControls\BorderStyle.cs" />
     <Compile Include="CustomControls\CustomButton.cs">
@@ -78,6 +78,7 @@
     <Compile Include="FormControls\BaseFormControl.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="IPlayable.cs" />
     <Compile Include="MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>

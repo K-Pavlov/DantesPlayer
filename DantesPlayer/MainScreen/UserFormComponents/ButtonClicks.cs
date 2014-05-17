@@ -55,13 +55,13 @@
                     this.MainScreenInstance.timerForVideoProgress.Start();
                 }
 
-                this.MainScreenInstance.video.PlayVideo();
+                this.MainScreenInstance.video.Play();
             }
 
             if (this.MainScreenInstance.timerForRF.Enabled)
             {
                 this.MainScreenInstance.timerForRF.Stop();
-                this.MainScreenInstance.video.Speed = 0;
+                this.MainScreenInstance.video.PlayBackSpeed = 0;
             }
         }
 
@@ -81,7 +81,10 @@
                         this.SubsName = Dialog1.FileName;
                     }
                 }
-                subtitles.Load(this.SubsName);
+                if (CheckException.CheckNull(this.SubsName))
+                {
+                    subtitles.Load(this.SubsName);    
+                }
             }
         }
 
@@ -94,13 +97,13 @@
             this.SwitchButtonStyle(button);
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
-                this.MainScreenInstance.video.PauseVideo();
+                this.MainScreenInstance.video.Pause();
             }
 
             if (this.MainScreenInstance.timerForRF.Enabled)
             {
                 this.MainScreenInstance.timerForRF.Stop();
-                this.MainScreenInstance.video.Speed = 0;
+                this.MainScreenInstance.video.PlayBackSpeed = 0;
             }
 
             if (this.MainScreenInstance.timerForVideoProgress.Enabled)
@@ -119,7 +122,7 @@
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
                 this.MainScreenInstance.timerForRF.Stop();
-                this.MainScreenInstance.video.StopVideo();
+                this.MainScreenInstance.video.Stop();
             }
 
             if (this.MainScreenInstance.timerForVideoProgress.Enabled)
@@ -151,7 +154,7 @@
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
                 this.MainScreenInstance.timerForRF.Start();
-                this.MainScreenInstance.video.Speed -= 5;
+                this.MainScreenInstance.video.PlayBackSpeed -= 5;
                 this.MainScreenInstance.rewindFired = true;
             }
         }
@@ -166,7 +169,7 @@
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
                 this.MainScreenInstance.timerForRF.Start();
-                this.MainScreenInstance.video.Speed += 5;
+                this.MainScreenInstance.video.PlayBackSpeed += 5;
                 this.MainScreenInstance.fastForwardFired = true;
             }
         }
@@ -209,7 +212,7 @@
             }
             else if(CheckException.CheckNull(this.MainScreenInstance.video))
             {
-                this.VideoName = this.MainScreenInstance.video.PathToVideo;
+                this.VideoName = this.MainScreenInstance.video.PathToSource;
             }
         }
 
@@ -220,27 +223,27 @@
                 if (this.MainScreenInstance.video == null)
                 {
                     this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
-                    this.MainScreenInstance.video.StartVideo();
+                    this.MainScreenInstance.video.Start();
                     this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.DirectVideo_Ending;
                     this.MainScreenInstance.GetSlider().Enabled = true;
-                    AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
+                    AudioControl.VolumeInit(this.MainScreenInstance.video.DirectVideo.Audio, this.MainScreenInstance.AudioControl.VolumeProgress);
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
-                    this.MainScreenInstance.video.PathToVideo = VideoName;
+                    this.MainScreenInstance.video.PathToSource = VideoName;
                 }
                 else
                 {
                     HolderForm.NullVideoAndForm(this.MainScreenInstance.video.DirectVideo);
                     this.MainScreenInstance.video = null;
                     this.MainScreenInstance.video = new Video(VideoName, false, 800, 600);
-                    this.MainScreenInstance.video.StartVideo();
+                    this.MainScreenInstance.video.Start();
                     this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.timerForVideoProgress.Start();
                     this.MainScreenInstance.GetSlider().Enabled = true;
-                    AudioForVideos.VolumeInit(this.MainScreenInstance.video, this.MainScreenInstance.AudioControl.VolumeProgress);
+                    AudioControl.VolumeInit(this.MainScreenInstance.video.DirectVideo.Audio, this.MainScreenInstance.AudioControl.VolumeProgress);
                     this.MainScreenInstance.video.DirectVideo.Ending += this.MainScreenInstance.ClearTimers;
-                    this.MainScreenInstance.video.PathToVideo = VideoName;
+                    this.MainScreenInstance.video.PathToSource = VideoName;
                 }
             }
             catch (Microsoft.DirectX.DirectXException)
@@ -270,7 +273,7 @@
             this.MainScreenInstance.Close();
             if (CheckException.CheckNull(this.MainScreenInstance.video))
             {
-                this.MainScreenInstance.video.CloseVideo();
+                this.MainScreenInstance.video.Close();
             }
 
             this.MainScreenInstance.Dispose();

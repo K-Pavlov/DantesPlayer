@@ -4,12 +4,13 @@
     using System;
     using System.Windows.Forms;
     using CustomControls;
+    using DirectXAudioAllias = Microsoft.DirectX.AudioVideoPlayback.Audio;
     #endregion
 
     /// <summary>
     /// Static class for the audio of the videos
     /// </summary>
-    public static class AudioForVideos
+    public static class AudioControl
     {
         #region Constants
         /// <summary>
@@ -49,11 +50,11 @@
         /// </summary>
         /// <param name="video">A video object</param>
         /// <param name="slider">A custom slider object</param>
-        public static void VolumeInit(VideoHandling.Video video, CustomSlider slider)
+        public static void VolumeInit(DirectXAudioAllias audio, CustomSlider slider)
         {
-            if (video.DirectVideo.Audio != null)
+            if (audio != null)
             {
-                video.DirectVideo.Audio.Volume = Convert.ToInt32(slider.Value * (ValueNormalizer)+MinVolumeValue);
+                audio.Volume = Convert.ToInt32(slider.Value * (ValueNormalizer)+MinVolumeValue);
             }
         }
         
@@ -63,14 +64,14 @@
         /// </summary>
         /// <param name="video">A video object</param>
         /// <param name="slider">A custom slider object</param>
-        public static void VolumeUp(VideoHandling.Video video, CustomSlider slider)
+        public static void VolumeUp(DirectXAudioAllias audio, CustomSlider slider)
         {
             if (slider.Value < MaxProgressBarValue)
             {
                 slider.Value += VolumeStep;
-                if (CheckException.CheckNull(video.DirectVideo.Audio))
+                if (CheckException.CheckNull(audio))
                 {
-                    HandleAudio(video, slider.Value);
+                    HandleAudio(audio, slider.Value);
                 }
             }
         }
@@ -81,14 +82,14 @@
         /// </summary>
         /// <param name="video">A video object</param>
         /// <param name="slider">A custom slider object</param>
-        public static void VolumeDown(VideoHandling.Video video, CustomSlider slider)
+        public static void VolumeDown(DirectXAudioAllias audio, CustomSlider slider)
         {
             if (slider.Value > slider.Minimum)
             {
                 slider.Value -= VolumeStep;
-                if (CheckException.CheckNull(video.DirectVideo.Audio))
+                if (CheckException.CheckNull(audio))
                 {
-                    HandleAudio(video, slider.Value);
+                    HandleAudio(audio, slider.Value);
                 }
             }
         }
@@ -98,15 +99,15 @@
         /// </summary>
         /// <param name="video">A video object</param>
         /// <param name="value">An integer value</param>
-        private static void HandleAudio(VideoHandling.Video video, int value)
+        private static void HandleAudio(DirectXAudioAllias audio, int value)
         {
             if (value != 0)
             {
-                video.DirectVideo.Audio.Volume = Convert.ToInt32(GetCorrectValue(value));
+                audio.Volume = Convert.ToInt32(GetCorrectValue(value));
             }
             else
             {
-                video.DirectVideo.Audio.Volume = NoSound;
+                audio.Volume = NoSound;
             }            
         }
 
