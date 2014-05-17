@@ -179,7 +179,7 @@
                             menuBar.BringToFront();
                             menuBar.TopMost = true;
                             //Console.WriteLine(HolderForm.FormForVideo.TopLevel);
-                            menuBar.Location = new Point(Convert.ToInt32(screenWidth / ScreenToMenuBarRatio), screenHeight);
+                            menuBar.Location = new Point(Convert.ToInt32(screenWidth / ScreenToMenuBarRatio), screenHeight - 50);
                         }
                     }
                     else
