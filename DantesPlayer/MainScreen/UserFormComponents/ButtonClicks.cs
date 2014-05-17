@@ -189,6 +189,7 @@
             this.MainScreenInstance.GetSlider().Value = 0;
             this.MainScreenInstance.GetSlider().Enabled = false;
             this.MainScreenInstance.timerForVideoProgress.Stop();
+            this.MainScreenInstance.timerForSubsSync.Stop();
             this.MainScreenInstance.GetLabel().Text = string.Empty;
         }
 
@@ -328,17 +329,6 @@
                 return;
             }
             button.FlatStyle = FlatStyle.Standard;
-        }
-
-        private void extractSubtitleTime(ref int destination, string source, int startPos, int endPos)
-        {
-            //Time factor for hours then for minutes 3600 -> 60 -> 1
-            int timeFactor = 3600;
-            for(int i = startPos; i < endPos; i++)
-            {
-                destination += int.Parse(source.Split(':')[i]) * timeFactor;
-                timeFactor /= 60;
-            }
         }
     }
 }

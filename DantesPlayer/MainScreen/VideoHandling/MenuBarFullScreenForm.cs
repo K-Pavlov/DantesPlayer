@@ -92,11 +92,11 @@
 
         private void InitializeComponent()
         {
-            this.videoSlider = new MainScreen.CustomControls.CustomSlider();
-            this.closeButton = new MainScreen.CustomControls.CustomButton();
-            this.playButton = new MainScreen.CustomControls.CustomButton();
-            this.stopButton = new MainScreen.CustomControls.CustomButton();
-            this.pauseButton = new MainScreen.CustomControls.CustomButton();
+            this.videoSlider = new CustomControls.CustomSlider();
+            this.closeButton = new CustomControls.CustomButton();
+            this.playButton = new CustomControls.CustomButton();
+            this.stopButton = new CustomControls.CustomButton();
+            this.pauseButton = new CustomControls.CustomButton();
             this.SuspendLayout();
             // 
             // videoSlider

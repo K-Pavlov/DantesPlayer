@@ -102,6 +102,7 @@
             this.subForm.Show();
             this.menuBar.mainScreenInstance = this;
             this.subForm.BringToFront();
+            this.subForm.Owner = HolderForm.FormForVideo;
             //this.TransparencyKey = Color.WhiteSmoke;
             //this.BackColor = System.Drawing.Color.Transparent;
         }
@@ -179,7 +180,7 @@
                             menuBar.BringToFront();
                             menuBar.TopMost = true;
                             //Console.WriteLine(HolderForm.FormForVideo.TopLevel);
-                            menuBar.Location = new Point(Convert.ToInt32(screenWidth / ScreenToMenuBarRatio), screenHeight - 50);
+                            menuBar.Location = new Point(Convert.ToInt32(screenWidth / ScreenToMenuBarRatio), screenHeight-10);
                         }
                     }
                     else
