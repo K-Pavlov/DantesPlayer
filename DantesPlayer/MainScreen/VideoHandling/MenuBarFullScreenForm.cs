@@ -12,7 +12,8 @@
 
     public class MenuBarFullScreenForm : Form
     {
-        private Timer timerForVideoProgress;
+
+        internal Timer timerForVideoProgress;
         private CustomControls.CustomSlider videoSlider;
         private CustomControls.CustomButton pauseButton;
         private CustomControls.CustomButton stopButton;
@@ -55,6 +56,19 @@
         private ButtonClicks ButtonClicks { get; set; }
 
         /// <summary>
+        /// Override 
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x80;
+                return cp;
+            }
+        }
+
+        /// <summary>
         /// Occurs on video progress timer tick
         /// </summary>
         /// <param name="sender"></param>
@@ -75,19 +89,6 @@
             else
             {
                 timerForVideoProgress.Stop();
-            }
-        }
-
-        /// <summary>
-        /// Override 
-        /// </summary>
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                var cp = base.CreateParams;
-                cp.ExStyle |= 0x80;
-                return cp;
             }
         }
 
@@ -222,9 +223,11 @@
         private void CloseButton_Click_1(object sender, EventArgs e)
         {
             HolderForm.FormForVideo.WindowState = FormWindowState.Normal;
+            this.MainScreenInstance.video.IsFullScreen = false;
             this.timerForVideoProgress.Stop();
             this.Dispose();
         }
+
 
         /// <summary>
         /// Occurs when videos lider value changes 

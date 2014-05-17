@@ -27,7 +27,7 @@ namespace MainScreen.VideoHandling
             this.BackColor = Color.White;
             this.TransparencyKey = Color.White;
            // this.label1.ForeColor = Color.Red;
-            this.label1.Font = new Font("Arial", 48);
+            this.label1.Font = new Font("Arial", 30);
             this.Width = Screen.PrimaryScreen.WorkingArea.Width;
             this.Height = Screen.PrimaryScreen.WorkingArea.Height;
             this.StartPosition = FormStartPosition.CenterScreen;

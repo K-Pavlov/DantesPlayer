@@ -47,6 +47,20 @@
             base.Dispose(disposing);
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape && MainScreen.Instance.video.IsFullScreen)
+            {
+                this.WindowState = FormWindowState.Normal;
+                MainScreen.Instance.menuBar.timerForVideoProgress.Stop();
+                MainScreen.Instance.menuBar.Dispose();
+                MainScreen.Instance.video.IsFullScreen = false;
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void InitializeComponent()
         {
             this.SuspendLayout();

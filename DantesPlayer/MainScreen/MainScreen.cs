@@ -20,7 +20,7 @@
         private const int WM_NCLBUTTONDBLCLK = 0x00A3;
         private const int volumeStep = 10;
         #endregion
-
+       
         public Playlist playList = new Playlist();
         public MenuBarFullScreenForm menuBar = new MenuBarFullScreenForm();
         public FormWindowState lastWindowState;
@@ -201,7 +201,7 @@
 
         private void SyncSubtitles(object sender, EventArgs e)
         {
-            int xLocation = HolderForm.FormForVideo.Location.X;
+            int xLocation = HolderForm.FormForVideo.Location.X + 105;
             int yLocation = HolderForm.FormForVideo.Location.Y;
             int xSize = HolderForm.FormForVideo.Size.Width;
             int ySize = HolderForm.FormForVideo.Size.Height;
